@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.Event
 {
@@ -11,6 +12,11 @@ namespace EDSNCalendar_ProjectBlue.Event
     /// </summary>
     public class Event
     {
+        /// <summary>
+        /// Int Primary Key ID of event.
+        /// </summary>
+        private int eventId;
+
         /// <summary>
         /// Name of the event.
         /// </summary>
@@ -92,7 +98,16 @@ namespace EDSNCalendar_ProjectBlue.Event
         private bool isActive;
 
         /// <summary>
-        /// Constructor that intializes an event and places it in submittion.
+        /// Constructor that initializes an event and get an existing event's data
+        /// </summary>
+        /// <param name="iEventId"></param>
+        public Event(int iEventId)
+        {
+            DataTable dtEvent = SQLData.SQLQueries.GetEvent(iEventId);
+        }
+
+        /// <summary>
+        /// Constructor that intializes a new event object
         /// </summary>
         public Event(string title, string hostName, string hostEmail, string hostPhoneNumber, string venueName,
                      string address, string description, string registrationURL, string submitterName,

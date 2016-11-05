@@ -41,6 +41,7 @@ namespace EDSNCalendar_ProjectBlue.Event
         static EventManager()
         {
             /// TODO: Query through the database and populate all submitted/published events to their appropriate collection.
+            /// 
         }
 
     }
