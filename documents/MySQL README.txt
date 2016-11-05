@@ -30,3 +30,6 @@ File->Open SQL Script->Execute(thunderbolt icon)
 
 IMPORTANT: if we make ANY changes to the schema everyone will have to on their own run the create schema file again. The file is made you can it as many time as you want safely and it'll remake the database.
 HOWEVER YOU WILL LOSE ANY CHANGES YOU HAVE MADE TO IT YOURSELF
+
+[Example Create Event Call]
+SQLData.SQLQueries.InsertEvent("TestTitle", DateTime.Now, "", "", true, "VenueName", "Address25463636 346356457", "Deescription blah blah blah", "NameHere", "EmailHur", "", "URL", "", "", "", "");

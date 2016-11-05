@@ -9,19 +9,19 @@ namespace EDSNCalendar_ProjectBlue.SQLData
 {
     public class SQLDataAdapter
     {
-        private MySqlConnection Connect()
+        private static MySqlConnection Connect()
         {
-            string MyConnectionString = "Server=127.0.0.1;Database=edsncalendar;Uid=root;Pwd=pass;";
+            string MyConnectionString = "Server=127.0.0.1;Database=edsncalendar;Uid=root;Pwd=Audiotechnica5;";
             MySqlConnection connection = new MySqlConnection(MyConnectionString);
             return connection;
         }
 
-        private void Disconnect(MySqlConnection connection)
+        private static void Disconnect(MySqlConnection connection)
         {
             connection.Close();
         }
 
-        private DataSet getDataSet(string sQuery)
+        private static DataSet getDataSet(string sQuery)
         {
             MySqlConnection con = null;
             DataSet ds = new DataSet();
@@ -50,7 +50,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         }
 
         //Executes a SQL Query and returns the number of rows affected
-        private int ExecuteQuery(string sQuery)
+        private static int ExecuteQuery(string sQuery)
         {
             int iRowsAffected = 0;
             MySqlConnection con = null;
@@ -77,32 +77,33 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return iRowsAffected;
         }
 
-        public void QueryExecute(string sQuery)
+        public static int QueryExecute(string sQuery)
         {
             int iRowsAffected = ExecuteQuery(sQuery);
+            return iRowsAffected;
         }
-        public string Query4String(string sQuery)
+        public static string Query4String(string sQuery)
         {
             string sResult = string.Empty;
             DataSet ds = getDataSet(sQuery);
             sResult = ds.Tables[0].Rows[0][0].ToString();
             return sResult;
         }
-        public int Query4Int(string sQuery)
+        public static int Query4Int(string sQuery)
         {
             int iResult;
             DataSet ds = getDataSet(sQuery);
             iResult = int.Parse(ds.Tables[0].Rows[0][0].ToString());
             return iResult;
         }
-        public DataTable Query4DataTable(string sQuery)
+        public static DataTable Query4DataTable(string sQuery)
         {
             DataTable dtResults = new DataTable();
             DataSet ds = getDataSet(sQuery);
             dtResults = ds.Tables[0];
             return dtResults;
         }
-        public DataSet Query4DataSet(string sQuery)
+        public static DataSet Query4DataSet(string sQuery)
         {
             DataSet dsResult = new DataSet();
             dsResult = getDataSet(sQuery);
