@@ -7,15 +7,11 @@ using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
 {
+    /// <summary>
+    /// A library of queries that can be run with parameters/returns similar to functions
+    /// </summary>
     public static class SQLQueries
     {
-        //Example Usage of SQLDataAdapter to run Queries
-        public static string ExampleQuery1(int iCategoryId)
-        {
-            string sSpecificCategory;
-            sSpecificCategory = SQLDataAdapter.Query4String("SELECT vCategory FROM categories WHERE iCategoryId = 1");
-            return sSpecificCategory;
-        }
         //Example Usage of SQLDataAdapter to run Queries
         public static void ExampleQuery2()
         {
@@ -30,7 +26,26 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return dtAllCategories;
         }
 
-        //Creates a new submitted event in DB
+        /// <summary>
+        /// Creates a new submitted event in DB
+        /// </summary>
+        /// <param name="sEventTitle">Event Title</param>
+        /// <param name="dEventDate">Date of Event</param>
+        /// <param name="sStartTime">Event Start Time(optional)</param>
+        /// <param name="sEndTime">Event End Time(optional)</param>
+        /// <param name="bAllDay">All Day Event(optional)</param>
+        /// <param name="sVenueName">Venue Name</param>
+        /// <param name="sAddress">Address</param>
+        /// <param name="sDescription">Description</param>
+        /// <param name="sOrganizerName">Organizer's Name</param>
+        /// <param name="sOrganizerEmail">Organizer's Email</param>
+        /// <param name="sOrganizerPhoneNumber">Organizer's Phone Number</param>
+        /// <param name="sOrganizerURL">Organizer's URL(optional)</param>
+        /// <param name="sCost">Cost(optional)</param>
+        /// <param name="sRegistrationURL">Registration URL(optional)</param>
+        /// <param name="sSubmitterName">Submitter's Name(optional)</param>
+        /// <param name="sSubmitterEmail">Submitter's Email(optional)</param>
+        /// <returns></returns>
         public static int InsertSubmittedEvent(string sEventTitle, DateTime dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
                                 string sOrganizerEmail, string sOrganizerPhoneNumber, string sOrganizerURL, string sCost, string sRegistrationURL, string sSubmitterName, string sSubmitterEmail)
         {
@@ -44,7 +59,11 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return iRowsAffected;
         }
 
-        //Publishes an existing submitted event in DB
+        /// <summary>
+        /// Publishes an existing submitted event in DB
+        /// </summary>
+        /// <param name="iEventId">id# of event to publish</param>
+        /// <returns>Number of rows affected, signifying if the creation was successful.</returns>
         public static int PublishEvent(int iEventId)
         {
             int iRowsAffected = 0;
@@ -53,11 +72,29 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return iRowsAffected;
         }
 
-        //Returns a table of events. returns all events by default but parameters can be used to get only active/published events
-        public static DataTable GetEventTable(bool bPublishedOnly = false, bool bActiveOnly = false)
+        /// <summary>
+        /// Returns a table of events. returns all events by default but parameters can be used to get only active/published events
+        /// </summary>
+        /// <param name="bPublishedOnly">Determines whether only published events are returned. Default: false</param>
+        /// <param name="bActiveOnly">Determines whether only active events are returned. Default: false</param>
+        /// <returns>Multi rowed table with each row holding an event's attributes.</returns>
+        public static DataTable GetAllEvents(bool bPublishedOnly = false, bool bActiveOnly = false)
         {
             DataTable dtEvents = new DataTable();
             string sQuery = "SELECT * FROM calendarevent WHERE (bPublished = 1 OR bPublished = " + Convert.ToInt32(bPublishedOnly) + ") AND (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtEvents;
+        }
+
+        /// <summary>
+        /// Returns a single rowed table which has all of that event's data.
+        /// </summary>
+        /// <param name="iEventId">Event to Query for</param>
+        /// <returns>Single rowed Datatable with all event attributes.</returns>
+        public static DataTable GetEvent(int iEventId)
+        {
+            DataTable dtEvents = new DataTable();
+            string sQuery = "SELECT * FROM calendarevent WHERE iEventId = " + iEventId;
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             return dtEvents;
         }
