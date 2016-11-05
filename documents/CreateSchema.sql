@@ -44,7 +44,9 @@ CREATE TABLE calendarevent
     vCost VARCHAR(50),
     vRegistrationURL VARCHAR(255),
     vSubmitterName VARCHAR(100),
-    vSubmitterEmail VARCHAR(50)
+    vSubmitterEmail VARCHAR(50),
+    bPublished BIT,
+    bActive BIT DEFAULT 0
 );
 
 CREATE TABLE eventproperties
