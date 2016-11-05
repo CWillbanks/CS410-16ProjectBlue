@@ -104,6 +104,29 @@ namespace EDSNCalendar_ProjectBlue.Event
         public Event(int iEventId)
         {
             DataTable dtEvent = SQLData.SQLQueries.GetEvent(iEventId);
+            this.eventId = (int)dtEvent.Rows[0]["iEventId"];
+            this.title = dtEvent.Rows[0]["vEventTitle"].ToString();
+            this.hostName = dtEvent.Rows[0]["vOrganizerName"].ToString();
+            this.hostEmail = dtEvent.Rows[0]["vOrganizerEmail"].ToString();
+            this.hostPhoneNumber = dtEvent.Rows[0]["vOrganizerPhoneNumber"].ToString();
+            this.venueName = dtEvent.Rows[0]["vVenueName"].ToString();
+            this.address = dtEvent.Rows[0]["vAddress"].ToString();
+            this.description = dtEvent.Rows[0]["vDescription"].ToString();
+            this.registrationURL = dtEvent.Rows[0]["vRegistrationURL"].ToString();
+            this.submitterName = dtEvent.Rows[0]["vSubmitterName"].ToString();
+            this.submitterEmail = dtEvent.Rows[0]["vSubmitterEmail"].ToString();
+            this.date = DateTime.Parse(dtEvent.Rows[0]["dEventDate"].ToString());
+            if(!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["vStartTime"].ToString()))
+            {
+                this.startTime = DateTime.Parse(dtEvent.Rows[0]["vStartTime"].ToString());
+            }
+            if (!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["vStartTime"].ToString()))
+            {
+                this.endTime = DateTime.Parse(dtEvent.Rows[0]["vEndTime"].ToString());
+            }
+            this.allDay = (bool)dtEvent.Rows[0]["bAllDay"];
+            this.isPublished = (bool)dtEvent.Rows[0]["bPublished"];
+            this.isActive = (bool)dtEvent.Rows[0]["bActive"];
         }
 
         /// <summary>
