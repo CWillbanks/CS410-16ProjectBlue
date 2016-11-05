@@ -41,8 +41,6 @@ namespace EDSNCalendar_ProjectBlue.Event
 
         static EventManager()
         {
-            /// TODO: Query through the database and populate all submitted/published events to their appropriate collection.
-            /// 
             publishedEvents.Clear();
             DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(true, true);
             foreach(DataRow publishedRow in dtPublishedActiveEvents.Rows)

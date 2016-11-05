@@ -112,5 +112,18 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             return dtEvents;
         }
+
+        /// <summary>
+        /// Deactives an event by Event Id
+        /// </summary>
+        /// <param name="iEventId"></param>
+        /// <returns>Number of rows affected, ideally 1</returns>
+        public static int DeactivateEvent(int iEventId)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "UPDATE calendarevent SET bActive = 0 WHERE iEventId = " + iEventId;
+            iRowsAffected = SQLDataAdapter.Query4Int(sQuery);
+            return iRowsAffected;
+        }
     }
 }
