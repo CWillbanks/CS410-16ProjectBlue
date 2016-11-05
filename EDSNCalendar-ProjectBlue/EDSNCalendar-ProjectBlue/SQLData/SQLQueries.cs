@@ -87,6 +87,20 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         }
 
         /// <summary>
+        /// Returns a table of events. returns all events by default but parameters can be used to get only active/published events
+        /// </summary>
+        /// <param name="bPublishedOnly">Determines whether only published events are returned. Default: false</param>
+        /// <param name="bActiveOnly">Determines whether only active events are returned. Default: false</param>
+        /// <returns>Multi rowed table with each row holding an event's attributes.</returns>
+        public static DataTable GetSubmittedEvents()
+        {
+            DataTable dtEvents = new DataTable();
+            string sQuery = "SELECT * FROM calendarevent WHERE bPublished = 0 AND bActive = 1";
+            dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtEvents;
+        }
+
+        /// <summary>
         /// Returns a single rowed table which has all of that event's data.
         /// </summary>
         /// <param name="iEventId">Event to Query for</param>

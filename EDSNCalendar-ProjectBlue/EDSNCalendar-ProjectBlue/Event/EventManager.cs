@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.Event
 {
@@ -42,6 +43,23 @@ namespace EDSNCalendar_ProjectBlue.Event
         {
             /// TODO: Query through the database and populate all submitted/published events to their appropriate collection.
             /// 
+            publishedEvents.Clear();
+            DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(true, true);
+            foreach(DataRow publishedRow in dtPublishedActiveEvents.Rows)
+            {
+                int iEventId = (int)publishedRow["iEventId"];
+                Event publishedEvent = new Event(iEventId);
+                publishedEvents.Add(publishedEvent);
+            }
+
+            submittedEvents.Clear();
+            DataTable dtSubmittedActiveEvents = SQLData.SQLQueries.GetSubmittedEvents();
+            foreach(DataRow submittedRow in dtSubmittedActiveEvents.Rows)
+            {
+                int iEventId = (int)submittedRow["iEventId"];
+                Event submittedEvent = new Event(iEventId);
+                submittedEvents.Add(submittedEvent);
+            }
         }
 
     }
