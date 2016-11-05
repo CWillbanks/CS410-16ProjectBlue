@@ -82,9 +82,14 @@ namespace EDSNCalendar_ProjectBlue.Event
         private bool allDay;
 
         /// <summary>
-        /// The state of the event. Refers to whether the event has been submitted, approved, or deleted.
+        /// The state of the event. Refers to whether the event has been submitted or published.
         /// </summary>
-        private EventState state;
+        private bool isPublished;
+
+        /// <summary>
+        /// An active event will be shown to users/administartors, while an inactive event won't be.
+        /// </summary>
+        private bool isActive;
 
         /// <summary>
         /// Constructor that intializes an event and places it in submittion.
@@ -107,7 +112,8 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.startTime = startTime;
             this.endTime = endTime;
             this.allDay = allDay;
-            this.state = EventState.SUBMITTED;
+            this.isPublished = false;
+            this.isActive = true;
         }
 
         public string Title
@@ -292,30 +298,32 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        public EventState State
+        public bool IsPublished
         {
             get
             {
-                return state;
+                return isPublished;
             }
 
             set
             {
-                state = value;
+                isPublished = value;
             }
         }
 
-    }
+        public bool IsActive
+        {
+            get
+            {
+                return isActive;
+            }
 
-    /// <summary>
-    /// EventState is an enumeration of states that an event can possibly be in. 
-    /// Events can only exist in one state at a time.
-    /// </summary>
-    public enum EventState
-    {
-        SUBMITTED,
-        PUBLISHED,
-        DELETED,
+            set
+            {
+                isActive = value;
+            }
+        }
+
     }
 
 }
