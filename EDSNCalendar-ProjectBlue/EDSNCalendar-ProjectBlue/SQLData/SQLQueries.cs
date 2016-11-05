@@ -32,7 +32,8 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return dtAllCategories;
         }
 
-        public static int InsertEvent(string sEventTitle, DateTime dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
+        //Creates an event in MySQL database.
+        public static int InsertSubmittedEvent(string sEventTitle, DateTime dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
                                 string sOrganizerEmail, string sOrganizerPhoneNumber, string sOrganizerURL, string sCost, string sRegistrationURL, string sSubmitterName, string sSubmitterEmail)
         {
 
@@ -45,5 +46,12 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return iRowsAffected;
         }
 
+        public static int PublishEvent(int iEventId)
+        {
+            int iRowsAffected = 0;
+            String sQuery = "UPDATE calendarevent SET bPublished = 1 WHERE iCalendarEvent = " + iEventId;
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
+        }
     }
 }

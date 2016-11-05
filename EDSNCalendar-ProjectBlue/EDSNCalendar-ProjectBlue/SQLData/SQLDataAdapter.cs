@@ -11,7 +11,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
     {
         private static MySqlConnection Connect()
         {
-            string MyConnectionString = "Server=127.0.0.1;Database=edsncalendar;Uid=root;Pwd=Audiotechnica5;";
+            string MyConnectionString = "Server=127.0.0.1;Database=edsncalendar;Uid=root;Pwd=pass;";
             MySqlConnection connection = new MySqlConnection(MyConnectionString);
             return connection;
         }
