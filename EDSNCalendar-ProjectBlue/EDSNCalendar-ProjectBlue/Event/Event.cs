@@ -5,10 +5,10 @@ using System.Web;
 
 namespace EDSNCalendar_ProjectBlue.Event
 {
-    /**
-     * Event class represents any particular Event that has 
-     * been submitted, verified, or removed from the Calendar.
-     */
+    /// <summary>
+    /// Event class represents any particular Event that has 
+    /// been submitted, verified, or removed from the Calendar.
+    /// </summary>
     public class Event
     {
         /// <summary>
@@ -307,6 +307,10 @@ namespace EDSNCalendar_ProjectBlue.Event
 
     }
 
+    /// <summary>
+    /// EventState is an enumeration of states that an event can possibly be in. 
+    /// Events can only exist in one state at a time.
+    /// </summary>
     public enum EventState
     {
         SUBMITTED,
