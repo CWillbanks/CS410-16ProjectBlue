@@ -181,6 +181,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLData\SQLDataAdapter.cs" />
+    <Compile Include="SQLData\SQLQueries.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
