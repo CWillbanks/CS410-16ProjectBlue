@@ -25,6 +25,7 @@ namespace EDSNCalendar_ProjectBlue
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/fullcalendar.css",
                       "~/Content/site.css"));
         }
     }
