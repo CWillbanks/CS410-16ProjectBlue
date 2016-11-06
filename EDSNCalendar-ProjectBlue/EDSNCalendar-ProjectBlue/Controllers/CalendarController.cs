@@ -10,6 +10,8 @@ namespace EDSNCalendar_ProjectBlue.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.PublishedEvents = Event.EventManager.ToJSONRepresentation(true);
+
             return View();
         }
 

@@ -153,6 +153,19 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.isPublished = false;
             this.isActive = true;
         }
+ 
+        public int EventId
+        {
+            get
+            {
+                return eventId;
+            }
+
+            set
+            {
+                eventId = value;
+            }
+        }
 
         public string Title
         {

@@ -100,7 +100,8 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         {
             DataTable dtResults = new DataTable();
             DataSet ds = getDataSet(sQuery);
-            dtResults = ds.Tables[0];
+            if (ds.Tables.Count > 0)
+                dtResults = ds.Tables[0];
             return dtResults;
         }
         public static DataSet Query4DataSet(string sQuery)
