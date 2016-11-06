@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace EDSNCalendar_ProjectBlue.Controllers
 {
-    public class HomeController : Controller
+    public class CalendarController : Controller
     {
         public ActionResult Index()
         {
