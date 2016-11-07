@@ -6,8 +6,14 @@
             center: 'title',
             right: 'month,listMonth'
         },
-        defaultDate: '2016-09-12',
+        defaultDate: '2016-11-05',
         editable: true,
-        events: [$('.calendar').attr('data-events')]
+        events: [
+            {
+                title: 'Conference',
+                start: '2016-11-05T13:00:00',
+                end: '2016-11-05T16:00:00'
+            },
+        ]
     });
 });

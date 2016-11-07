@@ -69,7 +69,6 @@ namespace EDSNCalendar_ProjectBlue.Event
             StringBuilder sb = new StringBuilder();
             JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
             jw.Formatting = Formatting.Indented;
-            jw.WriteStartObject();
             foreach (Event e in events)
             {
                 jw.WriteStartObject();
@@ -109,7 +108,6 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WriteValue(e.IsActive);
                 jw.WriteEndObject();
             }
-            jw.WriteEndObject();
             return sb.ToString();
         }
 
