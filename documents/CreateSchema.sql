@@ -1,7 +1,6 @@
 -- CREATE SCHEMA TEST
 -- BY : ADAM BURTON
-
-CREATE SCHEMA IF NOT EXISTS edsncalendar;
+-- CREATE SCHEMA IF NOT EXISTS edsncalendar;
 
 DROP TABLE IF EXISTS eventproperties;
 DROP TABLE IF EXISTS property;
@@ -70,7 +69,7 @@ VALUES(1, "Movies"),(1,"Religion"),(2,"#Fitness"),(2,"#Community"),(3, "Hartford
 
 INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName,
 						   vOrganizerEmail, vOrganizerPhoneNumber, vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)
-VALUES("Adam's Test Event", "2016-11-15", "", "", 1, "Nowhere!", "Nowhere St, Nowhere, 06062", "This is my description here. Wow. Much description!", "Adam",
-	   "AdamEmail@email.com", "999-999-9999", NULL, "FREE", NULL, "Adam", "AdamEmail@email.com");
+VALUES('Adam’s Test Event', '2016-11-15', '', '', 1, 'Nowhere!', 'Nowhere St Nowhere 06062', 'This is my description here. Wow. Much description!', 'Adam’,Tables',
+	   'AdamEmail@email.com', '999-999-9999', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com');
        
-INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber,vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)VALUES('TestTitle','11/5/2016','','',1,'VenueName','Address25463636 346356457','Deescription blah blah blah','NameHere','EmailHur','','URL','','','','')
+INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber,vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)VALUES('TestTitle','2016-11-6','','',1,'VenueName','Address25463636 346356457','Deescription blah blah blah','NameHere','EmailHur','','URL','','','','')
