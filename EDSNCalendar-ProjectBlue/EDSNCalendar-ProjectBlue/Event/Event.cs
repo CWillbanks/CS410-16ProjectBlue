@@ -124,9 +124,9 @@ namespace EDSNCalendar_ProjectBlue.Event
             {
                 this.endTime = DateTime.Parse(dtEvent.Rows[0]["vEndTime"].ToString());
             }
-            this.allDay = (bool)dtEvent.Rows[0]["bAllDay"];
-            this.isPublished = (bool)dtEvent.Rows[0]["bPublished"];
-            this.isActive = (bool)dtEvent.Rows[0]["bActive"];
+            this.allDay = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bAllDay"].ToString()));//bool.Parse(dtEvent.Rows[0]["bAllDay"].ToString());
+            this.isPublished = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bPublished"].ToString()));
+            this.isActive = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bActive"].ToString()));
         }
 
         /// <summary>

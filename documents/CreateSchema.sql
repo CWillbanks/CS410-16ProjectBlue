@@ -46,7 +46,7 @@ CREATE TABLE calendarevent
     vSubmitterName VARCHAR(100),
     vSubmitterEmail VARCHAR(50),
     bPublished BIT,
-    bActive BIT DEFAULT 0
+    bActive BIT DEFAULT 1
 );
 
 CREATE TABLE eventproperties
@@ -69,8 +69,9 @@ INSERT INTO property(iPropertyTypeId,vProperty)
 VALUES(1, "Movies"),(1,"Religion"),(2,"#Fitness"),(2,"#Community"),(3, "Hartford, Ct"),(4,"USA"),(4,"Canada"),(5,"Birthday");
 
 INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName,
-						   vOrganizerEmail, vOrganizerPhoneNumber, vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)
+						   vOrganizerEmail, vOrganizerPhoneNumber, vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail, bPublished)
 VALUES("Adam's Test Event", "2016-11-15", "", "", 1, "Nowhere!", "Nowhere St, Nowhere, 06062", "This is my description here. Wow. Much description!", "Adam",
-	   "AdamEmail@email.com", "999-999-9999", NULL, "FREE", NULL, "Adam", "AdamEmail@email.com");
+	   "AdamEmail@email.com", "999-999-9999", NULL, "FREE", NULL, "Adam", "AdamEmail@email.com", 1),
+	  ("Adam's Test Event2", "2016-11-20", "", "", 1, "Nowhere!", "Nowhere St, Nowhere, 06062", "This is my description here. Wow. Much description!", "Adam",
+	   "AdamEmail@email.com", "999-999-9999", NULL, "FREE", NULL, "Adam", "AdamEmail@email.com", 0);
        
-INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber,vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)VALUES('TestTitle','11/5/2016','','',1,'VenueName','Address25463636 346356457','Deescription blah blah blah','NameHere','EmailHur','','URL','','','','')
