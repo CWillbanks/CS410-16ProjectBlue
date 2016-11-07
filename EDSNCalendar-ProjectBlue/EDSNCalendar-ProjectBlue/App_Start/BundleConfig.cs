@@ -10,6 +10,8 @@ namespace EDSNCalendar_ProjectBlue
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-1.12.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
