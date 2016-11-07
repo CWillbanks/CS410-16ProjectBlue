@@ -31,7 +31,9 @@
 </head>
 @{
     ViewBag.Title = "Home Page";
-}<button ID="submitButton" class="submit-event" type="button">Submit Event</button>
+}
+@Html.Partial("PublishEvent");
+<button ID="submitButton" class="submit-event" type="button">Submit Event</button>
 <div class="calendar" data-events="@ViewBag.PublishedEvents"></div>
 <div id="submitPopUp" title="Submit Event">
     <input id="eventTitle" required="required" type="text" value="Event Title (requried)" /><br />
