@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EDSNCalendar_ProjectBlue.SQLData;
+using EDSNCalendar_ProjectBlue.Event;
 using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
@@ -98,6 +99,20 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             string sQuery = "SELECT * FROM calendarevent WHERE bPublished = 0 AND bActive = 1";
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             return dtEvents;
+        }
+
+        /// <summary>
+        /// Returns an event object representing the last submitted event.
+        /// </summary>
+        /// <returns>Returns a populated event object</returns>
+        public static Event.Event GetLastEvent()
+        {
+            int iEventId;
+            string sQuery = "SELECT iEventId FROM calendarevent ORDER BY iEventId DESC LIMIT 1";
+            iEventId = SQLDataAdapter.Query4Int(sQuery);
+
+            Event.Event ev = new Event.Event(iEventId);
+            return ev;
         }
 
         /// <summary>
