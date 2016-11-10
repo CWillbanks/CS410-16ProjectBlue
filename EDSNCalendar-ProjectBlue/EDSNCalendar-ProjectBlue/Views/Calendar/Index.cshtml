@@ -35,32 +35,3 @@
 @Html.Partial("PublishEvent");
 <button ID="submitButton" class="submit-event" type="button">Submit Event</button>
 <div class="calendar" data-events="@ViewBag.PublishedEvents"></div>
-<div id="submitPopUp" title="Submit Event">
-    <input id="eventTitle" required="required" type="text" value="Event Title (requried)" /><br />
-    <input id="eventDate" required="required" type="text" value="Date (required)" /><input id="AllDay" type="checkbox" />All-Day&nbsp;&nbsp;&nbsp;
-    <input id="Checkbox1" type="checkbox" />Add end date/time<br />
-    Time zone:<select id="TimeZone" name="D1">
-        <option></option>
-    </select><br />
-    <input id="VenueName" required="required" type="text" value="Venue name (required)" /><br />
-    <input id="Adress" required="required" type="text" value="Address (required)" /><br />
-    <select id="Categories" name="D2">
-        <option></option>
-    </select><select id="Tags" name="D3">
-        <option></option>
-    </select><br />
-    <select id="Region" name="D4">
-        <option></option>
-    </select><select id="Country" name="D5">
-        <option></option>
-    </select><br />
-    <select id="Programs" name="D6">
-        <option></option>
-    </select><br />
-    <input id="Description" required="required" type="text" value="Description (required)" /><br />
-    <input id="Organizer" type="text" value="Organizer name (required)" /><input id="OEmail" type="text" value="Organizer email (required)" /><br />
-    <input id="PhoneNum" required="required" type="text" value="Phone number (required)" /><input id="Website" type="text" value="Your website URL" /><br />
-    <input id="Free" type="checkbox" /><input id="Cost" type="text" value="Cost" /><br />
-    <input id="Name" type="text" value="Submitter name" /><input id="SEmail" type="text" value="Submitter email" /><br />
-    <br />
-    <input id="SubmitDB" type="button" value="Submit Event" /></div>
