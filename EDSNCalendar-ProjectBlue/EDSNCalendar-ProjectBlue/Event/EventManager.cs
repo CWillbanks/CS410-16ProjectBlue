@@ -69,6 +69,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             StringBuilder sb = new StringBuilder();
             JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
             jw.Formatting = Formatting.Indented;
+            jw.WriteStartArray();
             foreach (Event e in events)
             {
                 jw.WriteStartObject();
@@ -95,11 +96,11 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WritePropertyName("submitterEmail");
                 jw.WriteValue(e.SubmitterEmail);
                 jw.WritePropertyName("date");
-                jw.WriteValue(e.Date.ToLongDateString());
-                jw.WritePropertyName("startTime");
-                jw.WriteValue(e.StartTime.ToLongDateString());
-                jw.WritePropertyName("endTime");
-                jw.WriteValue(e.EndTime.ToLongDateString());
+                jw.WriteValue(e.Date);
+                jw.WritePropertyName("start");
+                jw.WriteValue(e.StartTime);
+                jw.WritePropertyName("end");
+                jw.WriteValue(e.EndTime);
                 jw.WritePropertyName("allDay");
                 jw.WriteValue(e.AllDay);
                 jw.WritePropertyName("isPublished");
@@ -108,6 +109,7 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WriteValue(e.IsActive);
                 jw.WriteEndObject();
             }
+            jw.WriteEndArray();
             return sb.ToString();
         }
 

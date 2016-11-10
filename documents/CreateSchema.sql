@@ -29,7 +29,7 @@ CREATE TABLE calendarevent
 (
 	iEventId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     vEventTitle VARCHAR(255),
-    dEventDate DATE,
+    dEventDate VARCHAR(50),
     vStartTime VARCHAR(50),
     vEndTime VARCHAR(50),
     bAllDay BIT,
@@ -69,9 +69,9 @@ VALUES(1, 'Movies'),(1,'Religion'),(2,'#Fitness'),(2,'#Community'),(3, 'Hartford
 
 INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName,
 						   vOrganizerEmail, vOrganizerPhoneNumber, vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail, bPublished)
-VALUES('Adams Submitted Event1', '2016-11-15', '', '', 1, 'Nowhere!', 'Nowhere St, Nowhere, 06062', 'This is my description here. Wow. Much description!', 'Adam',
+VALUES('Adams Submitted Event1', '2016-11-15', '2016-11-15T13:00:00', '2016-11-15T15:00:00', 1, 'Nowhere!', 'Nowhere St, Nowhere, 06062', 'This is my description here. Wow. Much description!', 'Adam',
 	   'AdamEmail@email.com', '999-999-9999', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', 1),
-	   ('Adams Submitted Event2', '2016-11-15', '', '', 1, 'Nowhere!', 'Nowhere St, Nowhere, 06062', 'This is my description here. Wow. Much description!', 'Adam',
+	   ('Adams Submitted Event2', '2016-11-15', '2016-11-15T04:00:00', '2016-11-15T08:00:00', 1, 'Nowhere!', 'Nowhere St, Nowhere, 06062', 'This is my description here. Wow. Much description!', 'Adam',
 	    'AdamEmail@email.com', '999-999-9999', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', 1),
 	   ('Adams Published Event1', '2016-11-20', '', '', 1, 'Nowhere!', 'Nowhere St, Nowhere, 06062', 'This is my description here. Wow. Much description!', 'Adam',
 	   'AdamEmail@email.com', '999-999-9999', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', 0),
