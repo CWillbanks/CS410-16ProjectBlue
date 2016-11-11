@@ -87,6 +87,21 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return dtEvents;
         }
 
+        public static List<Event.Event> getAllEventsList()
+        {
+            DataTable dtEvents = new DataTable();
+            string sQuery = "SELECT iEventId FROM calendarevent WHERE bActive = 1";
+            dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            List<Event.Event> list = new List<Event.Event>();
+            foreach(DataRow row in dtEvents.Rows)
+            {
+                int iEventId = (int)row[0];
+                Event.Event e = new Event.Event(iEventId);
+                list.Add(e);
+            }
+            return list;
+        }
+
         /// <summary>
         /// Returns a table of events. returns all events by default but parameters can be used to get only active/published events
         /// </summary>
@@ -120,7 +135,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         /// </summary>
         /// <param name="iEventId">Event to Query for</param>
         /// <returns>Single rowed Datatable with all event attributes.</returns>
-        public static DataTable GetEvent(int iEventId)
+        public static DataTable GetEvent(int? iEventId)
         {
             DataTable dtEvents = new DataTable();
             string sQuery = "SELECT * FROM calendarevent WHERE iEventId = " + iEventId;

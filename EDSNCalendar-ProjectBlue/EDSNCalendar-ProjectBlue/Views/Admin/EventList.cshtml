@@ -1,0 +1,13 @@
+﻿
+@model List<EDSNCalendar_ProjectBlue.Event.Event>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
+{
+    <p>@ev.Title     -     @Html.ActionLink("Details", "EventDetails" ,"Admin", new {id = ev.EventId}, null)</p>
+}
+
+

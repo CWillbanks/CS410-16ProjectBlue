@@ -16,13 +16,17 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View();
         }
 
-        public ActionResult Events()
+        public ActionResult EventList()
         {
-            Event.Event ev = SQLQueries.GetLastEvent();
-            //if (student == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            List <Event.Event> list = SQLQueries.getAllEventsList();
+
+            return View(list);
+        }
+
+        public ActionResult EventDetails(int id)
+        {
+            Event.Event ev;
+            ev = new Event.Event(id);
             return View(ev);
         }
     }
