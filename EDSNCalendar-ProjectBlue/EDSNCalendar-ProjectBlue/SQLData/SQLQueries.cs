@@ -68,7 +68,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         public static int PublishEvent(int iEventId)
         {
             int iRowsAffected = 0;
-            String sQuery = "UPDATE calendarevent SET bPublished = 1 WHERE iCalendarEvent = " + iEventId;
+            String sQuery = "UPDATE calendarevent SET bPublished = 1 WHERE iEventId = " + iEventId;
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
         }

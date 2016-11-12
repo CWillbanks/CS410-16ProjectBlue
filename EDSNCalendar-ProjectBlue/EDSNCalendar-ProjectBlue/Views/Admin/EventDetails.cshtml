@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>@Model.Title</h2>
+<h2>@Model.Title @if (Model.IsPublished.Equals(false)){@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, null)}</h2>
 
+<p>@Model.Description</p>
+
+@Html.ActionLink("Delete Event", "ConfirmDelete", "Admin", new { id = Model.EventId }, null)
 
 @Html.ActionLink("Back to List", "EventList", "Admin")
 

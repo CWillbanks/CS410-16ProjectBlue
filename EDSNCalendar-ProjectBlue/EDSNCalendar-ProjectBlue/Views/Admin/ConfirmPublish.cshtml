@@ -1,0 +1,14 @@
+﻿
+@model EDSNCalendar_ProjectBlue.Event.Event
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Confirm Publish Action</h2>
+
+<p> Are you sure you want to publish the event titled: @Model.Title? </p>
+
+@Html.ActionLink("Publish Event", "PublishEvent", "Admin", new { id = Model.EventId }, null)
+
+@Html.ActionLink("Cancel", "EventDetails", "Admin", new { id = Model.EventId }, null)

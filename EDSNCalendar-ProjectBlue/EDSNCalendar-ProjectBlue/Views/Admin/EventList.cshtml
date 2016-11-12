@@ -7,7 +7,7 @@
 
 @foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
 {
-    <p>@ev.Title     -     @Html.ActionLink("Details", "EventDetails" ,"Admin", new {id = ev.EventId}, null)</p>
+    <p>@ev.Title     -     @Html.ActionLink("Details", "EventDetails" ,"Admin", new {id = ev.EventId}, null) @if (ev.IsPublished.Equals(false)){@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = ev.EventId }, null)}</p>
 }
 
 

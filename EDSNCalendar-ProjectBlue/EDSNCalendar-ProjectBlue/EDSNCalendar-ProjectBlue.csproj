@@ -296,6 +296,10 @@
     <Content Include="Views\Calendar\PublishEvent.cshtml" />
     <Content Include="Views\Admin\EventList.cshtml" />
     <Content Include="Views\Admin\EventDetails.cshtml" />
+    <Content Include="Views\Admin\ConfirmDelete.cshtml" />
+    <Content Include="Views\Admin\DeleteEvent.cshtml" />
+    <Content Include="Views\Admin\ConfirmPublish.cshtml" />
+    <Content Include="Views\Admin\PublishEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

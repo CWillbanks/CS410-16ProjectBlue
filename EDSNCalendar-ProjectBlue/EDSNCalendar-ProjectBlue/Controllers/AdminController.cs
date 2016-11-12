@@ -29,5 +29,36 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ev = new Event.Event(id);
             return View(ev);
         }
+
+        public ActionResult ConfirmDelete(int id)
+        {
+            Event.Event ev;
+            ev = new Event.Event(id);
+            return View(ev);
+        }
+
+        public ActionResult DeleteEvent(int id)
+        {
+            Event.Event ev;
+            ev = new Event.Event(id);
+            SQLQueries.DeactivateEvent(id);
+            return View(ev);
+        }
+
+        public ActionResult ConfirmPublish(int id)
+        {
+            Event.Event ev;
+            ev = new Event.Event(id);
+            return View(ev);
+        }
+
+        public ActionResult PublishEvent(int id)
+        {
+            Event.Event ev;           
+            ev = new Event.Event(id);
+            SQLQueries.PublishEvent(id);
+            return View(ev);
+        }
+
     }
 }
