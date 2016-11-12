@@ -152,7 +152,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         {
             int iRowsAffected = 0;
             string sQuery = "UPDATE calendarevent SET bActive = 0 WHERE iEventId = " + iEventId;
-            iRowsAffected = SQLDataAdapter.Query4Int(sQuery);
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
         }
     }
