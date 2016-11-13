@@ -100,13 +100,15 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WritePropertyName("start");
                 jw.WriteValue(e.StartTime);
                 jw.WritePropertyName("end");
-                jw.WriteValue(e.EndTime);
+                jw.WriteValue(e.EndTime);               
                 jw.WritePropertyName("allDay");
                 jw.WriteValue(e.AllDay);
+                jw.WritePropertyName("postDate");
+                jw.WriteValue(e.PostDate);
                 jw.WritePropertyName("isPublished");
                 jw.WriteValue(e.IsPublished);
                 jw.WritePropertyName("isActive");
-                jw.WriteValue(e.IsActive);
+                jw.WriteValue(e.IsActive);              
                 jw.WriteEndObject();
             }
             jw.WriteEndArray();

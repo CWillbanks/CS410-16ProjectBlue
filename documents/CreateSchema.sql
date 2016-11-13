@@ -44,6 +44,7 @@ CREATE TABLE calendarevent
     vRegistrationURL VARCHAR(255),
     vSubmitterName VARCHAR(100),
     vSubmitterEmail VARCHAR(50),
+    dtPostDate DATETIME DEFAULT NOW(),
     bPublished BIT,
     bActive BIT DEFAULT 1
 );
