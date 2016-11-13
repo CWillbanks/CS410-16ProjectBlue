@@ -1,13 +1,23 @@
 ﻿
 @model List<EDSNCalendar_ProjectBlue.Event.Event>
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-@foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
-{
-    <p>@ev.Title     -     @Html.ActionLink("Details", "EventDetails" ,"Admin", new {id = ev.EventId}, null) @if (ev.IsPublished.Equals(false)){@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = ev.EventId }, null)}</p>
-}
-
-
+<div class="row event-list">
+    <div class="list-group">
+        @foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
+        {
+        <button type="button" class="event-list list-group-item">
+            @ev.Title     -     @Html.ActionLink("Details", "EventDetails", "Admin", new
+                       {
+                           id = ev.EventId
+                       }, null) @if (ev.IsPublished.Equals(false))
+                       {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new
+                   {
+                       id = ev.EventId
+                   }, null)}
+                </button>
+        }
+    </div>
+</div>
