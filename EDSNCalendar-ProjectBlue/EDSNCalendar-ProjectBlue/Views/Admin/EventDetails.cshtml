@@ -4,12 +4,34 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div class="row">
+    <h2>@Model.Title @if (Model.IsPublished.Equals(false))
+    {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new
+                                                  {
+                                                      id = Model.EventId
+                                                  }, null)}</h2>
 
-<h2>@Model.Title @if (Model.IsPublished.Equals(false)){@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, null)}</h2>
+    <p>@Model.Description</p>
+<div class="btn-group">
+    @Html.ActionLink("Delete Event", "ConfirmDelete", "Admin", new
+{
+    id = Model.EventId
 
-<p>@Model.Description</p>
+}, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
 
-@Html.ActionLink("Delete Event", "ConfirmDelete", "Admin", new { id = Model.EventId }, null)
+    @Html.ActionLink("Back to List", "EventList", "Admin", null, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
 
-@Html.ActionLink("Back to List", "EventList", "Admin")
+
+</div>
+
+
+</div>
 
