@@ -14,6 +14,12 @@ namespace EDSNCalendar_ProjectBlue
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "EventsListFilter",
+                "Admin/EventList/{published}",
+                new { controller = "Admin", action = "EventList" },
+                new { published = "All|Submitted|Published" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Calendar", action = "Index", id = UrlParameter.Optional }

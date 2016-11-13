@@ -4,6 +4,13 @@
   ViewBag.Title = "Index";
   Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@using (Html.BeginForm("EventList", "Admin", FormMethod.Get))
+{
+    @Html.DropDownList("Published", new SelectList(ViewBag.PublishedStatusList, "Value", "Text", ViewBag.Selecteditem), 
+    new { onchange = "form.submit();" })
+}
+
+
 <div class="row event-list">
     <div class="list-group">
         @foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)

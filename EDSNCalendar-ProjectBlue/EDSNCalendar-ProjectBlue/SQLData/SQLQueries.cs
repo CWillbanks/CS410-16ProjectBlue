@@ -76,21 +76,45 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         /// <summary>
         /// Returns a table of events. returns all events by default but parameters can be used to get only active/published events
         /// </summary>
-        /// <param name="bPublishedOnly">Determines whether only published events are returned. Default: false</param>
+        /// <param name="iPublishStatus">Determines the published status of the list to be returned 0: all events, 1: Submitted only, 2: Published only</param>
         /// <param name="bActiveOnly">Determines whether only active events are returned. Default: false</param>
         /// <returns>Multi rowed table with each row holding an event's attributes.</returns>
-        public static DataTable GetAllEvents(bool bPublishedOnly = false, bool bActiveOnly = false)
+        public static DataTable GetAllEvents(int iPublishStatus = 0, bool bActiveOnly = false)
         {
             DataTable dtEvents = new DataTable();
-            string sQuery = "SELECT * FROM calendarevent WHERE (bPublished = 1 OR bPublished = " + Convert.ToInt32(bPublishedOnly) + ") AND (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            string sQuery = string.Empty;
+            switch(iPublishStatus)
+            {
+                case (0):   //All Events
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+                    break;
+                case (1):   //Submitted Events Only
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 0";
+                    break;
+                case (2):   //Published Events Only
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 1";
+                    break;
+            }
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             return dtEvents;
         }
 
-        public static List<Event.Event> getAllEventsList()
+        public static List<Event.Event> getAllEventsList(int iPublishStatus = 0, bool bActiveOnly = false)
         {
             DataTable dtEvents = new DataTable();
-            string sQuery = "SELECT iEventId FROM calendarevent WHERE bActive = 1";
+            string sQuery = string.Empty;
+            switch (iPublishStatus)
+            {
+                case (0):   //All Events
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+                    break;
+                case (1):   //Submitted Events Only
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 0";
+                    break;
+                case (2):   //Published Events Only
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 1";
+                    break;
+            }
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             List<Event.Event> list = new List<Event.Event>();
             foreach(DataRow row in dtEvents.Rows)

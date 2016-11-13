@@ -16,9 +16,30 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View();
         }
 
-        public ActionResult EventList()
+        public ActionResult EventList(int? Published)
         {
-            List <Event.Event> list = SQLQueries.getAllEventsList();
+            List<Event.Event> list = new List<Event.Event>();
+            //list = SQLQueries.getAllEventsList(Published, true);
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "All", Value = "0" });
+            items.Add(new SelectListItem { Text = "Submitted", Value = "1" });
+            items.Add(new SelectListItem { Text = "Published", Value = "2" });
+            ViewBag.SelectedItem = "All";
+            ViewBag.PublishedStatusList = items;
+
+            switch (Published)
+            {
+                case null:
+                case (0):    //All Events
+                    list = SQLQueries.getAllEventsList(0, true);
+                    break;
+                case (1):       //Submitted Events Only
+                    list = SQLQueries.getAllEventsList(1, true);
+                    break;
+                case (2):       //Published Events Only
+                    list = SQLQueries.getAllEventsList(2, true);
+                    break;
+            }
 
             return View(list);
         }

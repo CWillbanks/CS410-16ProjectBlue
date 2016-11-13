@@ -45,7 +45,7 @@ namespace EDSNCalendar_ProjectBlue.Event
         static EventManager()
         {
             publishedEvents.Clear();
-            DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(true, true);
+            DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(2, true);
             foreach(DataRow publishedRow in dtPublishedActiveEvents.Rows)
             {
                 int iEventId = (int)publishedRow["iEventId"];
