@@ -93,6 +93,11 @@ namespace EDSNCalendar_ProjectBlue.Event
         private DateTime postDate;
 
         /// <summary>
+        /// Date the event was originally submitted
+        /// </summary>
+        private DateTime publishDate;
+
+        /// <summary>
         /// The state of the event. Refers to whether the event has been submitted or published.
         /// </summary>
         private bool isPublished;
@@ -130,7 +135,10 @@ namespace EDSNCalendar_ProjectBlue.Event
                 this.endTime = dtEvent.Rows[0]["vEndTime"].ToString();
             }
             this.allDay = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bAllDay"].ToString()));//bool.Parse(dtEvent.Rows[0]["bAllDay"].ToString());
-
+            if(!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["dtPublishDate"].ToString()))
+            {
+                this.publishDate = Convert.ToDateTime(dtEvent.Rows[0]["dtPublishDate"].ToString());
+            }
             this.postDate = Convert.ToDateTime(dtEvent.Rows[0]["dtPostDate"].ToString());
             this.isPublished = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bPublished"].ToString()));
             this.isActive = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bActive"].ToString()));
@@ -365,6 +373,18 @@ namespace EDSNCalendar_ProjectBlue.Event
             set
             {
                 postDate = value;
+            }
+        }
+
+        public DateTime PublishDate
+        {
+            get
+            {
+                return publishDate;
+            }
+            set
+            {
+                publishDate = value;
             }
         }
 

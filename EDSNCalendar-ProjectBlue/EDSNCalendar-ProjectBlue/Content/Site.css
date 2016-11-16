@@ -23,11 +23,12 @@ textarea {
     max-width: 280px;
 }
 
+
 /* Admin Page Styles*/
-div.event-list {
-    position:absolute;
-    left: 0px;
+/*div.row-event-list {
+    position: absolute;
+    left: 50px;
 }
 button.event-list {
     width:450px;
-}
+}*/

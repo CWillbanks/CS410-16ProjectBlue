@@ -13,20 +13,45 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            List<Event.Event> listPublishedOnly = new List<Event.Event>();
+            listPublishedOnly = SQLQueries.getAllEventsList(2, true);
+            int PublishedEvents = listPublishedOnly.Count;
+            ViewBag.PublishedEvents = PublishedEvents;
+
+            List<Event.Event> listSubmittedOnly = new List<Event.Event>();
+            listSubmittedOnly = SQLQueries.getAllEventsList(1, true);
+            int SubmittedEvents = listSubmittedOnly.Count;
+            ViewBag.SubmittedEvents = SubmittedEvents;
+
             return View();
         }
 
         public ActionResult EventList(int? Published)
         {
-            List<Event.Event> list = new List<Event.Event>();
-            //list = SQLQueries.getAllEventsList(Published, true);
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "All", Value = "0" });
-            items.Add(new SelectListItem { Text = "Submitted", Value = "1" });
-            items.Add(new SelectListItem { Text = "Published", Value = "2" });
-            ViewBag.SelectedItem = "All";
-            ViewBag.PublishedStatusList = items;
+            //Get Number of Published Events
+            List<Event.Event> listPublishedOnly = new List<Event.Event>();
+            listPublishedOnly = SQLQueries.getAllEventsList(2, true);
+            int PublishedEvents = listPublishedOnly.Count;
+            ViewBag.PublishedEvents = PublishedEvents;
 
+            //Get Number of Submitted Events
+            List<Event.Event> listSubmittedOnly = new List<Event.Event>();
+            listSubmittedOnly = SQLQueries.getAllEventsList(1, true);
+            int SubmittedEvents = listSubmittedOnly.Count;
+            ViewBag.SubmittedEvents = SubmittedEvents;
+            //Get Number of Total Events
+            ViewBag.TotalEvents = SubmittedEvents + PublishedEvents;
+
+            ////list = SQLQueries.getAllEventsList(Published, true);
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //items.Add(new SelectListItem { Text = "All", Value = "0" });
+            //items.Add(new SelectListItem { Text = "Submitted", Value = "1" });
+            //items.Add(new SelectListItem { Text = "Published", Value = "2" });
+            //ViewBag.SelectedItem = "All";
+            //ViewBag.PublishedStatusList = items;
+
+            //Based on optional parameter get a list of events to display to user
+            List<Event.Event> list = new List<Event.Event>();            
             switch (Published)
             {
                 case null:
@@ -79,6 +104,11 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ev = new Event.Event(id);
             SQLQueries.PublishEvent(id);
             return View(ev);
+        }
+
+        public ActionResult WidgetCreator()
+        {
+            return View();
         }
 
     }

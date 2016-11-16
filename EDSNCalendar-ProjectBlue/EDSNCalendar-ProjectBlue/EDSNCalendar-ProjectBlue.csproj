@@ -300,6 +300,7 @@
     <Content Include="Views\Admin\DeleteEvent.cshtml" />
     <Content Include="Views\Admin\ConfirmPublish.cshtml" />
     <Content Include="Views\Admin\PublishEvent.cshtml" />
+    <Content Include="Views\Admin\WidgetCreator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
