@@ -4,11 +4,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-@Html.ActionLink("Back to List", "EventList", "Admin", null, new
-{
-    @class = "btn btn-default",
-    @role = "button"
-})
 <div class="row">
     <h2>Title: @Model.Title</h2>
     <p>@Model.Description</p>
@@ -26,7 +21,12 @@
   @role="button"
 })
 
-    
+    @Html.ActionLink("Back to List", "EventList", "Admin", null, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
+
 
 </div>
 
