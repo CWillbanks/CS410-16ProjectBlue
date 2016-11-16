@@ -9,38 +9,41 @@
     @Html.DropDownList("Published", new SelectList(ViewBag.PublishedStatusList, "Value", "Text", ViewBag.Selecteditem), 
     new { onchange = "form.submit();" })
 }*@
-<div class="action-bar">
+
+<div>
+    <br />
     @Html.ActionLink("All(" + ((int)ViewBag.TotalEvents) + ")", "EventList", "Admin", new { Published = 0 }, null) | 
     @Html.ActionLink("Published(" + ((int)ViewBag.PublishedEvents) + ")", "EventList", "Admin", new { Published = 2 }, null) | 
     @Html.ActionLink("Submitted(" + ((int)ViewBag.SubmittedEvents) + ")", "EventList", "Admin", new { Published = 1 }, null)
 </div>
-    <table class="event-list">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Submitted Date</th>
-                <th>Published Date</th>
-                <th>Event Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
-            {
-            <tr>
-                <td>@Html.ActionLink(ev.Title, "EventDetails", "Admin", new { id = ev.EventId }, null)</td>
-                <td>@ev.SubmitterName</td>
-                <td>@ev.PostDate.ToShortDateString()</td>
-                <td>
-                    @if (ev.IsPublished.Equals(false))
-                    {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = ev.EventId }, null)}
-                    else {@ev.PublishDate.ToShortDateString()}
-                </td>
-                <td>@ev.Date</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+
+<table class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Submitted Date</th>
+            <th>Published Date</th>
+            <th>Event Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EDSNCalendar_ProjectBlue.Event.Event ev in Model)
+        {
+        <tr>
+            <td>@Html.ActionLink(ev.Title, "EventDetails", "Admin", new { id = ev.EventId }, null)</td>
+            <td>@ev.SubmitterName</td>
+            <td>@ev.PostDate.ToShortDateString()</td>
+            <td>
+                @if (ev.IsPublished.Equals(false))
+                {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = ev.EventId }, null)}
+                else {@ev.PublishDate.ToShortDateString()}
+            </td>
+            <td>@ev.Date</td>
+        </tr>
+        }
+    </tbody>
+</table>
 
 
 
