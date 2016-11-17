@@ -47,14 +47,14 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         /// <param name="sSubmitterName">Submitter's Name(optional)</param>
         /// <param name="sSubmitterEmail">Submitter's Email(optional)</param>
         /// <returns></returns>
-        public static int InsertSubmittedEvent(string sEventTitle, DateTime dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
+        public static int InsertSubmittedEvent(string sEventTitle, string dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
                                 string sOrganizerEmail, string sOrganizerPhoneNumber, string sOrganizerURL, string sCost, string sRegistrationURL, string sSubmitterName, string sSubmitterEmail)
         {
 
             int iRowsAffected = 0; 
             string sQuery = "INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber," +
                                                                         "vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)" +
-                            "VALUES('" + sEventTitle + "','" + dEventDate.Date.Year +"/"+ dEventDate.Date.Month+"/"+dEventDate.Date.Day + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
+                            "VALUES('" + sEventTitle + "','" + dEventDate + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
                                          sDescription + "','" + sOrganizerName + "','" + sOrganizerEmail + "','" + sOrganizerPhoneNumber + "','" + sOrganizerURL + "','" + sCost + "','" + sRegistrationURL + "','" + sSubmitterName + "','" + sSubmitterEmail + "')";
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
