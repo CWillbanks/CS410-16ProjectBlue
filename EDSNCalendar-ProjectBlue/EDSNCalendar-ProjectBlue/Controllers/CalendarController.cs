@@ -35,7 +35,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View();
         }
         [HttpPost]
-        public void PublishEvent(FormCollection form)
+        public ActionResult PublishEvent(FormCollection form)
         {
           
             var EventTitle = Convert.ToString(form["publishEventTitle"]);
@@ -55,8 +55,8 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             string adress = StreetAddress + " " + Addres2 + " " + City + " " + State + " " + Zip + " " + Country;
             //Event.Event ev = new Event.Event(EventTitle, FirstName, HostEmail, HostPhoneNumber, "", "", EventInformation, "", "", "", Date, "", "", true);
             SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, "", "", true, "", adress, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, "", "", "", "", "");
-            
-            
+
+            return Redirect("Index");
         }
     }
 }
