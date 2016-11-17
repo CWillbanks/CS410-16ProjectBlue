@@ -135,7 +135,6 @@ D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\Microsoft.Owin.Security.Google.xml
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\Microsoft.Owin.Security.Twitter.xml
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.csprojResolveAssemblyReference.cache
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.dll
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.pdb
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\roslyn\csc.exe
@@ -208,3 +207,4 @@ C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-P
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.csprojResolveAssemblyReference.cache
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.dll
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.pdb
+D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.csprojResolveAssemblyReference.cache

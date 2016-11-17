@@ -1,30 +1,31 @@
 ﻿
-<form id="submitPopUp">
-    <div class="form-group">
+
+@using (Html.BeginForm("PublishEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp" })){
+<div class="form-group">
         <label for="Event Title">Event Title</label>
-        <input type="text" class="form-control" id="publishEventTitle" placeholder="Event Title">
+        <input type="text" class="form-control" name="publishEventTitle" placeholder="Event Title">
     </div>
     <div class="form-group row">
         <div class="col-xs-12">
             <label for="Event Host">Event Host</label>
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" id="publishFirstName" placeholder="First Name" />
+            <input type="text" class="form-control" name="publishFirstName" placeholder="First Name" />
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" id="publishLastName" placeholder="Last Name" />
+            <input type="text" class="form-control" name="publishLastName" placeholder="Last Name" />
         </div>
     </div>
     <div class="form-group">
         <label for="Host Email">Host Contact Email</label>
-        <input type="email" class="form-control" id="publishEmail" placeholder="Email">
+        <input type="email" class="form-control" name="publishEmail" placeholder="Email">
     </div>
     <div class="form-group row">
         <div class="col-xs-12">
             <label for="Host Contact Phone Number">Host Phone Number</label>
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" id="publishPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" />
+            <input type="text" class="form-control" name="publishPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" />
         </div>
     </div>
     <div class="form-group row">
@@ -32,7 +33,7 @@
             <label for="Event Date"> Event Date</label>
         </div>
         <div class="col-xs-12">
-            <input type="date" class="form-control" id="publishDate" placeholder="" />
+            <input type="date" class="form-control" name="publishDate" placeholder="" />
         </div>
     </div>
     <div class="form-group row">
@@ -40,35 +41,37 @@
             <label for="Event Time"> Event Time </label>
         </div>
         <div class="col-xs-12">
-            <input type="time" class="form-control" id="publishTime"/>
+            <input type="time" class="form-control" name="publishTime"/>
         </div>
     </div>
     <div class="form-group">
         <label for="Event Information">Event Information</label>
-        <textarea class="form-control" id="publishEventInformation" rows="4"></textarea>
+        <textarea class="form-control" name="publishEventInformation" rows="4"></textarea>
     </div>
     <div class="form-group">
         <label for="Street Address">Street Address</label>
-        <input type="text" class="form-control" id="publishStreetAddress" placeholder="Street Address">
+        <input type="text" class="form-control" name="publishStreetAddress" placeholder="Street Address">
     </div>
     <div class="form-group">
         <label for="Address Line 2">Address Line 2</label>
-        <input type="text" class="form-control" id="publishAddressLine2" placeholder="">
+        <input type="text" class="form-control" name="publishAddressLine2" placeholder="">
     </div>
     <div class="form-group">
         <label for="City">City</label>
-        <input type="text" class="form-control" id="publishCity" placeholder="City Name">
+        <input type="text" class="form-control" name="publishCity" placeholder="City Name">
     </div>
     <div class="form-group">
         <label for="State">State / Province / Region</label>
-        <input type="text" class="form-control" id="publishState" placeholder="State Name">
+        <input type="text" class="form-control" name="publishState" placeholder="State Name">
     </div>
     <div class="form-group">
         <label for="State">Postal / Zip Code</label>
-        <input type="text" class="form-control" id="publishZip" placeholder="Postal / Zip Code">
+        <input type="text" class="form-control" name="publishZip" placeholder="Postal / Zip Code">
     </div>
     <div class="form-group">
         <label for="State">Country</label>
-        <input type="text" class="form-control" id="publishCountry" placeholder="Country Name">
+        <input type="text" class="form-control" name="publishCountry" placeholder="Country Name">
     </div>
-</form>
+
+    <input type="submit" value="submit" />
+}

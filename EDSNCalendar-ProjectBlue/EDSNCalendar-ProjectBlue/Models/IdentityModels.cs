@@ -29,5 +29,7 @@ namespace EDSNCalendar_ProjectBlue.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<EDSNCalendar_ProjectBlue.Event.Event> Events { get; set; }
     }
 }
