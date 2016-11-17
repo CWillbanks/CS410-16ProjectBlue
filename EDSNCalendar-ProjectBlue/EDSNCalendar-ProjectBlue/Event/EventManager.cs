@@ -42,11 +42,11 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        static EventManager()
+        static void updateEvents()
         {
             publishedEvents.Clear();
             DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(2, true);
-            foreach(DataRow publishedRow in dtPublishedActiveEvents.Rows)
+            foreach (DataRow publishedRow in dtPublishedActiveEvents.Rows)
             {
                 int iEventId = (int)publishedRow["iEventId"];
                 Event publishedEvent = new Event(iEventId);
@@ -55,7 +55,7 @@ namespace EDSNCalendar_ProjectBlue.Event
 
             submittedEvents.Clear();
             DataTable dtSubmittedActiveEvents = SQLData.SQLQueries.GetSubmittedEvents();
-            foreach(DataRow submittedRow in dtSubmittedActiveEvents.Rows)
+            foreach (DataRow submittedRow in dtSubmittedActiveEvents.Rows)
             {
                 int iEventId = (int)submittedRow["iEventId"];
                 Event submittedEvent = new Event(iEventId);
@@ -63,8 +63,14 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
+        static EventManager()
+        {
+            updateEvents();
+        }
+
         public static String ToJSONRepresentation(bool published)
         {
+            updateEvents();
             List<Event> events = published ? PublishedEvents : SubmittedEvents;
             StringBuilder sb = new StringBuilder();
             JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
