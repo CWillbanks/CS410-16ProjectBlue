@@ -78,6 +78,10 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             Event.Event ev;
             ev = new Event.Event(id);
             SQLQueries.DeactivateEvent(id);
+            if (ev.IsPublished)
+                EventManager.PublishedEvents.Remove(id);
+            else
+                EventManager.SubmittedEvents.Remove(id);
             return View(ev);
         }
 
