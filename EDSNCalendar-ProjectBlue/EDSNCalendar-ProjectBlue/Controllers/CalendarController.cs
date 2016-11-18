@@ -47,14 +47,14 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             var Time = Convert.ToString(form["publishTime"]);
             var EventInformation = Convert.ToString(form["publishEventInformation"]);
             var StreetAddress = Convert.ToString(form["publishStreetAddres"]);
-            var Addres2 = Convert.ToString(form["publishAddressLine2"]);
+            var Address2 = Convert.ToString(form["publishAddressLine2"]);
             var City = Convert.ToString(form["publishCity"]);
             var State = Convert.ToString(form["publishState"]);
             var Zip = Convert.ToString(form["publishZip"]);
             var Country = Convert.ToString(form["publishCountry"]);
-            string adress = StreetAddress + " " + Addres2 + " " + City + " " + State + " " + Zip + " " + Country;
+            string address = StreetAddress + " " + Address2 + " " + City + " " + State + " " + Zip + " " + Country;
             //Event.Event ev = new Event.Event(EventTitle, FirstName, HostEmail, HostPhoneNumber, "", "", EventInformation, "", "", "", Date, "", "", true);
-            SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, "", "", true, "", adress, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, "", "", "", "", "");
+            SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, "", "", true, "", address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, "", "", "", "", "");
 
             return Redirect("Index");
         }

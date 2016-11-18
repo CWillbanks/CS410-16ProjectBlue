@@ -57,6 +57,11 @@ namespace EDSNCalendar_ProjectBlue.SQLData
                             "VALUES('" + sEventTitle + "','" + dEventDate + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
                                          sDescription + "','" + sOrganizerName + "','" + sOrganizerEmail + "','" + sOrganizerPhoneNumber + "','" + sOrganizerURL + "','" + sCost + "','" + sRegistrationURL + "','" + sSubmitterName + "','" + sSubmitterEmail + "')";
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            int eventId = SQLDataAdapter.LastInsertedId;
+            var submittedEvent = new Event.Event(sEventTitle, sOrganizerName, sOrganizerEmail, sOrganizerPhoneNumber, sVenueName, sAddress, sDescription, sRegistrationURL, sSubmitterName, sSubmitterEmail, dEventDate, sStartTime, sEndTime, bAllDay);
+            submittedEvent.EventId = eventId;
+
+            EventManager.SubmittedEvents.Add(eventId, submittedEvent);
             return iRowsAffected;
         }
 
@@ -70,6 +75,9 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             int iRowsAffected = 0;
             String sQuery = "UPDATE calendarevent SET bPublished = 1, dtPublishDate = NOW() WHERE iEventId = " + iEventId;
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            var tempEvent = EventManager.SubmittedEvents[iEventId];
+            EventManager.SubmittedEvents.Remove(iEventId);
+            EventManager.PublishedEvents.Add(tempEvent.EventId, tempEvent);
             return iRowsAffected;
         }
 

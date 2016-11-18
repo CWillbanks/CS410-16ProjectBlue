@@ -9,6 +9,16 @@ namespace EDSNCalendar_ProjectBlue.SQLData
 {
     public class SQLDataAdapter
     {
+        private static int lastInsertedId;
+
+        public static int LastInsertedId
+        {
+            get
+            {
+                return lastInsertedId;
+            }
+        }
+
         private static MySqlConnection Connect()
         {
             string MyConnectionString = "Server=127.0.0.1;Database=edsncalendar;Uid=root;Pwd=pass;";
@@ -62,6 +72,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
                 cmd = con.CreateCommand();
                 cmd.CommandText = sQuery;
                 iRowsAffected = cmd.ExecuteNonQuery();
+                lastInsertedId = (int)cmd.LastInsertedId;
             }
             catch (MySqlException ex)
             {

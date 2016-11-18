@@ -19,9 +19,9 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// <summary>
         /// Collection of events that are ready to be reviewed by an administrator.
         /// </summary>
-        private static List<Event> submittedEvents = new List<Event>();
+        private static Dictionary<int, Event> submittedEvents = new Dictionary<int, Event>();
 
-        public static List<Event> SubmittedEvents
+        public static Dictionary<int, Event> SubmittedEvents
         {
             get
             {
@@ -32,9 +32,9 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// <summary>
         /// Collection of events that are ready to be reviewed by an administrator.
         /// </summary>
-        private static List<Event> publishedEvents = new List<Event>();
+        private static Dictionary<int, Event> publishedEvents = new Dictionary<int, Event>();
 
-        public static List<Event> PublishedEvents
+        public static Dictionary<int, Event> PublishedEvents
         {
             get
             {
@@ -42,7 +42,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        static void updateEvents()
+        static EventManager()
         {
             publishedEvents.Clear();
             DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(2, true);
@@ -50,7 +50,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             {
                 int iEventId = (int)publishedRow["iEventId"];
                 Event publishedEvent = new Event(iEventId);
-                publishedEvents.Add(publishedEvent);
+                publishedEvents.Add(iEventId, publishedEvent);
             }
 
             submittedEvents.Clear();
@@ -59,24 +59,18 @@ namespace EDSNCalendar_ProjectBlue.Event
             {
                 int iEventId = (int)submittedRow["iEventId"];
                 Event submittedEvent = new Event(iEventId);
-                submittedEvents.Add(submittedEvent);
+                submittedEvents.Add(iEventId, submittedEvent);
             }
-        }
-
-        static EventManager()
-        {
-            updateEvents();
         }
 
         public static String ToJSONRepresentation(bool published)
         {
-            updateEvents();
-            List<Event> events = published ? PublishedEvents : SubmittedEvents;
+            Dictionary<int, Event> events = published ? PublishedEvents : SubmittedEvents;
             StringBuilder sb = new StringBuilder();
             JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
             jw.Formatting = Formatting.Indented;
             jw.WriteStartArray();
-            foreach (Event e in events)
+            foreach (Event e in events.Values)
             {
                 jw.WriteStartObject();
                 jw.WritePropertyName("id");
