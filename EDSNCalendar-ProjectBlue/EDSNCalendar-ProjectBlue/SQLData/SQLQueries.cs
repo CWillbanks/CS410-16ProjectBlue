@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EDSNCalendar_ProjectBlue.SQLData;
+using EDSNCalendar_ProjectBlue.Event;
 using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
@@ -46,16 +47,21 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         /// <param name="sSubmitterName">Submitter's Name(optional)</param>
         /// <param name="sSubmitterEmail">Submitter's Email(optional)</param>
         /// <returns></returns>
-        public static int InsertSubmittedEvent(string sEventTitle, DateTime dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
+        public static int InsertSubmittedEvent(string sEventTitle, string dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
                                 string sOrganizerEmail, string sOrganizerPhoneNumber, string sOrganizerURL, string sCost, string sRegistrationURL, string sSubmitterName, string sSubmitterEmail)
         {
 
             int iRowsAffected = 0; 
             string sQuery = "INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber," +
                                                                         "vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)" +
-                            "VALUES('" + sEventTitle + "','" + dEventDate.Date.Year +"/"+ dEventDate.Date.Month+"/"+dEventDate.Date.Day + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
+                            "VALUES('" + sEventTitle + "','" + dEventDate + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
                                          sDescription + "','" + sOrganizerName + "','" + sOrganizerEmail + "','" + sOrganizerPhoneNumber + "','" + sOrganizerURL + "','" + sCost + "','" + sRegistrationURL + "','" + sSubmitterName + "','" + sSubmitterEmail + "')";
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            int eventId = SQLDataAdapter.LastInsertedId;
+            var submittedEvent = new Event.Event(sEventTitle, sOrganizerName, sOrganizerEmail, sOrganizerPhoneNumber, sVenueName, sAddress, sDescription, sRegistrationURL, sSubmitterName, sSubmitterEmail, dEventDate, sStartTime, sEndTime, bAllDay);
+            submittedEvent.EventId = eventId;
+
+            EventManager.SubmittedEvents.Add(eventId, submittedEvent);
             return iRowsAffected;
         }
 
@@ -67,23 +73,65 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         public static int PublishEvent(int iEventId)
         {
             int iRowsAffected = 0;
-            String sQuery = "UPDATE calendarevent SET bPublished = 1 WHERE iCalendarEvent = " + iEventId;
+            String sQuery = "UPDATE calendarevent SET bPublished = 1, dtPublishDate = NOW() WHERE iEventId = " + iEventId;
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            var tempEvent = EventManager.SubmittedEvents[iEventId];
+            EventManager.SubmittedEvents.Remove(iEventId);
+            EventManager.PublishedEvents.Add(tempEvent.EventId, tempEvent);
             return iRowsAffected;
         }
 
         /// <summary>
         /// Returns a table of events. returns all events by default but parameters can be used to get only active/published events
         /// </summary>
-        /// <param name="bPublishedOnly">Determines whether only published events are returned. Default: false</param>
+        /// <param name="iPublishStatus">Determines the published status of the list to be returned 0: all events, 1: Submitted only, 2: Published only</param>
         /// <param name="bActiveOnly">Determines whether only active events are returned. Default: false</param>
         /// <returns>Multi rowed table with each row holding an event's attributes.</returns>
-        public static DataTable GetAllEvents(bool bPublishedOnly = false, bool bActiveOnly = false)
+        public static DataTable GetAllEvents(int iPublishStatus = 0, bool bActiveOnly = false)
         {
             DataTable dtEvents = new DataTable();
-            string sQuery = "SELECT * FROM calendarevent WHERE (bPublished = 1 OR bPublished = " + Convert.ToInt32(bPublishedOnly) + ") AND (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            string sQuery = string.Empty;
+            switch(iPublishStatus)
+            {
+                case (0):   //All Events
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+                    break;
+                case (1):   //Submitted Events Only
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 0";
+                    break;
+                case (2):   //Published Events Only
+                    sQuery = "SELECT * FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 1";
+                    break;
+            }
             dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
             return dtEvents;
+        }
+
+        public static List<Event.Event> getAllEventsList(int iPublishStatus = 0, bool bActiveOnly = false)
+        {
+            DataTable dtEvents = new DataTable();
+            string sQuery = string.Empty;
+            switch (iPublishStatus)
+            {
+                case (0):   //All Events
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+                    break;
+                case (1):   //Submitted Events Only
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 0";
+                    break;
+                case (2):   //Published Events Only
+                    sQuery = "SELECT iEventId FROM calendarevent WHERE (bActive = 1 OR bActive = " + Convert.ToInt32(bActiveOnly) + ") AND bPublished = 1";
+                    break;
+            }
+            dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            List<Event.Event> list = new List<Event.Event>();
+            foreach(DataRow row in dtEvents.Rows)
+            {
+                int iEventId = (int)row[0];
+                Event.Event e = new Event.Event(iEventId);
+                list.Add(e);
+            }
+            return list;
         }
 
         /// <summary>
@@ -101,11 +149,25 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         }
 
         /// <summary>
+        /// Returns an event object representing the last submitted event.
+        /// </summary>
+        /// <returns>Returns a populated event object</returns>
+        public static Event.Event GetLastEvent()
+        {
+            int iEventId;
+            string sQuery = "SELECT iEventId FROM calendarevent ORDER BY iEventId DESC LIMIT 1";
+            iEventId = SQLDataAdapter.Query4Int(sQuery);
+
+            Event.Event ev = new Event.Event(iEventId);
+            return ev;
+        }
+
+        /// <summary>
         /// Returns a single rowed table which has all of that event's data.
         /// </summary>
         /// <param name="iEventId">Event to Query for</param>
         /// <returns>Single rowed Datatable with all event attributes.</returns>
-        public static DataTable GetEvent(int iEventId)
+        public static DataTable GetEvent(int? iEventId)
         {
             DataTable dtEvents = new DataTable();
             string sQuery = "SELECT * FROM calendarevent WHERE iEventId = " + iEventId;
@@ -122,7 +184,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         {
             int iRowsAffected = 0;
             string sQuery = "UPDATE calendarevent SET bActive = 0 WHERE iEventId = " + iEventId;
-            iRowsAffected = SQLDataAdapter.Query4Int(sQuery);
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
         }
     }

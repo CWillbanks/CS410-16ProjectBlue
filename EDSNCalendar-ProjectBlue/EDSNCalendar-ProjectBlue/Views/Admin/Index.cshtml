@@ -4,5 +4,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<h1>Information Overview:</h1>
 
+<p>Number of Published Events: @ViewBag.PublishedEvents</p>
+<p>Number of Submitted Events waiting to be Published: @ViewBag.SubmittedEvents</p>

@@ -1,0 +1,35 @@
+﻿
+@model EDSNCalendar_ProjectBlue.Event.Event
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <h2>Title: @Model.Title</h2>
+    <p>@Model.Description</p>
+<div class="btn-group">
+    @if (Model.IsPublished.Equals(false))
+    {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, new
+{
+    @class = "btn btn-default",
+    @role = "button"
+})}
+
+    @Html.ActionLink("Delete Event", "ConfirmDelete", "Admin", new{id = Model.EventId}, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
+
+    @Html.ActionLink("Back to List", "EventList", "Admin", null, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
+
+
+</div>
+
+
+</div>
+

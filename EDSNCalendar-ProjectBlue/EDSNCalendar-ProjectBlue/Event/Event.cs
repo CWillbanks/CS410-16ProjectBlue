@@ -70,22 +70,32 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// <summary>
         /// Official date of the event..
         /// </summary>
-        private DateTime date;
+        private string date;
 
         /// <summary>
         /// Time of when the event begins.
         /// </summary>
-        private DateTime startTime;
+        private string startTime;
 
         /// <summary>
         /// Time of when the event ends.
         /// <summary>
-        private DateTime endTime;
+        private string endTime;
 
         /// <summary>
         /// Flag indicated if the event lasts all day. 
         /// </summary>
         private bool allDay;
+
+        /// <summary>
+        /// Date the event was originally submitted
+        /// </summary>
+        private DateTime postDate;
+
+        /// <summary>
+        /// Date the event was originally submitted
+        /// </summary>
+        private DateTime publishDate;
 
         /// <summary>
         /// The state of the event. Refers to whether the event has been submitted or published.
@@ -115,16 +125,21 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.registrationURL = dtEvent.Rows[0]["vRegistrationURL"].ToString();
             this.submitterName = dtEvent.Rows[0]["vSubmitterName"].ToString();
             this.submitterEmail = dtEvent.Rows[0]["vSubmitterEmail"].ToString();
-            this.date = DateTime.Parse(dtEvent.Rows[0]["dEventDate"].ToString());
+            this.date = dtEvent.Rows[0]["dEventDate"].ToString();
             if(!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["vStartTime"].ToString()))
             {
-                this.startTime = DateTime.Parse(dtEvent.Rows[0]["vStartTime"].ToString());
+                this.startTime = dtEvent.Rows[0]["vStartTime"].ToString();
             }
             if (!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["vStartTime"].ToString()))
             {
-                this.endTime = DateTime.Parse(dtEvent.Rows[0]["vEndTime"].ToString());
+                this.endTime = dtEvent.Rows[0]["vEndTime"].ToString();
             }
             this.allDay = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bAllDay"].ToString()));//bool.Parse(dtEvent.Rows[0]["bAllDay"].ToString());
+            if(!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["dtPublishDate"].ToString()))
+            {
+                this.publishDate = Convert.ToDateTime(dtEvent.Rows[0]["dtPublishDate"].ToString());
+            }
+            this.postDate = Convert.ToDateTime(dtEvent.Rows[0]["dtPostDate"].ToString());
             this.isPublished = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bPublished"].ToString()));
             this.isActive = Convert.ToBoolean(Convert.ToInt32(dtEvent.Rows[0]["bActive"].ToString()));
         }
@@ -134,7 +149,7 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// </summary>
         public Event(string title, string hostName, string hostEmail, string hostPhoneNumber, string venueName,
                      string address, string description, string registrationURL, string submitterName,
-                     string submitterEmail, DateTime date, DateTime startTime, DateTime endTime, bool allDay)
+                     string submitterEmail, string date, string startTime, string endTime, bool allDay)
         {
             this.title = title;
             this.hostName = hostName;
@@ -297,7 +312,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        public DateTime Date
+        public string Date
         {
             get
             {
@@ -310,7 +325,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        public DateTime StartTime
+        public string StartTime
         {
             get
             {
@@ -323,7 +338,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
-        public DateTime EndTime
+        public string EndTime
         {
             get
             {
@@ -346,6 +361,30 @@ namespace EDSNCalendar_ProjectBlue.Event
             set
             {
                 allDay = value;
+            }
+        }
+
+        public DateTime PostDate
+        {
+            get
+            {
+                return postDate;
+            }
+            set
+            {
+                postDate = value;
+            }
+        }
+
+        public DateTime PublishDate
+        {
+            get
+            {
+                return publishDate;
+            }
+            set
+            {
+                publishDate = value;
             }
         }
 
