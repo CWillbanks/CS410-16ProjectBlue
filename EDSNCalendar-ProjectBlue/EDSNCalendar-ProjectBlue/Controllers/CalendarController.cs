@@ -58,7 +58,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             var HostEmail = Convert.ToString(form["publishEmail"]);
             var HostPhoneNumber = Convert.ToString(form["publishPhoneNumber"]);
             var Date = Convert.ToString(form["publishDate"]);
-            var Time = Convert.ToString(form["publishTime"]);
+            var StartTime = Convert.ToString(form["publishTime"]);
             var EventInformation = Convert.ToString(form["publishEventInformation"]);
             var StreetAddress = Convert.ToString(form["publishStreetAddres"]);
             var Address2 = Convert.ToString(form["publishAddressLine2"]);
@@ -66,9 +66,26 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             var State = Convert.ToString(form["publishState"]);
             var Zip = Convert.ToString(form["publishZip"]);
             var Country = Convert.ToString(form["publishCountry"]);
+            bool AllDay = true;
+            if (form["AllDay"] == null)
+               AllDay = false;
+            var VenueName = Convert.ToString(form["publishVenueName"]);
+            var EndTime = Convert.ToString(form["publishEndTime"]);
+            var HostURL = Convert.ToString(form["publishURL"]);
+            var Cost = "Free";
+            bool Fre = true;
+            if (form["Free"] == null)
+                Fre = false;
+            if (!Fre)
+                Cost = Convert.ToString(form["publishCost"]);
+            var RegURL = Convert.ToString(form["publishRegisterURL"]);
+            var SubFName = Convert.ToString(form["publishFirstSName"]);
+            var SubLName = Convert.ToString(form["publishLastSName"]);
+            var SubEmail = Convert.ToString(form["publishSEmail"]);
+
             string address = StreetAddress + " " + Address2 + " " + City + " " + State + " " + Zip + " " + Country;
-            //Event.Event ev = new Event.Event(EventTitle, FirstName, HostEmail, HostPhoneNumber, "", "", EventInformation, "", "", "", Date, "", "", true);
-            SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, "", "", true, "", address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, "", "", "", "", "");
+  
+            SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, StartTime, EndTime, AllDay, VenueName, address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, HostURL,Cost, RegURL, SubFName + " " +SubLName, SubEmail);
 
             return Redirect("Index");
         }
