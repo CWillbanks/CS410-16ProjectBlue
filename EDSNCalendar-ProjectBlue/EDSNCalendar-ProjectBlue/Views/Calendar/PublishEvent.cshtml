@@ -27,6 +27,7 @@
             document.getElementById("EndDate").style.visibility = "hidden";
         }
     }
+
 </script>
 @using (Html.BeginForm("PublishEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp" })){
 <div class="form-group">
@@ -177,14 +178,15 @@
     {
         <div class="form-group">
             <label for="@ViewBag.PropertyTypes[1].Name">@ViewBag.PropertyTypes[i].Name</label>
-            @Html.ListBox(
+           @Html.ListBox(
                              (string)ViewBag.PropertyTypes[1].Name,
                              ViewBag.PropertyLists[i] as MultiSelectList,
-                             new { multiple = "multiple", }
+                             new { multiple = "multiple",
+                            @class = "chosen-select" }
                          )
             @*@Html.DropDownListFor((String)ViewBag.PropertyTypes[i].Name, (MultiSelectList)ViewBag.PropertyLists[i], new
        {
-           @class = "chzn-select",
+           @class = "chosen-select",
            data_placeholder = "Choose " + ViewBag.PropertyTypes[i].Name + "s..."
        })*@
         </div>

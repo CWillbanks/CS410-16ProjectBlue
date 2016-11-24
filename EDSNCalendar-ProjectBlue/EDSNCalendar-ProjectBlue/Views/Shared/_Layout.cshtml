@@ -10,6 +10,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
+    <link href="../../Content/chosen.css" rel="stylesheet" />
+    <script src="../../Scripts/chosen.jquery.js"></script>
 </head>
 <body>
     <div class="container body-content">
@@ -22,6 +24,11 @@
         width: 450
     });
     $("#submitButton").click(function () { $("#submitPopUp").dialog("open") });
+    $(".chosen-select").chosen({
+        disable_search_threshold: 10,
+        no_results_text: "Oops, nothing found!",
+        width: "95%"
+    });
 });
 
     </script>
@@ -31,5 +38,6 @@
     <script src="../../Scripts/moment.min.js" language="javascript" type="text/javascript"></script>
     <script src="../../Scripts/fullcalendar.js" language="javascript" type="text/javascript"></script>
     <script src="../../Scripts/site.js" language="javascript" type="text/javascript"></script>
+    
 </body>
 </html>
