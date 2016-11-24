@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using EDSNCalendar_ProjectBlue.Event;
 using EDSNCalendar_ProjectBlue.SQLData;
+using EDSNCalendar_ProjectBlue.Property;
 
 namespace EDSNCalendar_ProjectBlue.Controllers
 {
@@ -103,6 +104,25 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         public ActionResult WidgetCreator()
         {
             return View();
+        }
+
+        public ActionResult Properties(int? id)
+        {
+            List<PropertyType> liPropertyType = new List<PropertyType>();
+            liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            ViewBag.PropertyTypes = liPropertyType;
+            ViewBag.SelectedPropertyType = id;
+
+            List<Property.Property> liProperty = new List<Property.Property>();
+            foreach(PropertyType pt in liPropertyType)
+            {
+                if(id == pt.PropertyTypeId)
+                {
+                    liProperty = SQLQueries.getPropertyList(pt, true);
+                }
+            }                        
+
+            return View(liProperty);
         }
 
     }

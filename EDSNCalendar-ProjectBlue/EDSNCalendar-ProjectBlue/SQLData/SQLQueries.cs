@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using EDSNCalendar_ProjectBlue.SQLData;
 using EDSNCalendar_ProjectBlue.Event;
+using EDSNCalendar_ProjectBlue.Property;
 using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
@@ -186,6 +187,37 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             string sQuery = "UPDATE calendarevent SET bActive = 0 WHERE iEventId = " + iEventId;
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
+        }
+
+        public static List<PropertyType> getAllPropertyTypes(bool bActiveOnly = false)
+        {
+            List<PropertyType> li = new List<PropertyType>();
+            string sQuery = "SELECT * FROM propertytype WHERE (bActive = 1 or bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            DataTable dtPropertyTypes = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach(DataRow row in dtPropertyTypes.Rows)
+            {
+                PropertyType pt = new PropertyType();
+                pt.PropertyTypeId = int.Parse(row["iPropertyTypeId"].ToString());
+                pt.Name = row["vPropertyType"].ToString();
+                li.Add(pt);
+            }
+            return li;
+        }
+
+        public static List<Property.Property> getPropertyList(PropertyType propertyType, bool bActiveOnly = false)
+        {
+            List<Property.Property> li = new List<Property.Property>();
+            string sQuery = "SELECT * FROM property WHERE iPropertyTypeId = "+ propertyType.PropertyTypeId + " AND (bActive = 1 or bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            DataTable dtPropertys = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach (DataRow row in dtPropertys.Rows)
+            {
+                Property.Property p = new Property.Property();
+                p.PropertyId = int.Parse(row["iPropertyId"].ToString());
+                p.Name = row["vProperty"].ToString();
+                p.PropertyType = propertyType;
+                li.Add(p);
+            }
+            return li;
         }
     }
 }
