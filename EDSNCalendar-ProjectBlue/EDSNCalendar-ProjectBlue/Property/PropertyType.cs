@@ -26,5 +26,17 @@ namespace EDSNCalendar_ProjectBlue.Property
             get { return name; }
             set { name = value; }
         }
+
+        /// <summary>
+        /// PropertyType this particular property belongs to
+        /// </summary>
+        private List<Property> propertyList;
+        public List<Property> PropertyList
+        {
+            get { return propertyList; }
+            set { propertyList = value; }
+        }
+
+        
     }
 }

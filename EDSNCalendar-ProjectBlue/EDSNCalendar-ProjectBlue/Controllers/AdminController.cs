@@ -118,7 +118,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             {
                 if(id == pt.PropertyTypeId)
                 {
-                    liProperty = SQLQueries.getPropertyList(pt, true);
+                    liProperty = pt.PropertyList;
                 }
             }                        
 

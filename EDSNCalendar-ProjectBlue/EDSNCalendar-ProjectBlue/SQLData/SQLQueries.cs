@@ -199,6 +199,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
                 PropertyType pt = new PropertyType();
                 pt.PropertyTypeId = int.Parse(row["iPropertyTypeId"].ToString());
                 pt.Name = row["vPropertyType"].ToString();
+                pt.PropertyList = getPropertyList(pt, true);
                 li.Add(pt);
             }
             return li;
@@ -218,6 +219,22 @@ namespace EDSNCalendar_ProjectBlue.SQLData
                 li.Add(p);
             }
             return li;
+        }
+
+        public static int CreateNewPropertyType(string sPropertyTypeName)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "INSERT INTO propertytype(vPropertyType) VALUES('"+sPropertyTypeName+"')";
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
+        }
+
+        public static int CreateNewProperty(int iPropertyTypeId, string sPropertyName)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "INSERT INTO property(iPropertyTypeId, vProperty) VALUES(" + iPropertyTypeId + ",'" + sPropertyName + "')";
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
         }
     }
 }

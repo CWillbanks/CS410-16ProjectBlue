@@ -1,6 +1,4 @@
-﻿
-
-@using (Html.BeginForm("PublishEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp" })){
+﻿@using (Html.BeginForm("PublishEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp" })){
 <div class="form-group">
         <label for="Event Title">Event Title</label>
         <input type="text" class="form-control" name="publishEventTitle" placeholder="Event Title">
@@ -44,6 +42,22 @@
             <input type="time" class="form-control" name="publishTime"/>
         </div>
     </div>
+    for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
+    {
+        <div class="form-group">
+            <label for="@ViewBag.PropertyTypes[i].Name">@ViewBag.PropertyTypes[i].Name</label>
+            @Html.ListBox(
+                             (string)ViewBag.PropertyTypes[i].Name,
+                             ViewBag.PropertyLists[i] as MultiSelectList,
+                             new { multiple = "multiple", }
+                         )
+            @*@Html.DropDownListFor((String)ViewBag.PropertyTypes[i].Name, (MultiSelectList)ViewBag.PropertyLists[i], new
+       {
+           @class = "chzn-select",
+           data_placeholder = "Choose " + ViewBag.PropertyTypes[i].Name + "s..."
+       })*@
+        </div>
+    }
     <div class="form-group">
         <label for="Event Information">Event Information</label>
         <textarea class="form-control" name="publishEventInformation" rows="4"></textarea>

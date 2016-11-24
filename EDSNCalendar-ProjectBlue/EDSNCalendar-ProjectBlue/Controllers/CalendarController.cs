@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EDSNCalendar_ProjectBlue.Event;
+using EDSNCalendar_ProjectBlue.Property;
+using EDSNCalendar_ProjectBlue.SQLData;
 namespace EDSNCalendar_ProjectBlue.Controllers
 {
     public class CalendarController : Controller
@@ -12,6 +14,18 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         {
             try
             {
+                List<PropertyType> liPropertyType = new List<PropertyType>();
+                liPropertyType = SQLQueries.getAllPropertyTypes(true);
+                List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+                foreach (PropertyType pt in liPropertyType)
+                {
+                    List<Property.Property> tempProp = new List<Property.Property>();
+                    {
+                        liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
+                    }
+                }                
+                ViewBag.PropertyTypes = liPropertyType;
+                ViewBag.PropertyLists = liMultiSelect;
                 ViewBag.PublishedEvents = Event.EventManager.ToJSONRepresentation(true);
             } catch (Exception e)
             {
