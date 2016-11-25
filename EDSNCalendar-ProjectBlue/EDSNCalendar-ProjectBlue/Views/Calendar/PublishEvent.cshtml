@@ -32,14 +32,14 @@
 @using (Html.BeginForm("PublishEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp" })){
 <div class="form-group">
         <label for="Event Title">Event Title</label>
-        <input type="text" class="form-control" name="publishEventTitle" placeholder="Event Title">
+        <input type="text" class="form-control" name="publishEventTitle" placeholder="Event Title" required="required">
     </div>
 <div class="form-group row">
         <div class="col-xs-12">
             <label for="Event Date"> Event Date</label>
         </div>
         <div class="col-xs-12">
-            <input type="date" class="form-control" name="publishDate" placeholder="" />
+            <input type="date" class="form-control" name="publishDate" placeholder="" required="required" />
         </div>
         <div class="col-xs-12">
             <label for="EndCheckBox">Add End Day</label>
@@ -85,11 +85,11 @@
 
     <div class="form-group">
         <label for="Venue Name">Venue Name</label>
-        <input type="text" class="form-control" name="publishVenueName" placeholder="Venue Name">
+        <input type="text" class="form-control" name="publishVenueName" placeholder="Venue Name" required="required">
     </div>
     <div class="form-group">
         <label for="Street Address">Street Address</label>
-        <input type="text" class="form-control" name="publishStreetAddress" placeholder="Street Address">
+        <input type="text" class="form-control" name="publishStreetAddress" placeholder="Street Address" required="required">
     </div>
     <div class="form-group">
         <label for="Address Line 2">Address Line 2</label>
@@ -97,11 +97,11 @@
     </div>
     <div class="form-group">
         <label for="City">City</label>
-        <input type="text" class="form-control" name="publishCity" placeholder="City Name">
+        <input type="text" class="form-control" name="publishCity" placeholder="City Name" required="required">
     </div>
     <div class="form-group">
         <label for="State">State / Province / Region</label>
-        <input type="text" class="form-control" name="publishState" placeholder="State Name">
+        <input type="text" class="form-control" name="publishState" placeholder="State Name" required="required">
     </div>
     <div class="form-group">
         <label for="State">Postal / Zip Code</label>
@@ -113,29 +113,29 @@
     </div>
     <div class="form-group">
         <label for="Event Information">Event Information</label>
-        <textarea class="form-control" name="publishEventInformation" rows="4"></textarea>
+        <textarea class="form-control" name="publishEventInformation" rows="4" required="required"></textarea>
     </div>
     <div class="form-group row">
         <div class="col-xs-12">
             <label for="Event Host">Event Host</label>
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" name="publishFirstName" placeholder="First Name" />
+            <input type="text" class="form-control" name="publishFirstName" placeholder="First Name" required="required" />
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" name="publishLastName" placeholder="Last Name" />
+            <input type="text" class="form-control" name="publishLastName" placeholder="Last Name" required="required"/>
         </div>
     </div>
     <div class="form-group">
         <label for="Host Email">Host Contact Email</label>
-        <input type="email" class="form-control" name="publishEmail" placeholder="Email">
+        <input type="email" class="form-control" name="publishEmail" placeholder="Email" required="required">
     </div>
     <div class="form-group row">
         <div class="col-xs-12">
             <label for="Host Contact Phone Number">Host Phone Number</label>
         </div>
         <div class="col-xs-6">
-            <input type="text" class="form-control" name="publishPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" />
+            <input type="tel" class="form-control" name="publishPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" required="required" min="10" max="10"/>
         </div>
     </div>
     <div class="form-group">
