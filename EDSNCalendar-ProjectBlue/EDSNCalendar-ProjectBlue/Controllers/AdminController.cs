@@ -114,15 +114,27 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ViewBag.SelectedPropertyType = id;
 
             List<Property.Property> liProperty = new List<Property.Property>();
-            foreach(PropertyType pt in liPropertyType)
+            foreach (PropertyType pt in liPropertyType)
             {
-                if(id == pt.PropertyTypeId)
+                if (id == pt.PropertyTypeId)
                 {
                     liProperty = pt.PropertyList;
                 }
-            }                        
+            }
 
             return View(liProperty);
+        }
+        public ActionResult EditEvent(int id)
+        {
+            Event.Event ev;
+            ev = new Event.Event(id);
+            return View(ev);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEvent(Event.Event ev)
+        {           
+            return View(ev);
         }
 
     }

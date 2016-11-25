@@ -26,7 +26,11 @@
   @class="btn btn-default",
   @role="button"
 })
-
+  @Html.ActionLink("Edit Event", "EditEvent", "Admin", new{id = Model.EventId}, new
+{
+  @class="btn btn-default",
+  @role="button"
+})
 
 </div>
 
