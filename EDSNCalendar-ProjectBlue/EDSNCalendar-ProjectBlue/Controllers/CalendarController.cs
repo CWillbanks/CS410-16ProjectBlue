@@ -49,43 +49,62 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PublishEvent(FormCollection form)
+        public ActionResult SubmitEvent(FormCollection form)
         {
           
-            var EventTitle = Convert.ToString(form["publishEventTitle"]);
-            var FirstName = Convert.ToString(form["publishFirstName"]);
-            var LastName = Convert.ToString(form["publishLastName"]);
-            var HostEmail = Convert.ToString(form["publishEmail"]);
-            var HostPhoneNumber = Convert.ToString(form["publishPhoneNumber"]);
-            var Date = Convert.ToString(form["publishDate"]);
-            var StartTime = Convert.ToString(form["publishTime"]);
-            var EventInformation = Convert.ToString(form["publishEventInformation"]);
-            var StreetAddress = Convert.ToString(form["publishStreetAddres"]);
-            var Address2 = Convert.ToString(form["publishAddressLine2"]);
-            var City = Convert.ToString(form["publishCity"]);
-            var State = Convert.ToString(form["publishState"]);
-            var Zip = Convert.ToString(form["publishZip"]);
-            var Country = Convert.ToString(form["publishCountry"]);
+            var EventTitle = Convert.ToString(form["submitEventTitle"]);
+            var FirstName = Convert.ToString(form["submitFirstName"]);
+            var LastName = Convert.ToString(form["submitLastName"]);
+            var HostEmail = Convert.ToString(form["submitEmail"]);
+            var HostPhoneNumber = Convert.ToString(form["submitPhoneNumber"]);
+            var Date = Convert.ToString(form["submitDate"]);
+            var EndDate = Convert.ToString(form["submitEndDate"]);
+            var StartTime = Convert.ToString(form["submitTime"]);
+            var EventInformation = Convert.ToString(form["submitEventInformation"]);
+            var StreetAddress = Convert.ToString(form["submitStreetAddress"]);
+            var Address2 = Convert.ToString(form["submitAddressLine2"]);
+            var City = Convert.ToString(form["submitCity"]);
+            var State = Convert.ToString(form["submitState"]);
+            var Zip = Convert.ToString(form["submitZip"]);
+            var Country = Convert.ToString(form["submitCountry"]);
             bool AllDay = true;
             if (form["AllDay"] == null)
                AllDay = false;
-            var VenueName = Convert.ToString(form["publishVenueName"]);
-            var EndTime = Convert.ToString(form["publishEndTime"]);
-            var HostURL = Convert.ToString(form["publishURL"]);
+            var VenueName = Convert.ToString(form["submitVenueName"]);
+            var EndTime = Convert.ToString(form["submitEndTime"]);
+            var HostURL = Convert.ToString(form["submitURL"]);
             var Cost = "Free";
             bool Fre = true;
             if (form["Free"] == null)
                 Fre = false;
             if (!Fre)
-                Cost = Convert.ToString(form["publishCost"]);
-            var RegURL = Convert.ToString(form["publishRegisterURL"]);
-            var SubFName = Convert.ToString(form["publishFirstSName"]);
-            var SubLName = Convert.ToString(form["publishLastSName"]);
-            var SubEmail = Convert.ToString(form["publishSEmail"]);
+                Cost = Convert.ToString(form["submitCost"]);
+            var RegURL = Convert.ToString(form["submitRegisterURL"]);
+            var SubFName = Convert.ToString(form["submitFirstSName"]);
+            var SubLName = Convert.ToString(form["submitLastSName"]);
+            var SubEmail = Convert.ToString(form["submitSEmail"]);
 
             string address = StreetAddress + " " + Address2 + " " + City + " " + State + " " + Zip + " " + Country;
-  
-            SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, StartTime, EndTime, AllDay, VenueName, address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, HostURL,Cost, RegURL, SubFName + " " +SubLName, SubEmail);
+
+            int iNewEventId = SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, EndDate, StartTime, EndTime, AllDay, VenueName, address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, HostURL, Cost, RegURL, SubFName + " " + SubLName, SubEmail);
+
+            List<PropertyType> liPropertyType = new List<PropertyType>();
+            liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+            foreach (PropertyType pt in liPropertyType)
+            {
+                string sName = pt.Name;
+                var props = Convert.ToString(form[sName]);
+                if(props != null)
+                {
+                    string[] sProps = props.Split(',');
+                    foreach(string s in sProps)
+                    {
+                        int iProp = int.Parse(s);
+                        SQLData.SQLQueries.AddPropertyToEvent(iNewEventId, iProp);
+                    }
+                }
+            }
 
             return Redirect("Index");
         }

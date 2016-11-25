@@ -304,7 +304,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Calendar\PublishEvent.cshtml" />
+    <Content Include="Views\Calendar\SubmitEvent.cshtml" />
     <Content Include="Views\Admin\EventList.cshtml" />
     <Content Include="Views\Admin\EventDetails.cshtml" />
     <Content Include="Views\Admin\ConfirmDelete.cshtml" />
