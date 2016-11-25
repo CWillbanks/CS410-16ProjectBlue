@@ -177,18 +177,15 @@
     for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
     {
         <div class="form-group">
-            <label for="@ViewBag.PropertyTypes[1].Name">@ViewBag.PropertyTypes[i].Name</label>
+            <label for="@ViewBag.PropertyTypes[i].Name">@ViewBag.PropertyTypes[i].Name</label>
            @Html.ListBox(
-                             (string)ViewBag.PropertyTypes[1].Name,
+                             (string)ViewBag.PropertyTypes[i].Name,
                              ViewBag.PropertyLists[i] as MultiSelectList,
                              new { multiple = "multiple",
-                            @class = "chosen-select" }
+                            @class = "chosen-select",
+                            @data_placeholder = "Chose " + ViewBag.PropertyTypes[i].Name + "s..." }
                          )
-            @*@Html.DropDownListFor((String)ViewBag.PropertyTypes[i].Name, (MultiSelectList)ViewBag.PropertyLists[i], new
-       {
-           @class = "chosen-select",
-           data_placeholder = "Choose " + ViewBag.PropertyTypes[i].Name + "s..."
-       })*@
+   
         </div>
     }
 
