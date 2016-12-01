@@ -37,10 +37,10 @@ button.event-list {
     padding-top: 25px;
 }
 div.admin-sidebar {
-    background-color:#1a1a1a;
+    background-color:#33506e !important;
     color:white;
     min-height: 94.5vh;
-    border-right: 3px solid black;
+    border-right: 3px solid #33506e;
     max-width: 300px;
     margin-left: -30px;
 }
@@ -53,7 +53,17 @@ ul.admin-sidebar {
 
 a.admin-sidebar {
     width: 100%;
-    border-color: white;
+    border-color: #33506e !important;
     border-radius: 0px !important;
-    background-color: #333333 !important;
+    background-color: #33506e !important;
+}
+
+a.admin-sidebar:active {
+    color: #df8700 !important;
+    border-color: #33506e !important;
+}
+
+a.admin-sidebar:hover {
+    color: #df8700 !important;
+    border-color: #33506e !important;
 }
