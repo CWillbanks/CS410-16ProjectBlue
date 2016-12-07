@@ -125,11 +125,19 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View(liProperty);
         }
         [HttpPost]
-        public ActionResult AddNewProperty(string ida, string NewProperty )
+        public ActionResult AddNewProperty(string ida, string NewProperty)
         {
             int id = Convert.ToInt32(ida);
-            int a = SQLQueries.CreateNewProperty(id,NewProperty);
-            return Redirect("Properties/"+ida);
+            int a = SQLQueries.CreateNewProperty(id, NewProperty);
+            return Redirect("Properties/" + ida);
+        }
+        [HttpPost]
+        public ActionResult AddNewPropertyType( string NewPropertyType)
+        {
+            int a;
+            if(NewPropertyType!=null && NewPropertyType != "")
+                a = SQLQueries.CreateNewPropertyType( NewPropertyType);
+            return Redirect("Properties");
         }
         public ActionResult EditEvent(int id)
         {

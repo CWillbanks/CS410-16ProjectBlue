@@ -16,7 +16,13 @@
             @Html.ActionLink(pt.Name, "Properties", "Admin", new { id = pt.PropertyTypeId }, new { @class = "breadcrumb-item", @role = "link" })
         }
         <p style="display:inline">&nbsp;</p>
+
+        
     }
+        @using (Html.BeginForm("AddNewPropertyType", "Admin", FormMethod.Post)){
+
+        @Html.TextBox("NewPropertyType")
+        <input type ="submit" value ="Add Property Type" />}
 </nav>
 
 <hr />
