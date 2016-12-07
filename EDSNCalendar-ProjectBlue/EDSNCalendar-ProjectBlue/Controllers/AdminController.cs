@@ -124,6 +124,13 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
             return View(liProperty);
         }
+        [HttpPost]
+        public ActionResult AddNewProperty(string ida, string NewProperty )
+        {
+            int id = Convert.ToInt32(ida);
+            int a = SQLQueries.CreateNewProperty(id,NewProperty);
+            return Redirect("Properties/"+ida);
+        }
         public ActionResult EditEvent(int id)
         {
             Event.Event ev;

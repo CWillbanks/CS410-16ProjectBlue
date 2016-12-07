@@ -36,5 +36,12 @@
                 </tr>
             }
         </tbody>
+        @using (Html.BeginForm("AddNewProperty", "Admin", FormMethod.Post)){
+
+        <input type="hidden" name="ida" value="@ViewBag.SelectedPropertyType" />
+        @Html.TextBox("NewProperty")
+        <input type ="submit" value ="Add Property" />
+        }
     </table>
+
 }
