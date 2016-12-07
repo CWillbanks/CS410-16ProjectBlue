@@ -112,6 +112,9 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// </summary>
         private bool isActive;
 
+
+        public Event()
+        { }
         /// <summary>
         /// Constructor that initializes an event and get an existing event's data
         /// </summary>

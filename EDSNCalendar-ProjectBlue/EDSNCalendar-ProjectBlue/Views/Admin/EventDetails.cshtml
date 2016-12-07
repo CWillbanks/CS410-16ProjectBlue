@@ -4,6 +4,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<script>
+    function showEditEvent() {
+        document.getElementById("EditEventForm").style.visibility = "visible";
+    }
+    
+  </script>
+
 <div class="row">
     <h2>Title: @Model.Title</h2>
     <p>@Model.Description</p>
@@ -26,14 +33,12 @@
   @class="btn btn-default",
   @role="button"
 })
-  @Html.ActionLink("Edit Event", "EditEvent", "Admin", new{id = Model.EventId}, new
-{
-  @class="btn btn-default",
-  @role="button"
-})
+    <input type="button" id="editeventbtn" value="Edit Event" class="btn btn-default"/ onclick="showEditEvent()">
 
 </div>
 
 
 </div>
-
+<div >
+    @Html.Partial("EditEvent")
+</div>
