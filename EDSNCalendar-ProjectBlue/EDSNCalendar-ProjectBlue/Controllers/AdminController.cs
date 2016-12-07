@@ -11,9 +11,22 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 {
     public class AdminController : Controller
     {
+ 
         // GET: Admin
         public ActionResult Index()
         {
+            List<PropertyType> liPropertyType = new List<PropertyType>();
+            liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+            foreach (PropertyType pt in liPropertyType)
+            {
+                List<Property.Property> tempProp = new List<Property.Property>();
+                {
+                    liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
+                }
+            }
+            ViewBag.PropertyTypes = liPropertyType;
+            ViewBag.PropertyLists = liMultiSelect;
             ViewBag.PublishedEvents = EventManager.PublishedEvents.Values.Count;
             ViewBag.SubmittedEvents = EventManager.SubmittedEvents.Values.Count;
 
