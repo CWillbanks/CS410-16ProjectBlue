@@ -116,6 +116,18 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
         public ActionResult WidgetCreator()
         {
+            List<PropertyType> liPropertyType = new List<PropertyType>();
+            liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+            foreach (PropertyType pt in liPropertyType)
+            {
+                List<Property.Property> tempProp = new List<Property.Property>();
+                {
+                    liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
+                }
+            }
+            ViewBag.PropertyTypes = liPropertyType;
+            ViewBag.PropertyLists = liMultiSelect;
             return View();
         }
 
