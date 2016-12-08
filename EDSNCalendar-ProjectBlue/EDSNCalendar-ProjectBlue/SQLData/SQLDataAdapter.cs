@@ -121,5 +121,26 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             dsResult = getDataSet(sQuery);
             return dsResult;
         }
+        public static void QueryUpdateImage(int EventId, byte[] image)
+        {
+            using (MySqlConnection connection = Connect())
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE calendarevent SET mbImage = (?img) WHERE iEventId = " + EventId +";";
+                    MySqlParameter fileContentParameter = new MySqlParameter("?img", MySqlDbType.MediumBlob, image.Length);
+
+                    fileContentParameter.Value = image;
+
+                    command.Parameters.Add(fileContentParameter);
+
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+
+                }
+            }
+        }
     }
 }

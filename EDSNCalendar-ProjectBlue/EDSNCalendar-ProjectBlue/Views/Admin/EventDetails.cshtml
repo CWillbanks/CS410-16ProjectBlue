@@ -17,7 +17,11 @@
     @if (Model.IsPublished == true)
     {
         <h5>Publish Date: @Model.PublishDate</h5>
-    }    
+    }   
+    @if (Model.Image != null)
+    {
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" />
+    }
 <div class="btn-group">
     @if (Model.IsPublished.Equals(false))
     {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, new

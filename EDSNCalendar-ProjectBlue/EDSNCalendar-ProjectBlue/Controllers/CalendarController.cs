@@ -51,7 +51,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         [HttpPost]
         public ActionResult SubmitEvent(FormCollection form)
         {
-          
+            
             var EventTitle = Convert.ToString(form["submitEventTitle"]);
             var FirstName = Convert.ToString(form["submitFirstName"]);
             var LastName = Convert.ToString(form["submitLastName"]);
@@ -61,6 +61,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             var EndDate = Convert.ToString(form["submitEndDate"]);
             var StartTime = Convert.ToString(form["submitTime"]);
             var EventInformation = Convert.ToString(form["submitEventInformation"]);
+            var file = Request.Files["image"];           
             var StreetAddress = Convert.ToString(form["submitStreetAddress"]);
             var Address2 = Convert.ToString(form["submitAddressLine2"]);
             var City = Convert.ToString(form["submitCity"]);
@@ -87,6 +88,17 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             string address = StreetAddress + " " + Address2 + " " + City + " " + State + " " + Zip + " " + Country;
 
             int iNewEventId = SQLData.SQLQueries.InsertSubmittedEvent(EventTitle, Date, EndDate, StartTime, EndTime, AllDay, VenueName, address, EventInformation, FirstName + " " + LastName, HostEmail, HostPhoneNumber, HostURL, Cost, RegURL, SubFName + " " + SubLName, SubEmail);
+
+            if (file != null)
+            {
+                //MySqlComm
+                byte[] fileBytes = new byte[file.ContentLength];
+                file.InputStream.Read(fileBytes, 0, file.ContentLength);
+                Event.Event ev = new Event.Event();
+                ev.EventId = iNewEventId;
+                ev.Image = fileBytes;
+                SQLData.SQLQueries.UpdateEventImage(ev);
+            }
 
             List<PropertyType> liPropertyType = new List<PropertyType>();
             liPropertyType = SQLQueries.getAllPropertyTypes(true);

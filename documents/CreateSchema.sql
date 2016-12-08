@@ -37,6 +37,7 @@ CREATE TABLE calendarevent
     vVenueName VARCHAR(255) NOT NULL,
     vAddress VARCHAR(255) NOT NULL,
     vDescription VARCHAR(1000) NOT NULL,
+    mbImage MEDIUMBLOB DEFAULT NULL,
     vOrganizerName VARCHAR(100) NOT NULL,
     vOrganizerEmail VARCHAR(50) NOT NULL,
     vOrganizerPhoneNumber VARCHAR(20) NOT NULL,

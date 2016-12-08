@@ -6,6 +6,7 @@ using EDSNCalendar_ProjectBlue.SQLData;
 using EDSNCalendar_ProjectBlue.Event;
 using EDSNCalendar_ProjectBlue.Property;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
 {
@@ -167,6 +168,11 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         {
             string sQuery = "UPDATE calendarevent SET vEventTitle = '" + ev.Title + "', vOrganizerName = '" + ev.HostName + "', vOrganizerEmail = '" + ev.HostEmail + "', vOrganizerPhoneNumber = '" + ev.HostPhoneNumber + "', vVenueName = '" + ev.VenueName + "', vAddress = '" + ev.Address + "', vDescription = '" + ev.Description + "', vRegistrationURL = '" + ev.RegistrationURL + "', vSubmitterName = '" + ev.SubmitterName + "', vSubmitterEmail = '" + ev.SubmitterEmail + "', dEventDate = '" + ev.Date + "', dEndDate = '" + ev.EndDate + "', vStartTime = '" + ev.StartTime + "', vEndTime = '" + ev.EndTime + "', bAllDay = " + ev.AllDay + " WHERE iEventId = " + ev.EventId + " ";
             int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
+
+        public static void UpdateEventImage(Event.Event ev)
+        {
+            SQLDataAdapter.QueryUpdateImage(ev.EventId, ev.Image);
         }
 
         /// <summary>

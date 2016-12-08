@@ -53,6 +53,11 @@ namespace EDSNCalendar_ProjectBlue.Event
         private string description;
 
         /// <summary>
+        /// Optional image attachment.
+        /// </summary>
+        private byte[] image;
+
+        /// <summary>
         /// Registration URL.
         /// </summary>
         private string registrationURL;
@@ -130,6 +135,10 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.venueName = dtEvent.Rows[0]["vVenueName"].ToString();
             this.address = dtEvent.Rows[0]["vAddress"].ToString();
             this.description = dtEvent.Rows[0]["vDescription"].ToString();
+            if(!String.IsNullOrEmpty(dtEvent.Rows[0]["mbImage"].ToString()))
+            {
+                this.Image = (byte[])dtEvent.Rows[0]["mbImage"];
+            }         
             this.registrationURL = dtEvent.Rows[0]["vRegistrationURL"].ToString();
             this.submitterName = dtEvent.Rows[0]["vSubmitterName"].ToString();
             this.submitterEmail = dtEvent.Rows[0]["vSubmitterEmail"].ToString();
@@ -280,6 +289,19 @@ namespace EDSNCalendar_ProjectBlue.Event
             set
             {
                 description = value;
+            }
+        }
+
+        public byte[] Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                image = value;
             }
         }
 
