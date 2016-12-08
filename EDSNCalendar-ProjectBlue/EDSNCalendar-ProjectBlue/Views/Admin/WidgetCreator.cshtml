@@ -4,26 +4,40 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <script>
-    $(function(){
+/*    $(function(){
     $(".chosen-select").chosen({
 
         width: "50%"
     });
-    });
+    });*/
 </script>
 @using (Html.BeginForm()){
 
 <h2>Widget Creator</h2>
 <div>Use this tool to generate codes snippets you can add to <b>an external website</b> to embed new calendars and widgets.</div>
+<div class="form-group row">
+<div class ="col-xs-6">
 <div><label>Navigation bar</label>    <select class="chosen-select" name ="Naviagationbar"><option>1</option><option>2</option> </select></div>
 <div><label>Filter bar</label>     <select name="Filterbar" class ="chosen-select"></select></div>
 <div><label>Display type</label>    <select name="Displaytype"class="chosen-select"></select></div>
 <div><label>Events per page</label>    <input type="number"/></div>
+<div>
+    <div><label>Paste here the customer header</label></div>
+    <div><input type ="text" name="widgetcode" style="height:100px"/></div>
+</div>
+</div>
+<div class ="col-xs-6">
+    <div><label>Paste this code onto your site:</label></div>
+<div>    <input type="text" style="height:200px;width:400px"/></div>
+</div>
+    </div>
+
 <div> Preselected calendar filters</div>
    for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
     {
         <div class="form-group">
-            <label for="@ViewBag.PropertyTypes[i].Name">@ViewBag.PropertyTypes[i].Name</label>
+            <div class="col-xs-6">
+            <label >@ViewBag.PropertyTypes[i].Name</label>
            @Html.ListBox(
                              (string)ViewBag.PropertyTypes[i].Name,
                              ViewBag.PropertyLists[i] as MultiSelectList,
@@ -31,16 +45,9 @@
                             
                             @data_placeholder = "Chose " + ViewBag.PropertyTypes[i].Name + "s..." }
                          )
-   
+            </div>
         </div>
     }
-<div>
-    <div><label>Paste this code onto your site:</label></div>
-    <input type="text" />
-</div>
-<div>
-    <div><label>Paste here the customer header</label></div>
-    <div><input type ="text"</div>
-</div>
+
 <hr />
 }
