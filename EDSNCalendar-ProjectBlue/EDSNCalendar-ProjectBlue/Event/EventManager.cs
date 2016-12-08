@@ -63,6 +63,27 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
+        public static void updateEventManager()
+        {
+            publishedEvents.Clear();
+            DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(2, true);
+            foreach (DataRow publishedRow in dtPublishedActiveEvents.Rows)
+            {
+                int iEventId = (int)publishedRow["iEventId"];
+                Event publishedEvent = new Event(iEventId);
+                publishedEvents.Add(iEventId, publishedEvent);
+            }
+
+            submittedEvents.Clear();
+            DataTable dtSubmittedActiveEvents = SQLData.SQLQueries.GetSubmittedEvents();
+            foreach (DataRow submittedRow in dtSubmittedActiveEvents.Rows)
+            {
+                int iEventId = (int)submittedRow["iEventId"];
+                Event submittedEvent = new Event(iEventId);
+                submittedEvents.Add(iEventId, submittedEvent);
+            }
+        }
+
         public static String ToJSONRepresentation(bool published)
         {
             Dictionary<int, Event> events = published ? PublishedEvents : SubmittedEvents;
