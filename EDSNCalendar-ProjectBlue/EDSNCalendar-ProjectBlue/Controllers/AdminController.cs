@@ -161,8 +161,9 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditEvent(Event.Event ev)
-        {           
-            return View(ev);
+        {
+            SQLQueries.UpdateEvent(ev);
+            return RedirectToAction("EventDetails", new { id = ev.EventId });
         }
 
     }

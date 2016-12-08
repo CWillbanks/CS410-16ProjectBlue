@@ -12,8 +12,12 @@
   </script>
 
 <div class="row">
-    <h2>Title: @Model.Title</h2>
-    <p>@Model.Description</p>
+    <h2>@Model.Title</h2>
+    <h5>Post Date: @Model.PostDate</h5>
+    @if (Model.IsPublished == true)
+    {
+        <h5>Publish Date: @Model.PublishDate</h5>
+    }    
 <div class="btn-group">
     @if (Model.IsPublished.Equals(false))
     {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, new

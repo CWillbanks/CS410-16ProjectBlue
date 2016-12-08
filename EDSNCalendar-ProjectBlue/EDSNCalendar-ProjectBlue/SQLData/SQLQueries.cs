@@ -163,6 +163,12 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return ev;
         }
 
+        public static void UpdateEvent(Event.Event ev)
+        {
+            string sQuery = "UPDATE calendarevent SET vEventTitle = '" + ev.Title + "', vOrganizerName = '" + ev.HostName + "', vOrganizerEmail = '" + ev.HostEmail + "', vOrganizerPhoneNumber = '" + ev.HostPhoneNumber + "', vVenueName = '" + ev.VenueName + "', vAddress = '" + ev.Address + "', vDescription = '" + ev.Description + "', vRegistrationURL = '" + ev.RegistrationURL + "', vSubmitterName = '" + ev.SubmitterName + "', vSubmitterEmail = '" + ev.SubmitterEmail + "', dEventDate = '" + ev.Date + "', dEndDate = '" + ev.EndDate + "', vStartTime = '" + ev.StartTime + "', vEndTime = '" + ev.EndTime + "', bAllDay = " + ev.AllDay + " WHERE iEventId = " + ev.EventId + " ";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
+
         /// <summary>
         /// Returns a single rowed table which has all of that event's data.
         /// </summary>
