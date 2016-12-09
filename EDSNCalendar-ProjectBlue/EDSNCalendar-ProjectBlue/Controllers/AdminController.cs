@@ -15,6 +15,15 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+
+            ViewBag.PublishedEvents = EventManager.PublishedEvents.Values.Count;
+            ViewBag.SubmittedEvents = EventManager.SubmittedEvents.Values.Count;
+
+            return View();
+        }
+
+        public PartialViewResult EventSubmit()
+        {
             List<PropertyType> liPropertyType = new List<PropertyType>();
             liPropertyType = SQLQueries.getAllPropertyTypes(true);
             List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
@@ -27,12 +36,8 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             }
             ViewBag.PropertyTypes = liPropertyType;
             ViewBag.PropertyLists = liMultiSelect;
-            ViewBag.PublishedEvents = EventManager.PublishedEvents.Values.Count;
-            ViewBag.SubmittedEvents = EventManager.SubmittedEvents.Values.Count;
-
-            return View();
+            return PartialView("~/Views/Calendar/SubmitEvent.cshtml");
         }
-
         public ActionResult EventList(int? Published)
         {
             //Get Number of Published Events
