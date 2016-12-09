@@ -182,6 +182,44 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             SQLQueries.UpdateEvent(ev);
             return RedirectToAction("EventDetails", new { id = ev.EventId });
         }
+        public ActionResult CalendarSettings()
+        {
+            List<PropertyType> liPropertyType = new List<PropertyType>();
+            liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            List<Property.Property> liCategories = new List<Property.Property>();
+            List<Property.Property> liTags = new List<Property.Property>();
+            foreach (PropertyType pt in liPropertyType)
+            {
+                if (pt.Name == "Categories")
+                {
+                        liCategories = pt.PropertyList;
+                }
+                else if(pt.Name == "Tags")
+                {
+                    
+                        List<Property.Property> tempProp = new List<Property.Property>();
+                        {
+                        liTags = pt.PropertyList;
+                        }
+                    
+                }
+            }
+            var Categories = new List<SelectListItem>();
+            foreach (Property.Property pr in liCategories)
+            {
+                Categories.Add(new SelectListItem { Text = pr.Name, Value = pr.Name });
+            }
+
+            var Tags = new List<SelectListItem>();
+            foreach (Property.Property pr in liTags)
+            {
+                Tags.Add(new SelectListItem { Text = pr.Name, Value = pr.Name });
+            }
+
+            ViewBag.Categories = Categories;
+            ViewBag.Tags = Tags;
+            return View();
+        }
 
     }
 }

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "CalendarSettings";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Calendar Settings</h2>
+@using (Html.BeginForm()){
+<div>
+      <label>Calendar page</label><select name="CalendarPage"></select>
+</div>
+<div>
+    <label>Week starts on</label>
+    <select name="WeekStartsOn">
+        <option>Sunday</option>
+        <option>Monday</option>
+    </select>
+</div>
+<div class="form-group row">
+    <div class="col-xs-1">
+        <label>Available views</label>
+    </div>
+    <div class="col-xs-6">
+        <table style="width:100%">
+    <tr>
+        <th>&nbsp</th>
+        <th>Enabled</th>
+        <th>Default</th>
+    </tr>
+    <tr>
+        <th>Month</th>
+        <th><input type="checkbox" name ="MonthE" /></th>
+        <th><input type="radio" name ="Default" /></th>
+    </tr>
+    <tr>
+        <th>Posterboard</th>
+        <th><input type="checkbox" name ="PosterboardE" /></th>
+        <th><input type="radio" name ="Default" /></th>
+    </tr>
+    <tr>
+        <th>List</th>
+        <th><input type="checkbox" name ="ListE" /></th>
+        <th><input type="radio" name ="Default" /></th>
+    </tr>
+</table>
+        </div>
+</div>
+<div>
+    <label>Timezone</label>
+    <select name="Timezone"></select>
+</div>
+<div class ="form-group row">
+    <div class="col-xs-3">
+        <label> Preselected calendar filters</label>
+    </div>
+    <div class="col-xs-3">
+        <label>Categories</label><br />
+ 
+                       @Html.ListBox(
+                             "Categories",
+                             ViewBag.Categories as MultiSelectList
+                         )
+
+    </div>
+    <div class="col-xs-3">
+        <label>Tags</label><br />
+                       @Html.ListBox(
+                             "Tags",
+                             ViewBag.Tags as MultiSelectList
+                         )
+    </div>
+</div>
+
+<div>
+    <label>Week/Day view starts at</label>
+    <input type="time" name="DayStart"/>
+</div>
+<div>
+    <label>Week/Day view ends at</label>
+    <input type="time" name="DayEnd" />
+</div>
+<input type="submit" />
+}
