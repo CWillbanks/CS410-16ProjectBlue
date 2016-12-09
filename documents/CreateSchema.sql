@@ -80,13 +80,13 @@ VALUES('Friendship Group of Hartford', '2016-12-12', '2016-12-12', '2016-12-12T2
 	   '', '954-410-9999', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', '2016-12-5',1, 1, NULL),
 	  ('Community Birthday Friday', '2016-12-16', '2016-12-16', '2016-12-16T8:00:00', NULL, 0, 'West Indian Social Club of Hartford', '3340 Main St, Hartford, CT 06120, USA', '', '',
 	   '', '', NULL, NULL, NULL, 'Adam', 'AdamEmail@email.com', '2016-12-4',1, 1, NULL),
-	  ('Friendship Group of Hartford', '2016-11-15', '2016-11-15', NULL, NULL, 1, 'American Legion', '2121 Main St, Hartford, CT 06120, USA', '', '',
+	  ('Friendship Group of Hartford', '2016-12-15', '2016-12-15', NULL, NULL, 1, 'American Legion', '2121 Main St, Hartford, CT 06120, USA', '', '',
 	   '', '', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', '2016-12-3',1, 1, NULL),
 	  ('Boxing Day', '2016-12-26', '2016-12-26', NULL, NULL, 1, '', '', 'Boxing Day is celebrated in U.K, Canada, Caribbean and other places around the world', '',
 	   '', '', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', '2016-12-2',1, 1, NULL),
 	  ('WISC Christmas Party', '2016-12-10', '2016-12-10', '2016-12-10T18:00:00','2016-12-10T18:00:00', 0, 'West Indian Social Club of Hartford', '2121 Main St, Hartford, CT 06120, USA', '', '',
 	   '', '', NULL, NULL, NULL, 'Adam', 'AdamEmail@email.com', '2016-12-5',1, 1, NULL),
-	  ('Kwanzaa: A Celebration of Family, Community and Culture', '2016-12-26', '2017-1-1', '2016-11-30T20:00:00', '2016-11-30T23:00:00', 0, '', 'Nowhere St, Nowhere, 06062', 'Kwanzaa holiday was created to introduce and reinforce seven 
+	  ('Kwanzaa: A Celebration of Family, Community and Culture', '2016-12-26', '2017-1-1', '2016-12-26T24:00:00', '2016-12-26T24:00:00', 0, '', 'Nowhere St, Nowhere, 06062', 'Kwanzaa holiday was created to introduce and reinforce seven 
 																																													    principles which are believed to be the core value systems fro 
                                                                                                                                                                                         the healthy and thriving families, stable and loving and caring 
                                                                                                                                                                                         relationships, effective parenting practices, school achievement, 
