@@ -1,6 +1,7 @@
 -- CREATE SCHEMA TEST
 -- BY : ADAM BURTON
 -- CREATE SCHEMA IF NOT EXISTS edsncalendar;
+CREATE SCHEMA IF NOT EXISTS edsncalendaradmin;
 
 DROP TABLE IF EXISTS eventproperties;
 DROP TABLE IF EXISTS property;
