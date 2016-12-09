@@ -11,8 +11,9 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 {
     public class AdminController : Controller
     {
- 
+
         // GET: Admin
+        [Authorize]
         public ActionResult Index()
         {
 
@@ -21,7 +22,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
             return View();
         }
-
+        [Authorize]
         public PartialViewResult EventSubmit()
         {
             List<PropertyType> liPropertyType = new List<PropertyType>();
@@ -38,6 +39,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ViewBag.PropertyLists = liMultiSelect;
             return PartialView("~/Views/Calendar/SubmitEvent.cshtml");
         }
+        [Authorize]
         public ActionResult EventList(int? Published)
         {
             //Get Number of Published Events
@@ -77,21 +79,21 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
             return View(list);
         }
-
+        [Authorize]
         public ActionResult EventDetails(int id)
         {
             Event.Event ev;
             ev = new Event.Event(id);
             return View(ev);
         }
-
+        [Authorize]
         public ActionResult ConfirmDelete(int id)
         {
             Event.Event ev;
             ev = new Event.Event(id);
             return View(ev);
         }
-
+        [Authorize]
         public ActionResult DeleteEvent(int id)
         {
             Event.Event ev;
@@ -103,14 +105,14 @@ namespace EDSNCalendar_ProjectBlue.Controllers
                 EventManager.SubmittedEvents.Remove(id);
             return View(ev);
         }
-
+        [Authorize]
         public ActionResult ConfirmPublish(int id)
         {
             Event.Event ev;
             ev = new Event.Event(id);
             return View(ev);
         }
-
+        [Authorize]
         public ActionResult PublishEvent(int id)
         {
             Event.Event ev;           
@@ -118,7 +120,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             SQLQueries.PublishEvent(id);
             return View(ev);
         }
-
+        [Authorize]
         public ActionResult WidgetCreator()
         {
             List<PropertyType> liPropertyType = new List<PropertyType>();
@@ -135,7 +137,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ViewBag.PropertyLists = liMultiSelect;
             return View();
         }
-
+        [Authorize]
         public ActionResult Properties(int? id)
         {
             List<PropertyType> liPropertyType = new List<PropertyType>();
@@ -192,6 +194,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
             return RedirectToAction("EventDetails", new { id = ev.EventId });
         }
+        [Authorize]
         public ActionResult CalendarSettings()
         {
             List<PropertyType> liPropertyType = new List<PropertyType>();
