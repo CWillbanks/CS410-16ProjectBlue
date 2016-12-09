@@ -180,6 +180,16 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         public ActionResult EditEvent(Event.Event ev)
         {
             SQLQueries.UpdateEvent(ev);
+            var file = Request.Files["file"];
+            if (file != null)
+            {
+                //MySqlComm
+                byte[] fileBytes = new byte[file.ContentLength];
+                file.InputStream.Read(fileBytes, 0, file.ContentLength);
+                ev.Image = fileBytes;
+                SQLData.SQLQueries.UpdateEventImage(ev);
+            }
+
             return RedirectToAction("EventDetails", new { id = ev.EventId });
         }
         public ActionResult CalendarSettings()
