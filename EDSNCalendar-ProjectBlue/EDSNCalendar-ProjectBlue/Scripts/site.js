@@ -5,13 +5,14 @@
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,listMonth'
+                right: 'month,listMonth,posterView'
             },
             defaultDate: '2016-11-05',
             editable: true,
             events: events
         });
     }
+    $(".poster")[0].style.display = 'none';
 });
 
 var events = [];

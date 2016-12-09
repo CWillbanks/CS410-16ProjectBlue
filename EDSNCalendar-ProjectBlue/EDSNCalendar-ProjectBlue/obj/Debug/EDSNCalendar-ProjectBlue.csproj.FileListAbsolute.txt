@@ -208,3 +208,5 @@ C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-P
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.dll
 C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.pdb
 D:\GitHub\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\obj\Debug\EDSNCalendar-ProjectBlue.csprojResolveAssemblyReference.cache
+C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\MySql.Data.Entity.EF6.dll
+C:\Users\Kiyic\Documents\Development Projects\CS410-16ProjectBlue\EDSNCalendar-ProjectBlue\EDSNCalendar-ProjectBlue\bin\MySql.Web.dll
