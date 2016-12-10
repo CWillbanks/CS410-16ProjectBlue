@@ -200,39 +200,33 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         {
             List<PropertyType> liPropertyType = new List<PropertyType>();
             liPropertyType = SQLQueries.getAllPropertyTypes(true);
-            List<Property.Property> liCategories = new List<Property.Property>();
-            List<Property.Property> liTags = new List<Property.Property>();
+            List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
             foreach (PropertyType pt in liPropertyType)
             {
-                if (pt.Name == "Categories")
+                List<Property.Property> tempProp = new List<Property.Property>();
                 {
-                        liCategories = pt.PropertyList;
-                }
-                else if(pt.Name == "Tags")
-                {
-                    
-                        List<Property.Property> tempProp = new List<Property.Property>();
-                        {
-                        liTags = pt.PropertyList;
-                        }
-                    
+                    liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
                 }
             }
-            var Categories = new List<SelectListItem>();
-            foreach (Property.Property pr in liCategories)
-            {
-                Categories.Add(new SelectListItem { Text = pr.Name, Value = pr.Name });
-            }
+            ViewBag.PropertyTypes = liPropertyType;
+            ViewBag.PropertyLists = liMultiSelect;
 
-            var Tags = new List<SelectListItem>();
-            foreach (Property.Property pr in liTags)
-            {
-                Tags.Add(new SelectListItem { Text = pr.Name, Value = pr.Name });
-            }
-
-            ViewBag.Categories = Categories;
-            ViewBag.Tags = Tags;
+            DataTable dtCalendarSettings = SQLQueries.GetCalendarSettings();
+            ViewBag.DefaultView = dtCalendarSettings.Rows[0]["sDefault"].ToString();
+            ViewBag.MonthEnabled = dtCalendarSettings.Rows[0]["bMonthEnabled"].ToString();
+            ViewBag.PosterEnabled = dtCalendarSettings.Rows[0]["bPosterEnabled"].ToString();
+            ViewBag.ListEnabled = dtCalendarSettings.Rows[0]["bListEnabled"].ToString();
             return View();
+        }
+        [HttpPost]
+        public ActionResult EditCalendarSettings(FormCollection form)
+        {
+            var MonthEnabled = Convert.ToString(form["MonthE"]);
+            var PosterEnabled = Convert.ToString(form["PosterboardE"]);
+            var ListEnabled = Convert.ToString(form["ListE"]);
+            var Default = Convert.ToString(form["Default"]);
+            SQLQueries.UpdateCalendarSettings(MonthEnabled, PosterEnabled, ListEnabled, Default);
+            return RedirectToAction("CalendarSettings");
         }
         [Authorize]
         public ActionResult UserList()
@@ -252,12 +246,6 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             SQLQueries.RemoveUser(s);
 
             return View(s);
-        }
-        [Authorize]
-        public ActionResult AddUser()
-        {
-
-            return View();
         }
     }
 }

@@ -275,5 +275,43 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             string sQuery = "DELETE FROM aspnetusers WHERE UserName = '" + UserName + "'";
             int iRowsAffected = SQLDataAdapter.QueryExecuteUser(sQuery);
         }
+
+        public static DataTable GetCalendarSettings()
+        {
+            DataTable dtSettings = new DataTable();
+            string sQuery = "SELECT * FROM calendarsettings";
+            dtSettings = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtSettings;
+        }
+
+        public static DataTable GetPreselectedFilters()
+        {
+            DataTable dtSelected = new DataTable();
+            string sQuery = "Select * from preselectedcalendarfilters";
+            dtSelected = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtSelected;
+        }
+
+        public static void UpdateCalendarSettings(string MonthE, string PosterE, string ListE, string Default)
+        {
+            int month = 0;
+            if(MonthE == "on")
+            {
+                month = 1;
+            }
+            int poster = 0;
+            if(PosterE == "on")
+            {
+                poster = 1;
+            }
+            int list = 0;
+            if(ListE == "on")
+            {
+                list = 1;
+            }     
+
+            string sQuery = "UPDATE calendarsettings SET bMonthEnabled = " + month + ", bPosterEnabled = " + poster + ", bListEnabled = " + list + ", sDefault = '" + Default + "'";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
     }
 }

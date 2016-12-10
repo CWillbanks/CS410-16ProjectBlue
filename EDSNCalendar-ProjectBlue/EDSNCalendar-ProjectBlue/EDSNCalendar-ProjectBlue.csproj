@@ -334,7 +334,7 @@
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Admin\ConfirmRemoveUser.cshtml" />
     <Content Include="Views\Admin\RemoveUser.cshtml" />
-    <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Admin\CalendarSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

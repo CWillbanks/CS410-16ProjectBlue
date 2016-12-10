@@ -5,7 +5,8 @@
 }
 
 <h2>Calendar Settings</h2>
-@using (Html.BeginForm()){
+@using (Html.BeginForm("EditCalendarSettings", "Admin", FormMethod.Post, new {id = "CalenderSettingsForm"}))
+{
 <div>
       <label>Calendar page</label><select name="CalendarPage"></select>
 </div>
@@ -29,18 +30,66 @@
     </tr>
     <tr>
         <th>Month</th>
-        <th><input type="checkbox" name ="MonthE" /></th>
-        <th><input type="radio" name ="Default" /></th>
+        <th>@if (ViewBag.MonthEnabled == "1")
+        {
+            <input type="checkbox" name="MonthE" checked />
+        }
+        else
+        {
+            <input type="checkbox" name="MonthE" />
+        }
+        </th>
+        <th>@if (ViewBag.DefaultView == "Month")
+        {
+            <input type="radio" name="Default" value="Month" checked/>
+        }
+        else
+        {
+            <input type="radio" name="Default" value="Month" />
+        }
+        </th>
     </tr>
     <tr>
         <th>Posterboard</th>
-        <th><input type="checkbox" name ="PosterboardE" /></th>
-        <th><input type="radio" name ="Default" /></th>
+        <th>@if (ViewBag.PosterEnabled == "1")
+        {
+            <input type="checkbox" name="PosterboardE" checked/>
+        }
+        else
+        {
+            <input type="checkbox" name="PosterboardE" />
+        }
+        </th>
+        <th>@if (ViewBag.DefaultView == "Poster")
+        {
+            <input type="radio" name ="Default" value="Poster" checked/>
+        }
+        else
+        {
+            <input type="radio" name="Default" value="Poster" />
+        }
+        </th>
     </tr>
     <tr>
         <th>List</th>
-        <th><input type="checkbox" name ="ListE" /></th>
-        <th><input type="radio" name ="Default" /></th>
+        <th>@if (ViewBag.ListEnabled == "1")
+        {
+            <input type="checkbox" name="ListE" checked/>
+        }
+        else
+        {
+            <input type="checkbox" name="ListE" />
+        }
+        </th>
+        <th>@if (ViewBag.DefaultView == "List")
+        {
+            <input type="radio" name="Default" value="List" checked/>
+        }
+        else
+        {
+            <input type="radio" name ="Default" value="List"/>
+        }
+        </th>
     </tr>
 </table>
         </div>
@@ -49,27 +98,27 @@
     <label>Timezone</label>
     <select name="Timezone"></select>
 </div>
-<div class ="form-group row">
-    <div class="col-xs-3">
-        <label> Preselected calendar filters</label>
-    </div>
-    <div class="col-xs-3">
-        <label>Categories</label><br />
- 
-                       @Html.ListBox(
-                             "Categories",
-                             ViewBag.Categories as MultiSelectList
-                         )
 
-    </div>
-    <div class="col-xs-3">
-        <label>Tags</label><br />
-                       @Html.ListBox(
-                             "Tags",
-                             ViewBag.Tags as MultiSelectList
+<div> Preselected calendar filters</div>
+    for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
+    {
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label>@ViewBag.PropertyTypes[i].Name</label>
+                @Html.ListBox(
+                             (string)ViewBag.PropertyTypes[i].Name,
+                             ViewBag.PropertyLists[i] as MultiSelectList,
+                             new
+                             {
+                                 multiple = "multiple",
+                                 @data_placeholder = "Chose " + ViewBag.PropertyTypes[i].Name + "s..."
+                             }
                          )
-    </div>
-</div>
+            </div>
+        </div>
+    }
+
+    <hr />
 
 <div>
     <label>Week/Day view starts at</label>

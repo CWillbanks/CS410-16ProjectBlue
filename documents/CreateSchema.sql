@@ -66,6 +66,22 @@ CREATE TABLE eventproperties
         ON DELETE CASCADE
 );
 
+CREATE TABLE calendarsettings
+(
+	bMonthEnabled BIT DEFAULT 1,
+    bPosterEnabled BIT DEFAULT 1,
+    bListEnabled BIT DEFAULT 1,
+    sDefault VARCHAR(6) DEFAULT 'calendarsettingsPoster'
+);
+
+CREATE TABLE preselectedcalendarfilters
+(
+	iPropertyId INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY (iPropertyId)
+		REFERENCES property(iPropertyId)
+        ON DELETE CASCADE
+);
+
 INSERT INTO propertytype(vPropertyType)
 VALUES('Categories'),('Tags'),('Region'),('Country'),('Programs');
 
@@ -97,5 +113,7 @@ VALUES('Friendship Group of Hartford', '2016-12-12', '2016-12-12', '2016-12-12T2
 	   '', '', NULL, 'FREE', NULL, 'Adam', 'AdamEmail@email.com', '2016-12-1',1, 1, NULL);
        
 INSERT INTO eventproperties(iEventId, iPropertyId)
-VALUES(4,5),(8,5),(7,5),(2,10)
+VALUES(4,5),(8,5),(7,5),(2,10);
 
+INSERT INTO calendarsettings(bMonthEnabled, bPosterEnabled, bListEnabled, sDefault)
+VALUES(1, 1, 1, 'Poster');
