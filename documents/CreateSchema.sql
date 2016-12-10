@@ -71,7 +71,7 @@ CREATE TABLE calendarsettings
 	bMonthEnabled BIT DEFAULT 1,
     bPosterEnabled BIT DEFAULT 1,
     bListEnabled BIT DEFAULT 1,
-    sDefault VARCHAR(6) DEFAULT 'calendarsettingsPoster'
+    sDefault VARCHAR(6) DEFAULT 'Poster'
 );
 
 CREATE TABLE preselectedcalendarfilters
