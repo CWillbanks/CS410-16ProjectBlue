@@ -51,6 +51,13 @@ div#DetailsPopUp {
     border-radius: 3px 3px;
     background-color: white;
 }
+h2#detailsHead {
+    color:#00cc00;
+}
+
+small#detailsTimePlace {
+    color:#00cc00;
+}
 /*Poster Event*/
 div.poster-event {
     background: #fff9f0;
