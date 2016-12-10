@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EDSNCalendar_ProjectBlue.Event;
 using EDSNCalendar_ProjectBlue.SQLData;
 using EDSNCalendar_ProjectBlue.Property;
+using System.Data;
 
 namespace EDSNCalendar_ProjectBlue.Controllers
 {
@@ -233,6 +234,30 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ViewBag.Tags = Tags;
             return View();
         }
+        [Authorize]
+        public ActionResult UserList()
+        {
+            List<String> users = SQLQueries.GetUserList();           
+            return View(users);
+        }
+        [Authorize]
+        public ActionResult ConfirmRemoveUser(String s)
+        {
+            s = s.Replace('$', '@');
+            return View("ConfirmRemoveUser/"+s);
+        }
+        [Authorize]
+        public ActionResult RemoveUser(String s)
+        {
+            SQLQueries.RemoveUser(s);
 
+            return View(s);
+        }
+        [Authorize]
+        public ActionResult AddUser()
+        {
+
+            return View();
+        }
     }
 }

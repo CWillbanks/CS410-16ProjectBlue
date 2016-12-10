@@ -256,5 +256,24 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
         }
+
+        public static List<String> GetUserList()
+        {
+            DataTable dtUsers = new DataTable();
+            string sQuery = "SELECT UserName FROM aspnetusers";
+            dtUsers = SQLDataAdapter.Query4DataTableUser(sQuery);
+            List<String> list = new List<String>();
+            foreach (DataRow row in dtUsers.Rows)
+            {
+                list.Add(row["UserName"].ToString());
+            }
+            return list;
+        }
+
+        public static void RemoveUser(string UserName)
+        {
+            string sQuery = "DELETE FROM aspnetusers WHERE UserName = '" + UserName + "'";
+            int iRowsAffected = SQLDataAdapter.QueryExecuteUser(sQuery);
+        }
     }
 }

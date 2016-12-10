@@ -14,6 +14,16 @@ namespace EDSNCalendar_ProjectBlue
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "RemoveUserRoute",
+                "Admin/RemoveUser/{s}",
+                new { controller = "Admin", action = "RemoveUser" });
+
+            routes.MapRoute(
+                "ConfirmRemoveUserRoute",
+                "Admin/ConfirmRemoveUser/{s}",
+                new { controller = "Admin", action = "ConfirmRemoveUser", s = UrlParameter.Optional });
+
+            routes.MapRoute(
                 "EventsListFilter",
                 "Admin/EventList/{published}",
                 new { controller = "Admin", action = "EventList" },

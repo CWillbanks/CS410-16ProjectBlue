@@ -26,6 +26,13 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return connection;
         }
 
+        private static MySqlConnection ConnectUsers()
+        {
+            string MyConnectionString = "Server=127.0.0.1;Database=edsncalendaradmin;Uid=root;Pwd=pass;";
+            MySqlConnection connection = new MySqlConnection(MyConnectionString);
+            return connection;
+        }
+
         private static void Disconnect(MySqlConnection connection)
         {
             connection.Close();
@@ -59,6 +66,34 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return ds;
         }
 
+        private static DataSet getDataSetUser(string sQuery)
+        {
+            MySqlConnection con = null;
+            DataSet ds = new DataSet();
+            try
+            {
+                con = ConnectUsers();
+                con.Open();
+                MySqlCommand cmd;
+                cmd = con.CreateCommand();
+                cmd.CommandText = sQuery;
+                MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                adp.Fill(ds);
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error: {0}", ex.ToString());
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return ds;
+        }
+
         //Executes a SQL Query and returns the number of rows affected
         private static int ExecuteQuery(string sQuery)
         {
@@ -67,6 +102,34 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             try
             {
                 con = Connect();
+                con.Open();
+                MySqlCommand cmd;
+                cmd = con.CreateCommand();
+                cmd.CommandText = sQuery;
+                iRowsAffected = cmd.ExecuteNonQuery();
+                lastInsertedId = (int)cmd.LastInsertedId;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error: {0}", ex.ToString());
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+            return iRowsAffected;
+        }
+        //Executes a SQL Query and returns the number of rows affected
+        private static int ExecuteQueryUser(string sQuery)
+        {
+            int iRowsAffected = 0;
+            MySqlConnection con = null;
+            try
+            {
+                con = ConnectUsers();
                 con.Open();
                 MySqlCommand cmd;
                 cmd = con.CreateCommand();
@@ -141,6 +204,19 @@ namespace EDSNCalendar_ProjectBlue.SQLData
 
                 }
             }
+        }
+        public static DataTable Query4DataTableUser(string sQuery)
+        {
+            DataTable dtResults = new DataTable();
+            DataSet ds = getDataSetUser(sQuery);
+            if (ds.Tables.Count > 0)
+                dtResults = ds.Tables[0];
+            return dtResults;
+        }
+        public static int QueryExecuteUser(string sQuery)
+        {
+            int iRowsAffected = ExecuteQueryUser(sQuery);
+            return iRowsAffected;
         }
     }
 }

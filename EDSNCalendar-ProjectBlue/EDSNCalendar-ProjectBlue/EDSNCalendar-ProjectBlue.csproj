@@ -331,6 +331,10 @@
     <Content Include="Views\Admin\ConfirmCreateProperty.cshtml" />
     <Content Include="Views\Admin\EditEvent.cshtml" />
     <Content Include="Views\Calendar\_EventDetails.cshtml" />
+    <Content Include="Views\Admin\UserList.cshtml" />
+    <Content Include="Views\Admin\ConfirmRemoveUser.cshtml" />
+    <Content Include="Views\Admin\RemoveUser.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
