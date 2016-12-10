@@ -38,7 +38,19 @@ button.event-list {
     padding-top: 25px;
 }
 /*Index Page*/
-
+div#DetailsPopUp {
+    display:none;
+    width:650px;
+    height: 450px;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 10;
+    margin: -225px 0 0 -375px;
+    border: 1px solid #555;
+    border-radius: 3px 3px;
+    background-color: white;
+}
 /*Poster Event*/
 div.poster-event {
     background: #fff9f0;
