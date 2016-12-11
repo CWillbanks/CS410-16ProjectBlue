@@ -15,6 +15,12 @@ $(document).ready(() => {
       $("#DetailsPopUp")[0].style.display = 'block';
     })
   })
+
+  Array.prototype.forEach.call($(".close-btn"), (element) => {
+    element.addEventListener("click", () => {
+      element.parentNode.parentNode.style.display = 'none';
+    })
+  })
 })
 
 //Propogate Details 
