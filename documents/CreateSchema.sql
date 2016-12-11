@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS eventproperties;
 DROP TABLE IF EXISTS property;
 DROP TABLE IF EXISTS propertytype;
 DROP TABLE IF EXISTS calendarevent;
+DROP TABLE IF EXISTS calendarsettings;
 
 CREATE TABLE propertytype
 (
