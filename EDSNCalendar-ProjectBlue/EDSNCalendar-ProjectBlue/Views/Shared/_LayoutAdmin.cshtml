@@ -34,11 +34,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Events", "EventList", "Admin")</li>
-                    <li>@Html.ActionLink("Widget Creator", "WidgetCreator", "Admin")</li>
-                    <li>@Html.ActionLink("Properties", "Properties", "Admin")</li>
-                    <li>@Html.ActionLink("Calendar Settings","CalendarSettings","Admin")</li>
-                    <li>@Html.ActionLink("User List","UserList","Admin")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -55,20 +50,19 @@
                 <div class="btn-group-vertical col-xs-12" role="group">
                     <ul class="admin-sidebar">
                         <li>
-                            @Html.ActionLink("Dashboard", null, null, new {@class="admin-sidebar btn btn-primary" })
+                            @Html.ActionLink("Events", "EventList", "Admin", new {@class="admin-sidebar btn btn-primary" })
                         </li>
                         <li>
-                            @Html.ActionLink("Events", null, null, new {@class="admin-sidebar btn btn-primary" })
+                            @Html.ActionLink("Widget Creator", "WidgetCreator", "Admin", new {@class="admin-sidebar btn btn-primary" })
                         </li>
                         <li>
-                            @Html.ActionLink("Media", null, null, new {@class="admin-sidebar btn btn-primary" })
+                            @Html.ActionLink("Properties", "Properties", "Admin", new { @class = "admin-sidebar btn btn-primary" })
                         </li>
                         <li>
-                            @Html.ActionLink("Profile", null, null, new {@class="admin-sidebar btn btn-primary" })
+                            @Html.ActionLink("Calendar Settings", "CalendarSettings", "Admin", new { @class = "admin-sidebar btn btn-primary" })
                         </li>
                         <li>
-                            
-                            <input type="button" class ="admin-sidebar btn btn-primary" id="AdminSubmitEvent" value="Submit Event"/>
+                            @Html.ActionLink("User List", "UserList", "Admin", new { @class = "admin-sidebar btn btn-primary" })
                         </li>
                     </ul>
                 </div>
