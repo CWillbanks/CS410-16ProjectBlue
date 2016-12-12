@@ -16,7 +16,7 @@ $(document).ready(function () {
       button.className = button.className.replace(/fc-state-active/ig, "");
       $(".fc-view-container")[0].style.display = 'block'
       $(".poster")[0].style.display = 'none';
-    }     
+    }
   });
   //Add button to calendar
   $(".fc-button-group")[1].append(button);
@@ -35,6 +35,6 @@ $(document).ready(function () {
       <p>${event.date}</p>
       <image src=""></img>
      </div>`)[0]
-     );
+     )
   })
 });

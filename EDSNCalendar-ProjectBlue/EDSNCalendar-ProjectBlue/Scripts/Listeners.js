@@ -1,27 +1,35 @@
 ﻿//Add Listeners for Event Details
-$(document).ready(() => {
-  Array.prototype.forEach.call($(".fc-content"), (element) => {
-    console.log(element);
-    element.addEventListener("click", () => {
-      propogateDetails(element.lastChild);
-      $("#DetailsPopUp")[0].style.display = 'block';
-    })
+function handler1(event) {
+  element = event.currentTarget;
+  propogateDetails(element.lastChild);
+  $("#DetailsPopUp")[0].style.display = 'block';
+}
+
+function handler2(event) {
+  element = event.currentTarget;
+  propogateDetails(element.childNodes[1].textContent.trim().replace(/@.*/ig, ""));
+  $("#DetailsPopUp")[0].style.display = 'block';
+}
+
+function handler3(event) {
+  element = event.currentTarget;
+  element.parentNode.parentNode.style.display = 'none';
+}
+
+$(document).ready(setInterval(() => {
+
+  Array.prototype.forEach.call($(".fc-day-grid-event"), (element) => {
+    element.addEventListener("click", handler1);
   })
 
   Array.prototype.forEach.call($(".poster-event.col-xs-3"), (element) => {
-    console.log(element.childNodes[1].textContent.trim().replace(/@.*/ig, ""));
-    element.addEventListener("click", () => {
-      propogateDetails(element.childNodes[1].textContent.trim().replace(/@.*/ig, ""));
-      $("#DetailsPopUp")[0].style.display = 'block';
-    })
+    element.addEventListener("click", handler2);
   })
 
   Array.prototype.forEach.call($(".close-btn"), (element) => {
-    element.addEventListener("click", () => {
-      element.parentNode.parentNode.style.display = 'none';
-    })
+    element.addEventListener("click", handler3);
   })
-})
+}, 1000))
 
 //Propogate Details 
 function propogateDetails(eventName) {
