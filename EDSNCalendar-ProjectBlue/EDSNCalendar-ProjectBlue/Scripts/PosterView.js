@@ -33,7 +33,7 @@ $(document).ready(function () {
       </h3>
       <br />
       <p>${event.date}</p>
-      <image src=""></img>
+      <image class="img-responsive"src="${(event.image !== null) ? 'data:image/png;base64,' + event.image : ''}"></img>
      </div>`)[0]
      )
   })

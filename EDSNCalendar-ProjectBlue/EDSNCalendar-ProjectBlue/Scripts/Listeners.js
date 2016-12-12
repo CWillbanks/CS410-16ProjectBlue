@@ -52,4 +52,5 @@ function propogateDetails(eventName) {
   <br />
   <i class ="fa fa-phone" aria-hidden="true"></i> ${eventData.hostPhoneNumber}`;
   $("#detailsAddr")[0].innerHTML = `${eventData.venueName} - ${eventData.address}`
+  $("#detailsImage")[0].src = `${(eventData.image !== null) ? 'data:image/png;base64,' + eventData.image : ''}`
 }
