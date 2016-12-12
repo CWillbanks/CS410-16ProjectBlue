@@ -5,19 +5,22 @@
 }
 
 <h2>Calendar Settings</h2>
+<div>Use this tool to change the settings for <b>all</b> distributed EDSN calendars.</div>
+<div>Warning, any settings specified in the widget creator for a specific calendar will override these settings.</div>
+    <hr />
 @using (Html.BeginForm("EditCalendarSettings", "Admin", FormMethod.Post, new {id = "CalenderSettingsForm"}))
 {
-<div>
-      <label>Calendar page</label><select name="CalendarPage"></select>
-</div>
-<div>
-    <label>Week starts on</label>
-    <select name="WeekStartsOn">
-        <option>Sunday</option>
-        <option>Monday</option>
-    </select>
-</div>
+
 <div class="form-group row">
+    <div class="form-group row">
+        <div class="col-xs-6">
+            <div><label>Filter bar</label>     <select name="Filterbar" class="chosen-select"><option>Enabled</option><option>Disabled</option></select></div>
+            <div>
+                <div><label>Global HTML Header</label></div>
+                <div><input type="text" name="headercode" style="height:100px" /></div>
+            </div>
+        </div>
+    </div>
     <div class="col-xs-1">
         <label>Available views</label>
     </div>
@@ -94,12 +97,7 @@
 </table>
         </div>
 </div>
-<div>
-    <label>Timezone</label>
-    <select name="Timezone"></select>
-</div>
-
-<div> Preselected calendar filters</div>
+<div> <label>Preselected calendar filters</label></div>
     for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
     {
         <div class="form-group">
@@ -118,16 +116,6 @@
             </div>
         </div>
     }
+    <input type="submit" />
 
-    <hr />
-
-<div>
-    <label>Week/Day view starts at</label>
-    <input type="time" name="DayStart"/>
-</div>
-<div>
-    <label>Week/Day view ends at</label>
-    <input type="time" name="DayEnd" />
-</div>
-<input type="submit" />
 }
