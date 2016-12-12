@@ -313,5 +313,19 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             string sQuery = "UPDATE calendarsettings SET bMonthEnabled = " + month + ", bPosterEnabled = " + poster + ", bListEnabled = " + list + ", sDefault = '" + Default + "'";
             int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
         }
+
+        public static void UpdatePreselectedFilters(List<int> li)
+        {
+            string sQuery = "DELETE FROM preselectedcalendarfilters";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+
+            sQuery = "INSERT INTO preselectedcalendarfilters(iPropertyId) VALUES(";
+            foreach(int i in li)
+            {
+                sQuery = sQuery + i + "),(";
+            }
+            sQuery = sQuery.Remove(sQuery.Length - 2);
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
     }
 }

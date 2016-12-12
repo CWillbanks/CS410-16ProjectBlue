@@ -201,12 +201,27 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             List<PropertyType> liPropertyType = new List<PropertyType>();
             liPropertyType = SQLQueries.getAllPropertyTypes(true);
             List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+
+            DataTable dtSelectedProps = SQLQueries.GetPreselectedFilters();
+            List<int> liSelectedProps = new List<int>();
+            foreach(DataRow row in dtSelectedProps.Rows)
+            {
+                liSelectedProps.Add(int.Parse(row[0].ToString()));
+            }
             foreach (PropertyType pt in liPropertyType)
             {
-                List<Property.Property> tempProp = new List<Property.Property>();
+                List<int> sel = new List<int>();
+                foreach (Property.Property p in pt.PropertyList)
                 {
-                    liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
+                    if(liSelectedProps.Contains(p.PropertyId))
+                    {
+                        sel.Add(p.PropertyId);
+                    }
                 }
+
+                liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name", sel.ToArray()));
+
+
             }
             ViewBag.PropertyTypes = liPropertyType;
             ViewBag.PropertyLists = liMultiSelect;
@@ -226,6 +241,23 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             var ListEnabled = Convert.ToString(form["ListE"]);
             var Default = Convert.ToString(form["Default"]);
             SQLQueries.UpdateCalendarSettings(MonthEnabled, PosterEnabled, ListEnabled, Default);
+
+            List<PropertyType> liPropertyType = SQLQueries.getAllPropertyTypes(true);
+            List<int> liSelectedProps = new List<int>();
+            foreach (PropertyType pt in liPropertyType)
+            {
+                string sName = pt.Name;
+                var props = Convert.ToString(form[sName]);
+                if(props != null)
+                {
+                    string[] sProps = props.Split(',');
+                    foreach (string s in sProps)
+                    {
+                        liSelectedProps.Add(int.Parse(s));                       
+                    }
+                }
+            }
+            SQLQueries.UpdatePreselectedFilters(liSelectedProps);
             return RedirectToAction("CalendarSettings");
         }
         [Authorize]
