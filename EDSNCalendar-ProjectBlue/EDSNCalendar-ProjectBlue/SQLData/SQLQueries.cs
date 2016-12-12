@@ -327,5 +327,36 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             sQuery = sQuery.Remove(sQuery.Length - 2);
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
         }
+
+        public static List<Property.Property> GetEventsByProperty()
+        {
+            List<Property.Property> liProp = new List<Property.Property>();
+            List<PropertyType> liPT = getAllPropertyTypes(true);
+            foreach(PropertyType pt in liPT)
+            {
+                foreach(Property.Property p in pt.PropertyList)
+                {
+                    int iPropertyId = p.PropertyId;
+                    p.LiEvents = getEventsForProperty(iPropertyId);
+                    liProp.Add(p);
+                }
+            }
+
+            return liProp;
+        }
+
+        public static List<int> getEventsForProperty(int iPropertyId)
+        {
+            List<int> liEvents = new List<int>();
+
+            string sQuery = "SELECT iEventId FROM eventproperties WHERE iPropertyId = " + iPropertyId;
+            DataTable dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach(DataRow row in dtEvents.Rows)
+            {
+                liEvents.Add((int)row[0]);
+            }
+
+            return liEvents;
+        }
     }
 }

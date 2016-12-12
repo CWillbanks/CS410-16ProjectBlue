@@ -40,5 +40,12 @@ namespace EDSNCalendar_ProjectBlue.Property
             get { return propertyType; }
             set { propertyType = value; }
         }
+
+        private List<int> liEvents;
+        public List<int> LiEvents
+        {
+            get { return liEvents; }
+            set { liEvents = value; }
+        }
     }
 }
