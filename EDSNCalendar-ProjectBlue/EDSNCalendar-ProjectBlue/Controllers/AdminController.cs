@@ -271,17 +271,22 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View(users);
         }
         [Authorize]
-        public ActionResult ConfirmRemoveUser(String s)
+        public ActionResult ConfirmRemoveUser(int id)
         {
-            s = s.Replace('$', '@');
-            return View("ConfirmRemoveUser/"+s);
+            //s = s.Replace('$', '@');
+            List<String> users = SQLQueries.GetUserList();
+            ViewBag.Username = users[id];
+            ViewBag.UserId = id;
+            return View();
         }
         [Authorize]
-        public ActionResult RemoveUser(String s)
+        public ActionResult RemoveUser(int id)
         {
-            SQLQueries.RemoveUser(s);
-
-            return View(s);
+            //SQLQueries.RemoveUser(s);
+            List<String> users = SQLQueries.GetUserList();
+            ViewBag.Username = users[id];
+            SQLQueries.RemoveUser(users[id]);
+            return View();
         }
     }
 }
