@@ -111,6 +111,7 @@
         </div>
 </div>
 <div> <label>Preselected calendar filters</label></div>
+    int j = 0;
     for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
     {
         <div class="form-group">
@@ -128,7 +129,21 @@
                          )
             </div>
         </div>
+        j = i + 1;
     }
+    if ((j % 2) == 1)
+    {
+        <div class="form-group">
+            <div class="col-xs-6">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+    }
+    <hr />
     <input type="submit" />
 
 }
