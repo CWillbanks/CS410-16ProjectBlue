@@ -7,7 +7,7 @@
                 center: 'title',
                 right: 'month,listMonth,posterView'
             },
-            defaultDate: '2016-11-05',
+            defaultDate: '2016-12-13',
             editable: true,
             events: events
         });
