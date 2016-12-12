@@ -110,6 +110,8 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WriteValue(e.Address);
                 jw.WritePropertyName("description");
                 jw.WriteValue(e.Description);
+                jw.WritePropertyName("image");
+                jw.WriteValue(e.Image);
                 jw.WritePropertyName("registrationURL");
                 jw.WriteValue(e.RegistrationURL);
                 jw.WritePropertyName("submitterName");
