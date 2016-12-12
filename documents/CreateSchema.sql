@@ -1,8 +1,9 @@
 -- CREATE SCHEMA TEST
 -- BY : ADAM BURTON
--- CREATE SCHEMA IF NOT EXISTS edsncalendar;
+CREATE SCHEMA IF NOT EXISTS edsncalendar;
 CREATE SCHEMA IF NOT EXISTS edsncalendaradmin;
 
+DROP TABLE IF EXISTS preselectedcalendarfilters;
 DROP TABLE IF EXISTS eventproperties;
 DROP TABLE IF EXISTS property;
 DROP TABLE IF EXISTS propertytype;
@@ -69,10 +70,12 @@ CREATE TABLE eventproperties
 
 CREATE TABLE calendarsettings
 (
+	bFilterEnabled BIT DEFAULT 1,
 	bMonthEnabled BIT DEFAULT 1,
     bPosterEnabled BIT DEFAULT 1,
     bListEnabled BIT DEFAULT 1,
-    sDefault VARCHAR(6) DEFAULT 'Poster'
+    sDefault VARCHAR(6) DEFAULT 'Poster',
+    sGlobalHeader VARCHAR(20000) DEFAULT NULL
 );
 
 CREATE TABLE preselectedcalendarfilters
@@ -116,5 +119,5 @@ VALUES('Friendship Group of Hartford', '2016-12-12', '2016-12-12', '2016-12-12T2
 INSERT INTO eventproperties(iEventId, iPropertyId)
 VALUES(4,5),(8,5),(7,5),(2,10);
 
-INSERT INTO calendarsettings(bMonthEnabled, bPosterEnabled, bListEnabled, sDefault)
-VALUES(1, 1, 1, 'Poster');
+INSERT INTO calendarsettings(bFilterEnabled, bMonthEnabled, bPosterEnabled, bListEnabled, sDefault)
+VALUES(1, 1, 1, 1, 'Poster');
