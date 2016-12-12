@@ -227,7 +227,9 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             ViewBag.PropertyLists = liMultiSelect;
 
             DataTable dtCalendarSettings = SQLQueries.GetCalendarSettings();
+            ViewBag.GlobalHeader = dtCalendarSettings.Rows[0]["sGlobalHeader"].ToString();
             ViewBag.DefaultView = dtCalendarSettings.Rows[0]["sDefault"].ToString();
+            ViewBag.FilterEnabled = dtCalendarSettings.Rows[0]["bFilterEnabled"].ToString();
             ViewBag.MonthEnabled = dtCalendarSettings.Rows[0]["bMonthEnabled"].ToString();
             ViewBag.PosterEnabled = dtCalendarSettings.Rows[0]["bPosterEnabled"].ToString();
             ViewBag.ListEnabled = dtCalendarSettings.Rows[0]["bListEnabled"].ToString();
@@ -236,11 +238,13 @@ namespace EDSNCalendar_ProjectBlue.Controllers
         [HttpPost]
         public ActionResult EditCalendarSettings(FormCollection form)
         {
+            var FilterEnabled = Convert.ToString(form["Filterbar"]);
             var MonthEnabled = Convert.ToString(form["MonthE"]);
             var PosterEnabled = Convert.ToString(form["PosterboardE"]);
             var ListEnabled = Convert.ToString(form["ListE"]);
             var Default = Convert.ToString(form["Default"]);
-            SQLQueries.UpdateCalendarSettings(MonthEnabled, PosterEnabled, ListEnabled, Default);
+            var GlobalHeader = Convert.ToString(form["headercode"]);
+            SQLQueries.UpdateCalendarSettings(FilterEnabled, MonthEnabled, PosterEnabled, ListEnabled, Default, GlobalHeader);
 
             List<PropertyType> liPropertyType = SQLQueries.getAllPropertyTypes(true);
             List<int> liSelectedProps = new List<int>();

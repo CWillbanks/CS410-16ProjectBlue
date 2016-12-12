@@ -292,7 +292,7 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return dtSelected;
         }
 
-        public static void UpdateCalendarSettings(string MonthE, string PosterE, string ListE, string Default)
+        public static void UpdateCalendarSettings(string FilterE, string MonthE, string PosterE, string ListE, string Default, string sGlobalHeader)
         {
             int month = 0;
             if(MonthE == "on")
@@ -308,9 +308,13 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             if(ListE == "on")
             {
                 list = 1;
-            }     
-
-            string sQuery = "UPDATE calendarsettings SET bMonthEnabled = " + month + ", bPosterEnabled = " + poster + ", bListEnabled = " + list + ", sDefault = '" + Default + "'";
+            }
+            int filter = 0;   
+            if(FilterE == "Enabled")
+            {
+                filter = 1;
+            }
+            string sQuery = "UPDATE calendarsettings SET bFilterEnabled = " + filter + ", bMonthEnabled = " + month + ", bPosterEnabled = " + poster + ", bListEnabled = " + list + ", sDefault = '" + Default + "', sGlobalHeader = '" + sGlobalHeader + "'";
             int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
         }
 
