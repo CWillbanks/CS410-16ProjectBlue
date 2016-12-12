@@ -11,8 +11,8 @@
     });
     });*/
 </script>
-@using (Html.BeginForm()){
-
+@using (Html.BeginForm("EditWidgetGen", "Admin", FormMethod.Post, new { id = "WidgetGenForm" }))
+{
 <h2>Widget Creator</h2>
 <div>Use this tool to generate codes snippets you can add to <b>an external website</b> to embed new calendars and widgets.</div>
 <div>The options listed here will override any global options selected.</div>
@@ -22,12 +22,8 @@
 <div><label>Filter bar</label>     <select name="Filterbar" class ="chosen-select"><option>Enabled</option><option>Disabled</option></select></div>
 <div>
     <div><label>Custom HTML Header (overrides global)</label></div>
-    <div><input type ="text" name="widgetcode" style="height:100px"/></div>
+    <div><textarea class="form-control" form="CalenderSettingsForm" name="headercode" rows="12"></textarea></div>
 </div>
-</div>
-<div class ="col-xs-6">
-    <div><label>Paste this code onto your site:</label></div>
-<div>    <input type="text" style="height:200px;width:400px"/></div>
 </div>
     </div>
     <div class="form-group row">
@@ -131,5 +127,10 @@ else
         </div>
     }
 
+    <input type="submit" />
 <hr />
+<div class="col-xs-6">
+    <div><label>Paste this code onto your site:</label></div>
+    <div>    <input type="text" style="height:200px;width:400px" /></div>
+</div>
 }
