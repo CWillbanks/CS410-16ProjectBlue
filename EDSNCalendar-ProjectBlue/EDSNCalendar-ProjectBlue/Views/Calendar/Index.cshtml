@@ -35,9 +35,29 @@
 }
 @Html.Partial("SubmitEvent")
 <button ID="submitButton" class="submit-event btn btn-primary" type="button">Submit Event</button>
+<div class="calendar-filter">
+    @{
+        for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
+        {
+            <div class="form-group @ViewBag.PropertyTypes[i].Name">
+                <label for="@ViewBag.PropertyTypes[i].Name">@ViewBag.PropertyTypes[i].Name</label>
+                @Html.ListBox(
+                (string)ViewBag.PropertyTypes[i].Name,
+                ViewBag.PropertyLists[i] as MultiSelectList,
+                new
+                {
+                    multiple = "multiple",
+                    @class = "chosen-select",
+                    @data_placeholder = "Chose " + ViewBag.PropertyTypes[i].Name + "s..."
+                }
+            )
+            </div>
+        }
+    }
+</div>
 <hr />
-<div class="calendar" data-events="@ViewBag.PublishedEvents"></div>
-<div class="poster" data-events="@ViewBag.PublishedEvents">
+<div class="calendar" data-events="@ViewBag.PublishedEvents" data-properties="@ViewBag.PropertyEventList"></div>
+<div class="poster" data-events="@ViewBag.PublishedEvents" data-properties="@ViewBag.PropertyEventList">
     <hr />
     <div class="row">
         <div class="poster-events col-xs-12"></div>

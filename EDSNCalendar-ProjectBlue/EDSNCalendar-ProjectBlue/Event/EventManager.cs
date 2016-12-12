@@ -138,5 +138,30 @@ namespace EDSNCalendar_ProjectBlue.Event
             return sb.ToString();
         }
 
+        public static String PropertiesToJSONRepresentation()
+        {
+            var properties = SQLData.SQLQueries.GetEventsByProperty();
+            StringBuilder sb = new StringBuilder();
+            JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
+            jw.Formatting = Formatting.Indented;
+            jw.WriteStartArray();
+            foreach (var property in properties)
+            {
+                jw.WriteStartObject();
+                jw.WritePropertyName("property");
+                jw.WriteValue(property.Name);
+                jw.WritePropertyName("events");
+                jw.WriteStartArray();
+                foreach (var e in property.LiEvents)
+                {
+                    jw.WriteValue(e);
+                }
+                jw.WriteEndArray();
+                jw.WriteEndObject();
+            }
+            jw.WriteEndArray();
+            return sb.ToString();
+        }
+
     }
 }

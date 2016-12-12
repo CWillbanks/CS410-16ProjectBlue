@@ -26,6 +26,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
                 }                
                 ViewBag.PropertyTypes = liPropertyType;
                 ViewBag.PropertyLists = liMultiSelect;
+                ViewBag.PropertyEventList = Event.EventManager.PropertiesToJSONRepresentation();
                 Event.EventManager.updateEventManager();
                 ViewBag.PublishedEvents = Event.EventManager.ToJSONRepresentation(true);
             } catch (Exception e)
