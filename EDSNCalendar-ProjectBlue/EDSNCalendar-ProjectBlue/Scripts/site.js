@@ -3,13 +3,20 @@
         events = JSON.parse($('.calendar').attr('data-events'));
         $('.calendar').fullCalendar({
             header: {
-                left: 'prev,next today',
+                left: 'prev,next,today',
                 center: 'title',
-                right: 'month,listMonth,posterView'
+                right: 'month,listMonth,poster'
             },
             defaultDate: '2016-12-13',
             editable: false,
-            events: events
+            events: events,
+            viewRender(view, element) {
+            },
+            views: {
+              poster: {
+                titleFormat:'MMMM YYYY'
+              }
+            }
         });
     }
     $(".poster")[0].style.display = 'none';

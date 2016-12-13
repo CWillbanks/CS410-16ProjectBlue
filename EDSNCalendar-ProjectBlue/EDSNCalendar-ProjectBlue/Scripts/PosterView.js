@@ -1,25 +1,45 @@
 ﻿
+//Create Dummy View
+const FC = $.fullCalendar;
+const View = FC.View;
+
+var PosterView = View.extend({
+  initialize() {
+  },
+  render() {
+    this.intervalUnit = 'month';
+    this.intervalDuration._days = 0;
+    this.intervalDuration._months = 1;
+  },
+  setHeight(height, isAuto) {
+  },
+  renderEents(events) {
+  },
+  destroyEvents() {
+  },
+  renderSelection(range) {
+  },
+  destroySelection() {
+  }
+});
+
+FC.views.poster = PosterView;
 
 $(document).ready(function () {
   'use strict';
-  //Setup Button
-  let button = document.createElement('button');
-  button.className = 'fc-posterView-button fc-button fc-state-default fc-corner-right';
-  button.innerHTML = "poster"
+  let button = $(".fc-poster-button")[0];
   //Setup Listener
-  button.addEventListener('click', function () {
-    if (!/fc-state-active/ig.test(button.className)) {
-      button.className += ' fc-state-active'
-      $(".fc-view-container")[0].style.display = 'none'
+  if (button !== undefined) {
+    button.addEventListener('click', function () {
       $(".poster")[0].style.display = 'block';
-    } else {
-      button.className = button.className.replace(/fc-state-active/ig, "");
-      $(".fc-view-container")[0].style.display = 'block'
-      $(".poster")[0].style.display = 'none';
-    }
-  });
-  //Add button to calendar
-  $(".fc-button-group")[1].append(button);
+    });
+
+    document.addEventListener('click', function () {
+      if (!/fc-state-active/ig.test(button.className)) {
+        $(".poster")[0].style.display = 'none';
+      }
+    })
+  }
 
   //Extract Data From HTML Event and Render Data On Page In a Hidden Dev
   let data = events;
