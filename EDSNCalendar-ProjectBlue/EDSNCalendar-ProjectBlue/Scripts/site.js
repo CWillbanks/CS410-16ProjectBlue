@@ -111,6 +111,23 @@ function updateEvents() {
     }
     $('.calendar').fullCalendar('addEventSource', events)
     $('.calendar').fullCalendar('rerenderEvents');
+    var myNode = document.getElementsByClassName("poster-events")[0];
+    if (myNode != null && myNode != undefined)
+        myNode.innerHTML = '';
+    events.forEach((event) => {
+        $(".poster-events")[0].append(
+        //console.log($(`<div class="col-xs-3"></div> `).text("Test")[0])
+        $(
+        `<div class="poster-event col-xs-3">
+      <h3 class ="poster-event">
+        ${event.title}@<span class ="poster-event">${event.venueName}</span>
+      </h3>
+      <br />
+      <p>${event.date}</p>
+      <image class="img-responsive"src="${(event.image !== null) ? 'data:image/png;base64,' + event.image : ''}"></img>
+     </div>`)[0]
+         )
+    })
 }
 
 function containsProperty(property) {
@@ -129,4 +146,4 @@ var eventProperties = {
     'programs': [],
 }
 
-var events = [];
+events = [];

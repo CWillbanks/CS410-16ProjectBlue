@@ -22,7 +22,7 @@ $(document).ready(function () {
   $(".fc-button-group")[1].append(button);
 
   //Extract Data From HTML Event and Render Data On Page In a Hidden Dev
-  let data = JSON.parse($(".poster")[0].dataset.events);
+  let data = events;
   data.forEach((event) => {
     $(".poster-events")[0].append(
     //console.log($(`<div class="col-xs-3"></div> `).text("Test")[0])
