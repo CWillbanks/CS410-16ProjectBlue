@@ -236,6 +236,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditCalendarSettings(FormCollection form)
         {
             var FilterEnabled = Convert.ToString(form["Filterbar"]);
