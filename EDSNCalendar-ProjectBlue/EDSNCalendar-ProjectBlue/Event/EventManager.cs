@@ -63,6 +63,27 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
+        public static void updateEventManager()
+        {
+            publishedEvents.Clear();
+            DataTable dtPublishedActiveEvents = SQLData.SQLQueries.GetAllEvents(2, true);
+            foreach (DataRow publishedRow in dtPublishedActiveEvents.Rows)
+            {
+                int iEventId = (int)publishedRow["iEventId"];
+                Event publishedEvent = new Event(iEventId);
+                publishedEvents.Add(iEventId, publishedEvent);
+            }
+
+            submittedEvents.Clear();
+            DataTable dtSubmittedActiveEvents = SQLData.SQLQueries.GetSubmittedEvents();
+            foreach (DataRow submittedRow in dtSubmittedActiveEvents.Rows)
+            {
+                int iEventId = (int)submittedRow["iEventId"];
+                Event submittedEvent = new Event(iEventId);
+                submittedEvents.Add(iEventId, submittedEvent);
+            }
+        }
+
         public static String ToJSONRepresentation(bool published)
         {
             Dictionary<int, Event> events = published ? PublishedEvents : SubmittedEvents;
@@ -89,6 +110,8 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WriteValue(e.Address);
                 jw.WritePropertyName("description");
                 jw.WriteValue(e.Description);
+                jw.WritePropertyName("image");
+                jw.WriteValue(e.Image);
                 jw.WritePropertyName("registrationURL");
                 jw.WriteValue(e.RegistrationURL);
                 jw.WritePropertyName("submitterName");
@@ -109,6 +132,31 @@ namespace EDSNCalendar_ProjectBlue.Event
                 jw.WriteValue(e.IsPublished);
                 jw.WritePropertyName("isActive");
                 jw.WriteValue(e.IsActive);              
+                jw.WriteEndObject();
+            }
+            jw.WriteEndArray();
+            return sb.ToString();
+        }
+
+        public static String PropertiesToJSONRepresentation()
+        {
+            var properties = SQLData.SQLQueries.GetEventsByProperty();
+            StringBuilder sb = new StringBuilder();
+            JsonWriter jw = new JsonTextWriter(new StringWriter(sb));
+            jw.Formatting = Formatting.Indented;
+            jw.WriteStartArray();
+            foreach (var property in properties)
+            {
+                jw.WriteStartObject();
+                jw.WritePropertyName("property");
+                jw.WriteValue(property.Name);
+                jw.WritePropertyName("events");
+                jw.WriteStartArray();
+                foreach (var e in property.LiEvents)
+                {
+                    jw.WriteValue(e);
+                }
+                jw.WriteEndArray();
                 jw.WriteEndObject();
             }
             jw.WriteEndArray();

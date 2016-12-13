@@ -10,19 +10,36 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
+    <link href="../../Content/chosen.css" rel="stylesheet" />
+    <link href="../../Content/font-awesome.css" rel="stylesheet" />
+    <script src="../../Scripts/chosen.jquery.js"></script>
 </head>
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Example Website", "Index", new
+           {
+               area = ""
+           }, new
+           {
+               @class = "navbar-brand"
+           })
+            </div>
+        </div>
+    </div>
+
     <div class="container body-content">
         @RenderBody()
     </div>
-    <script>$(function () {
-    $("#submitPopUp").dialog({
-        autoOpen: false,
-        height: 450,
-        width: 450
-    });
-    $("#submitButton").click(function () { $("#submitPopUp").dialog("open") });
-});
+        <script>
+
+ 
 
     </script>
     
@@ -31,5 +48,8 @@
     <script src="../../Scripts/moment.min.js" language="javascript" type="text/javascript"></script>
     <script src="../../Scripts/fullcalendar.js" language="javascript" type="text/javascript"></script>
     <script src="../../Scripts/site.js" language="javascript" type="text/javascript"></script>
+    <script src="../../Scripts/PosterView.js" language="javascript" type="text/javascript"></script>
+    <script src="../../Scripts/Listeners.js" language="javascript" type="text/javascript"></script>
+    
 </body>
 </html>

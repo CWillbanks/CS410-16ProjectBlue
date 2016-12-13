@@ -4,9 +4,24 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<script>
+    function showEditEvent() {
+        document.getElementById("EditEventForm").style.visibility = "visible";
+    }
+    
+  </script>
+
 <div class="row">
-    <h2>Title: @Model.Title</h2>
-    <p>@Model.Description</p>
+    <h2>@Model.Title</h2>
+    <h5>Post Date: @Model.PostDate</h5>
+    @if (Model.IsPublished == true)
+    {
+        <h5>Publish Date: @Model.PublishDate</h5>
+    }   
+    @if (Model.Image != null)
+    {
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" />
+    }
 <div class="btn-group">
     @if (Model.IsPublished.Equals(false))
     {@Html.ActionLink("Publish Event", "ConfirmPublish", "Admin", new { id = Model.EventId }, new
@@ -26,10 +41,12 @@
   @class="btn btn-default",
   @role="button"
 })
-
-
-</div>
-
+    <input type="button" id="editeventbtn" value="Edit Event" class="btn btn-default"/ onclick="showEditEvent()">
 
 </div>
 
+
+</div>
+<div >
+    @Html.Partial("EditEvent")
+</div>

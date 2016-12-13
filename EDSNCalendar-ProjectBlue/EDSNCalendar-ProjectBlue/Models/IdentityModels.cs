@@ -31,5 +31,10 @@ namespace EDSNCalendar_ProjectBlue.Models
         }
 
         public System.Data.Entity.DbSet<EDSNCalendar_ProjectBlue.Event.Event> Events { get; set; }
+
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer(new MySqlInitializer());
+        }
     }
 }

@@ -53,6 +53,11 @@ namespace EDSNCalendar_ProjectBlue.Event
         private string description;
 
         /// <summary>
+        /// Optional image attachment.
+        /// </summary>
+        private byte[] image;
+
+        /// <summary>
         /// Registration URL.
         /// </summary>
         private string registrationURL;
@@ -71,6 +76,11 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// Official date of the event..
         /// </summary>
         private string date;
+
+        /// <summary>
+        /// Official date of the event..
+        /// </summary>
+        private string endDate;
 
         /// <summary>
         /// Time of when the event begins.
@@ -107,6 +117,9 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// </summary>
         private bool isActive;
 
+
+        public Event()
+        { }
         /// <summary>
         /// Constructor that initializes an event and get an existing event's data
         /// </summary>
@@ -122,10 +135,15 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.venueName = dtEvent.Rows[0]["vVenueName"].ToString();
             this.address = dtEvent.Rows[0]["vAddress"].ToString();
             this.description = dtEvent.Rows[0]["vDescription"].ToString();
+            if(!String.IsNullOrEmpty(dtEvent.Rows[0]["mbImage"].ToString()))
+            {
+                this.Image = (byte[])dtEvent.Rows[0]["mbImage"];
+            }         
             this.registrationURL = dtEvent.Rows[0]["vRegistrationURL"].ToString();
             this.submitterName = dtEvent.Rows[0]["vSubmitterName"].ToString();
             this.submitterEmail = dtEvent.Rows[0]["vSubmitterEmail"].ToString();
             this.date = dtEvent.Rows[0]["dEventDate"].ToString();
+            this.endDate = dtEvent.Rows[0]["dEndDate"].ToString();
             if(!String.IsNullOrWhiteSpace(dtEvent.Rows[0]["vStartTime"].ToString()))
             {
                 this.startTime = dtEvent.Rows[0]["vStartTime"].ToString();
@@ -149,7 +167,7 @@ namespace EDSNCalendar_ProjectBlue.Event
         /// </summary>
         public Event(string title, string hostName, string hostEmail, string hostPhoneNumber, string venueName,
                      string address, string description, string registrationURL, string submitterName,
-                     string submitterEmail, string date, string startTime, string endTime, bool allDay)
+                     string submitterEmail, string date, string endDate, string startTime, string endTime, bool allDay)
         {
             this.title = title;
             this.hostName = hostName;
@@ -162,6 +180,7 @@ namespace EDSNCalendar_ProjectBlue.Event
             this.submitterName = submitterName;
             this.submitterEmail = submitterEmail;
             this.date = date;
+            this.endDate = endDate;
             this.startTime = startTime;
             this.endTime = endTime;
             this.allDay = allDay;
@@ -273,6 +292,19 @@ namespace EDSNCalendar_ProjectBlue.Event
             }
         }
 
+        public byte[] Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                image = value;
+            }
+        }
+
         public string RegistrationURL
         {
             get
@@ -322,6 +354,19 @@ namespace EDSNCalendar_ProjectBlue.Event
             set
             {
                 date = value;
+            }
+        }
+
+        public string EndDate
+        {
+            get
+            {
+                return endDate;
+            }
+
+            set
+            {
+                endDate = value;
             }
         }
 

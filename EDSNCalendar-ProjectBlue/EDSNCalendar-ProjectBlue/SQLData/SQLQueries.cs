@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using EDSNCalendar_ProjectBlue.SQLData;
 using EDSNCalendar_ProjectBlue.Event;
+using EDSNCalendar_ProjectBlue.Property;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace EDSNCalendar_ProjectBlue.SQLData
 {
@@ -47,22 +49,22 @@ namespace EDSNCalendar_ProjectBlue.SQLData
         /// <param name="sSubmitterName">Submitter's Name(optional)</param>
         /// <param name="sSubmitterEmail">Submitter's Email(optional)</param>
         /// <returns></returns>
-        public static int InsertSubmittedEvent(string sEventTitle, string dEventDate, string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
+        public static int InsertSubmittedEvent(string sEventTitle, string dEventDate, string dEndDate ,string sStartTime, string sEndTime, bool bAllDay, string sVenueName, string sAddress, string sDescription, string sOrganizerName,
                                 string sOrganizerEmail, string sOrganizerPhoneNumber, string sOrganizerURL, string sCost, string sRegistrationURL, string sSubmitterName, string sSubmitterEmail)
         {
 
             int iRowsAffected = 0; 
-            string sQuery = "INSERT INTO calendarevent(vEventTitle, dEventDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber," +
+            string sQuery = "INSERT INTO calendarevent(vEventTitle, dEventDate, dEndDate, vStartTime, vEndTime, bAllDay, vVenueName, vAddress, vDescription, vOrganizerName, vOrganizerEmail, vOrganizerPhoneNumber," +
                                                                         "vOrganizerURL, vCost, vRegistrationURL, vSubmitterName, vSubmitterEmail)" +
-                            "VALUES('" + sEventTitle + "','" + dEventDate + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
+                            "VALUES('" + sEventTitle + "','" + dEventDate + "','" + dEndDate + "','" + sStartTime + "','" + sEndTime + "'," + Convert.ToInt32(bAllDay) + ",'" + sVenueName + "','" + sAddress + "','" +
                                          sDescription + "','" + sOrganizerName + "','" + sOrganizerEmail + "','" + sOrganizerPhoneNumber + "','" + sOrganizerURL + "','" + sCost + "','" + sRegistrationURL + "','" + sSubmitterName + "','" + sSubmitterEmail + "')";
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             int eventId = SQLDataAdapter.LastInsertedId;
-            var submittedEvent = new Event.Event(sEventTitle, sOrganizerName, sOrganizerEmail, sOrganizerPhoneNumber, sVenueName, sAddress, sDescription, sRegistrationURL, sSubmitterName, sSubmitterEmail, dEventDate, sStartTime, sEndTime, bAllDay);
+            var submittedEvent = new Event.Event(sEventTitle, sOrganizerName, sOrganizerEmail, sOrganizerPhoneNumber, sVenueName, sAddress, sDescription, sRegistrationURL, sSubmitterName, sSubmitterEmail, dEventDate, dEndDate, sStartTime, sEndTime, bAllDay);
             submittedEvent.EventId = eventId;
 
             EventManager.SubmittedEvents.Add(eventId, submittedEvent);
-            return iRowsAffected;
+            return eventId;
         }
 
         /// <summary>
@@ -162,6 +164,17 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             return ev;
         }
 
+        public static void UpdateEvent(Event.Event ev)
+        {
+            string sQuery = "UPDATE calendarevent SET vEventTitle = '" + ev.Title + "', vOrganizerName = '" + ev.HostName + "', vOrganizerEmail = '" + ev.HostEmail + "', vOrganizerPhoneNumber = '" + ev.HostPhoneNumber + "', vVenueName = '" + ev.VenueName + "', vAddress = '" + ev.Address + "', vDescription = '" + ev.Description + "', vRegistrationURL = '" + ev.RegistrationURL + "', vSubmitterName = '" + ev.SubmitterName + "', vSubmitterEmail = '" + ev.SubmitterEmail + "', dEventDate = '" + ev.Date + "', dEndDate = '" + ev.EndDate + "', vStartTime = '" + ev.StartTime + "', vEndTime = '" + ev.EndTime + "', bAllDay = " + ev.AllDay + " WHERE iEventId = " + ev.EventId + " ";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
+
+        public static void UpdateEventImage(Event.Event ev)
+        {
+            SQLDataAdapter.QueryUpdateImage(ev.EventId, ev.Image);
+        }
+
         /// <summary>
         /// Returns a single rowed table which has all of that event's data.
         /// </summary>
@@ -186,6 +199,168 @@ namespace EDSNCalendar_ProjectBlue.SQLData
             string sQuery = "UPDATE calendarevent SET bActive = 0 WHERE iEventId = " + iEventId;
             iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
             return iRowsAffected;
+        }
+
+        public static List<PropertyType> getAllPropertyTypes(bool bActiveOnly = false)
+        {
+            List<PropertyType> li = new List<PropertyType>();
+            string sQuery = "SELECT * FROM propertytype WHERE (bActive = 1 or bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            DataTable dtPropertyTypes = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach(DataRow row in dtPropertyTypes.Rows)
+            {
+                PropertyType pt = new PropertyType();
+                pt.PropertyTypeId = int.Parse(row["iPropertyTypeId"].ToString());
+                pt.Name = row["vPropertyType"].ToString();
+                pt.PropertyList = getPropertyList(pt, true);
+                li.Add(pt);
+            }
+            return li;
+        }
+
+        public static List<Property.Property> getPropertyList(PropertyType propertyType, bool bActiveOnly = false)
+        {
+            List<Property.Property> li = new List<Property.Property>();
+            string sQuery = "SELECT * FROM property WHERE iPropertyTypeId = "+ propertyType.PropertyTypeId + " AND (bActive = 1 or bActive = " + Convert.ToInt32(bActiveOnly) + ")";
+            DataTable dtPropertys = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach (DataRow row in dtPropertys.Rows)
+            {
+                Property.Property p = new Property.Property();
+                p.PropertyId = int.Parse(row["iPropertyId"].ToString());
+                p.Name = row["vProperty"].ToString();
+                p.PropertyType = propertyType;
+                li.Add(p);
+            }
+            return li;
+        }
+
+        public static int CreateNewPropertyType(string sPropertyTypeName)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "INSERT INTO propertytype(vPropertyType) VALUES('"+sPropertyTypeName+"')";
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
+        }
+
+        public static int CreateNewProperty(int iPropertyTypeId, string sPropertyName)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "INSERT INTO property(iPropertyTypeId, vProperty) VALUES(" + iPropertyTypeId + ",'" + sPropertyName + "')";
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
+        }
+
+        public static int AddPropertyToEvent(int iEventId, int iPropertyId)
+        {
+            int iRowsAffected = 0;
+            string sQuery = "INSERT INTO eventproperties(iEventId, iPropertyId) VALUES(" + iEventId + "," + iPropertyId + ")";
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+            return iRowsAffected;
+        }
+
+        public static List<String> GetUserList()
+        {
+            DataTable dtUsers = new DataTable();
+            string sQuery = "SELECT UserName FROM aspnetusers";
+            dtUsers = SQLDataAdapter.Query4DataTableUser(sQuery);
+            List<String> list = new List<String>();
+            foreach (DataRow row in dtUsers.Rows)
+            {
+                list.Add(row["UserName"].ToString());
+            }
+            return list;
+        }
+
+        public static void RemoveUser(string UserName)
+        {
+            string sQuery = "DELETE FROM aspnetusers WHERE UserName = '" + UserName + "'";
+            int iRowsAffected = SQLDataAdapter.QueryExecuteUser(sQuery);
+        }
+
+        public static DataTable GetCalendarSettings()
+        {
+            DataTable dtSettings = new DataTable();
+            string sQuery = "SELECT * FROM calendarsettings";
+            dtSettings = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtSettings;
+        }
+
+        public static DataTable GetPreselectedFilters()
+        {
+            DataTable dtSelected = new DataTable();
+            string sQuery = "Select * from preselectedcalendarfilters";
+            dtSelected = SQLDataAdapter.Query4DataTable(sQuery);
+            return dtSelected;
+        }
+
+        public static void UpdateCalendarSettings(string FilterE, string MonthE, string PosterE, string ListE, string Default, string sGlobalHeader)
+        {
+            int month = 0;
+            if(MonthE == "on")
+            {
+                month = 1;
+            }
+            int poster = 0;
+            if(PosterE == "on")
+            {
+                poster = 1;
+            }
+            int list = 0;
+            if(ListE == "on")
+            {
+                list = 1;
+            }
+            int filter = 0;   
+            if(FilterE == "Enabled")
+            {
+                filter = 1;
+            }
+            string sQuery = "UPDATE calendarsettings SET bFilterEnabled = " + filter + ", bMonthEnabled = " + month + ", bPosterEnabled = " + poster + ", bListEnabled = " + list + ", sDefault = '" + Default + "', sGlobalHeader = '" + sGlobalHeader + "'";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
+
+        public static void UpdatePreselectedFilters(List<int> li)
+        {
+            string sQuery = "DELETE FROM preselectedcalendarfilters";
+            int iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+
+            sQuery = "INSERT INTO preselectedcalendarfilters(iPropertyId) VALUES(";
+            foreach(int i in li)
+            {
+                sQuery = sQuery + i + "),(";
+            }
+            sQuery = sQuery.Remove(sQuery.Length - 2);
+            iRowsAffected = SQLDataAdapter.QueryExecute(sQuery);
+        }
+
+        public static List<Property.Property> GetEventsByProperty()
+        {
+            List<Property.Property> liProp = new List<Property.Property>();
+            List<PropertyType> liPT = getAllPropertyTypes(true);
+            foreach(PropertyType pt in liPT)
+            {
+                foreach(Property.Property p in pt.PropertyList)
+                {
+                    int iPropertyId = p.PropertyId;
+                    p.LiEvents = getEventsForProperty(iPropertyId);
+                    liProp.Add(p);
+                }
+            }
+
+            return liProp;
+        }
+
+        public static List<int> getEventsForProperty(int iPropertyId)
+        {
+            List<int> liEvents = new List<int>();
+
+            string sQuery = "SELECT iEventId FROM eventproperties WHERE iPropertyId = " + iPropertyId;
+            DataTable dtEvents = SQLDataAdapter.Query4DataTable(sQuery);
+            foreach(DataRow row in dtEvents.Rows)
+            {
+                liEvents.Add((int)row[0]);
+            }
+
+            return liEvents;
         }
     }
 }
