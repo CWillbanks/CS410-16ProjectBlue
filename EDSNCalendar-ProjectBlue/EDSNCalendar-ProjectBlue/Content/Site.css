@@ -77,6 +77,23 @@ h3.poster-event {
 span.poster-event {
     color:#555;
 }
+
+div.Tags {
+    margin-left: 48px;
+}
+
+div.lower-row {
+    margin-left: 83px;
+}
+div.form-group.lower-row {
+    margin-left: 58px;
+}
+/* Submit Event Form*/
+input#popUpSubmit {
+    position: relative;
+    left:12px;
+    top: 10px;
+}
 /* Admin Area*/
 div.admin-sidebar {
     background-color:#33506e !important;

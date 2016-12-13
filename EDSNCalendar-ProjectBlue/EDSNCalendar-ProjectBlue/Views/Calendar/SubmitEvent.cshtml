@@ -2,8 +2,8 @@
     $(function () {
         $("#submitPopUp").dialog({
             autoOpen: false,
-            height: 450,
-            width: 450
+            height: 500,
+            width: 750
         });
         $("#AdminSubmitEvent").click(function () { $("#submitPopUp").dialog("open") });
         $("#submitButton").click(function () { $("#submitPopUp").dialog("open") });
@@ -44,87 +44,75 @@
 
 </script>
 @using (Html.BeginForm("SubmitEvent", "Calendar", FormMethod.Post, new { id = "submitPopUp", enctype="multipart/form-data" })){
-<div class="form-group">
+<div class="row">
+    <div class="form-group col-xs-6">
         <label for="Event Title">Event Title</label>
         <input type="text" class="form-control" name="submitEventTitle" placeholder="Event Title" required="required">
     </div>
-<div class="form-group row">
-        <div class="col-xs-12">
-            <label for="Event Date"> Event Date</label>
-        </div>
-        <div class="col-xs-12">
-            <input type="date" class="form-control" name="submitDate" placeholder="" required="required" />
-        </div>
-        <div class="col-xs-12">
-            <label for="EndCheckBox">Add End Day</label>
-        </div>
-       <div class="col-xs-12">
-            <input type="checkbox" class="form-control" name = "EndDay" id ="EndDay" onCLick ="allDay()" />
-        </div>
-        <div id ="EndDate" style="visibility: hidden;" >
-           <div class="col-xs-6">
-                <label for="End Date" > Event Date</label>
-            </div>
-            <div class="col-xs-12">
-                <input type="date" class="form-control" name="submitEndDate"  placeholder=""  />
-            </div>
-       </div>
+    <div class="form-group col-xs-6">
+        <label for="Event Date"> Event Date</label>
+        <input type="date" class="form-control" name="submitDate" placeholder="" required="required" />
     </div>
-    <div class ="form-group row"
-       <div class="col-xs-6">
+    <div class="form-group col-xs-6">
+        <label for="EndCheckBox">Add End Day</label>
+        <input type="checkbox" class="form-control" name="EndDay" id="EndDay" onCLick="allDay()" />
+    </div>
+    <div id="EndDate" style="visibility: hidden;">
+        <div class="col-xs-6">
+            <label for="End Date"> Event Date</label>
+            <input type="date" class="form-control" name="submitEndDate" placeholder="" />
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12">
             <label for="AllDay">AllDay</label>
+            <input type="checkbox" class="form-control" name="AllDay" id="AllDay" onCLick="allDay()" checked="checked" />
         </div>
-       <div class="col-xs-6">
-            <input type="checkbox" class="form-control" name = "AllDay" id ="AllDay" onCLick ="allDay()" checked="checked"/>
-        </div>
-    <div class="form-group row"  id="StartTime" style="visibility:hidden;">
-        <div class="col-xs-12">
+        <div class="form-group col-xs-6" id="StartTime" style="visibility:hidden;">
             <label for="Event Time"> Event Time </label>
+            <input type="time" class="form-control" name="submitTime" />
         </div>
-        <div class="col-xs-12">
-            <input type="time" class="form-control" name="submitTime"/>
+        <div class="form-group col-xs-6" id="EndTime" style="visibility:hidden;">
+            <label for="Event Time"> Event End Time </label>
+            <input type="time" class="form-control" name="submitEndTime" />
         </div>
-
     </div>
 
-   <div class="form-group row"  id="EndTime" style="visibility:hidden;">
-        <div class="col-xs-12">
-            <label for="Event Time"> Event Time </label>
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="Venue Name">Venue Name</label>
+            <input type="text" class="form-control" name="submitVenueName" placeholder="Venue Name" required="required">
         </div>
-        <div class="col-xs-12">
-            <input type="time" class="form-control" name="submitEndTime"/>
+        <div class="form-group col-xs-6">
+            <label for="Street Address">Street Address</label>
+            <input type="text" class="form-control" name="submitStreetAddress" placeholder="Street Address" required="required">
         </div>
-
     </div>
-
-    <div class="form-group">
-        <label for="Venue Name">Venue Name</label>
-        <input type="text" class="form-control" name="submitVenueName" placeholder="Venue Name" required="required">
-    </div>
-    <div class="form-group">
-        <label for="Street Address">Street Address</label>
-        <input type="text" class="form-control" name="submitStreetAddress" placeholder="Street Address" required="required">
-    </div>
+   
     <div class="form-group">
         <label for="Address Line 2">Address Line 2</label>
         <input type="text" class="form-control" name="submitAddressLine2" placeholder="">
     </div>
-    <div class="form-group">
-        <label for="City">City</label>
-        <input type="text" class="form-control" name="submitCity" placeholder="City Name" required="required">
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="City">City</label>
+            <input type="text" class="form-control" name="submitCity" placeholder="City Name" required="required">
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="State">State / Province / Region</label>
+            <input type="text" class="form-control" name="submitState" placeholder="State Name" required="required">
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="State">Postal / Zip Code</label>
+            <input type="text" class="form-control" name="submitZip" placeholder="Postal / Zip Code">
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="State">Country</label>
+            <input type="text" class="form-control" name="submitCountry" placeholder="Country Name">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="State">State / Province / Region</label>
-        <input type="text" class="form-control" name="submitState" placeholder="State Name" required="required">
-    </div>
-    <div class="form-group">
-        <label for="State">Postal / Zip Code</label>
-        <input type="text" class="form-control" name="submitZip" placeholder="Postal / Zip Code">
-    </div>
-    <div class="form-group">
-        <label for="State">Country</label>
-        <input type="text" class="form-control" name="submitCountry" placeholder="Country Name">
-    </div>
+
     <div class="form-group">
         <label for="Event Information">Event Information</label>
         <textarea class="form-control" name="submitEventInformation" rows="4" required="required"></textarea>
@@ -143,26 +131,25 @@
             <input type="text" class="form-control" name="submitLastName" placeholder="Last Name" required="required"/>
         </div>
     </div>
-    <div class="form-group">
-        <label for="Host Email">Host Contact Email</label>
-        <input type="email" class="form-control" name="submitEmail" placeholder="Email" required="required">
-    </div>
-    <div class="form-group row">
-        <div class="col-xs-12">
-            <label for="Host Contact Phone Number">Host Phone Number</label>
+    <div class="row">
+        <div class="form-group col-xs-6">
+            <label for="Host Email">Host Contact Email</label>
+            <input type="email" class="form-control" name="submitEmail" placeholder="Email" required="required">
         </div>
-        <div class="col-xs-6">
-            <input type="tel" class="form-control" name="submitPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" required="required" min="10" max="10"/>
+        <div class="form-group col-xs-6">
+             <label for="Host Contact Phone Number">Host Phone Number</label>
+             <input type="tel" class="form-control" name="submitPhoneNumber" maxlength="10" placeholder="xxx-xxx-xxxx" required="required" min="10" max="10" />
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="Organizer URL">Host Website</label>
+            <input type="text" class="form-control" name="submitURL" placeholder="Website.com">
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="Registration Link">Registration Link</label>
+            <input type="text" class="form-control" name="submitRegisterURL" placeholder="Website.com">
         </div>
     </div>
-    <div class="form-group">
-        <label for="Organizer URL">Host Website</label>
-        <input type="text" class="form-control" name="submitURL" placeholder="Website.com">
-    </div>
-    <div class="form-group">
-        <label for="Registration Link">Registration Link</label>
-        <input type="text" class="form-control" name="submitRegisterURL" placeholder="Website.com">
-    </div>
+    
     <div class="form-group row">
         <div class="col-xs-12">
             <label for="Event Submitter">Event Submitter</label>
@@ -190,10 +177,12 @@
         </div>
 
     </div>
-    
+
     for (int i = 0; i < ViewBag.PropertyTypes.Count; i++)
     {
-        <div class="form-group">
+        string grid = (i < 2) ? "col-xs-5" : "col-xs-3";
+        string lowerRow = (i > 2) ? "lower-row" : "";
+        <div class="form-group @ViewBag.PropertyTypes[i].Name @grid @lowerRow">
             <label for="@ViewBag.PropertyTypes[i].Name">@ViewBag.PropertyTypes[i].Name</label>
            @Html.ListBox(
                              (string)ViewBag.PropertyTypes[i].Name,
@@ -206,7 +195,8 @@
         </div>
     }
 
-
-
-    <input type="submit" value="submit" />
+  <div class="form-group">
+      <input id="popUpSubmit"class="btn btn-primary" type="submit" value="Submit" />
+  </div>
+    
 }
