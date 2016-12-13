@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using EDSNCalendar_ProjectBlue.Event;
 using EDSNCalendar_ProjectBlue.Property;
 using EDSNCalendar_ProjectBlue.SQLData;
+using System.Data;
+
 namespace EDSNCalendar_ProjectBlue.Controllers
 {
     public class CalendarController : Controller
@@ -17,13 +19,37 @@ namespace EDSNCalendar_ProjectBlue.Controllers
                 List<PropertyType> liPropertyType = new List<PropertyType>();
                 liPropertyType = SQLQueries.getAllPropertyTypes(true);
                 List<MultiSelectList> liMultiSelect = new List<MultiSelectList>();
+
+                DataTable dtSelectedProps = SQLQueries.GetPreselectedFilters();
+                List<int> liSelectedProps = new List<int>();
+                foreach (DataRow row in dtSelectedProps.Rows)
+                {
+                    liSelectedProps.Add(int.Parse(row[0].ToString()));
+                }
                 foreach (PropertyType pt in liPropertyType)
                 {
+                    List<int> sel = new List<int>();
+                    foreach (Property.Property p in pt.PropertyList)
+                    {
+                        if (liSelectedProps.Contains(p.PropertyId))
+                        {
+                            sel.Add(p.PropertyId);
+                        }
+                    }
                     List<Property.Property> tempProp = new List<Property.Property>();
                     {
-                        liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name"));
+                        MultiSelectList msli = new MultiSelectList(pt.PropertyList, "propertyId", "name");
+                        liMultiSelect.Add(new MultiSelectList(pt.PropertyList, "propertyId", "name", sel.ToArray()));
                     }
-                }                
+                }
+
+                DataTable dtSettings = SQLQueries.GetCalendarSettings();
+
+                ViewBag.FilterEnabled = dtSettings.Rows[0]["bFilterEnabled"].ToString();
+                ViewBag.PosterEnabled = dtSettings.Rows[0]["bPosterEnabled"].ToString();
+                ViewBag.ListEnabled = dtSettings.Rows[0]["bListEnabled"].ToString();
+                ViewBag.DefaultView = dtSettings.Rows[0]["sDefault"].ToString();
+
                 ViewBag.PropertyTypes = liPropertyType;
                 ViewBag.PropertyLists = liMultiSelect;
                 ViewBag.PropertyEventList = Event.EventManager.PropertiesToJSONRepresentation();
