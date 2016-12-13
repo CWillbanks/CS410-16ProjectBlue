@@ -45,6 +45,7 @@ namespace EDSNCalendar_ProjectBlue.Controllers
 
                 DataTable dtSettings = SQLQueries.GetCalendarSettings();
 
+                ViewBag.HeaderHTML = dtSettings.Rows[0]["sGlobalHeader"].ToString();
                 ViewBag.FilterEnabled = dtSettings.Rows[0]["bFilterEnabled"].ToString();
                 ViewBag.PosterEnabled = dtSettings.Rows[0]["bPosterEnabled"].ToString();
                 ViewBag.ListEnabled = dtSettings.Rows[0]["bListEnabled"].ToString();

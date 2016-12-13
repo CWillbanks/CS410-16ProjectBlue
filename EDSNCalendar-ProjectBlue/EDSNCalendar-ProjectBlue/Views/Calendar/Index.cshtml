@@ -33,6 +33,14 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@if(ViewBag.HeaderHTML != null)
+{
+    if(!string.IsNullOrEmpty(ViewBag.HeaderHTML))
+    {
+        @Html.Raw(ViewBag.HeaderHTML)
+    }
+}
+<hr />
 @Html.Partial("SubmitEvent")
 <button ID="submitButton" class="submit-event btn btn-primary" type="button">Submit Event</button>
 @if (ViewBag.FilterEnabled == "1")
